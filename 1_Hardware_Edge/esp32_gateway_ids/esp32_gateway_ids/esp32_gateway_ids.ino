@@ -3,6 +3,9 @@
 #include <HTTPClient.h>
 #include <WiFiClientSecure.h>
 #include <cmath>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 #include "scaler.h"         
 #include "model_binary.h"  
 
@@ -15,6 +18,12 @@ const char* WIFI_PASSWORD = "asdfghjkl";
 // Local Flask backend (laptop) IP address
 // Change to "https://your-flask-app.onrender.com/api/v2/analyze" when deploying
 const char* BACKEND_URL   = "https://ai-ids-iot-8y4f.onrender.com/api/v2/analyze"; 
+
+// OLED Display Configuration
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET    -1
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET); 
 
 // FreeRTOS configuration
 TaskHandle_t InferenceTask;
@@ -279,6 +288,32 @@ void inferenceLoop(void * pvParameters) {
                 String srcMacStr = String(sMac);
                 String dstMacStr = String(dMac);
                 
+                // --- OLED Display Update ---
+                display.clearDisplay();
+                if (score >= 0.40) {
+                    display.fillRect(0, 0, 128, 16, WHITE);
+                    display.setTextColor(BLACK, WHITE);
+                    display.setTextSize(2);
+                    display.setCursor(5, 1);
+                    display.println("! ATTACK !");
+                } else {
+                    display.setTextColor(WHITE);
+                    display.setTextSize(1);
+                    display.setCursor(0, 0);
+                    display.println("NETWORK SECURE");
+                }
+                
+                display.setTextColor(WHITE);
+                display.setTextSize(1);
+                display.setCursor(0, 22);
+                display.printf("Threat: %.1f%%", score * 100.0);
+                display.setCursor(0, 34);
+                display.printf("Traffic: %lu pps", pCount / 2);
+                display.setCursor(0, 46);
+                display.printf("SrcMAC: %s", srcMacStr.c_str());
+                display.display();
+                // ---------------------------
+                
                 // ALWAYS forward telemetry so dashboard live graph updates continuously
                 forward_telemetry_to_cloud(features, score, srcIpStr, dstIpStr, srcMacStr, dstMacStr, sPort, dPort, proto, isEnc);
             }
@@ -297,6 +332,19 @@ void setup() {
     Serial.println("=========================================================");
     Serial.println("System Boot: AI-IDS Promiscuous Edge Node (Welford's HIL)");
     Serial.println("=========================================================");
+    
+    // Initialize OLED
+    Wire.begin(21, 22);
+    if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+        Serial.println("OLED allocation failed");
+    } else {
+        display.clearDisplay();
+        display.setTextColor(WHITE);
+        display.setTextSize(1);
+        display.setCursor(0, 20);
+        display.println("AI-IDS Booting...");
+        display.display();
+    }
     
     // Connect to AP to get IP and sync Channel
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
