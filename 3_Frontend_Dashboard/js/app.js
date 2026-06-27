@@ -329,7 +329,7 @@ function tickPerSecond() {
 function connectWS() {
   try {
     // Note: Configure your HiveMQ cluster details here
-    const brokerUrl = 'ws://broker.hivemq.com:8000/mqtt';
+    const brokerUrl = 'wss://broker.hivemq.com:8884/mqtt';
     const options = {
       clientId: 'dashboard-' + Math.random().toString(16).substr(2, 8),
       clean: true,

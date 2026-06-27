@@ -18,6 +18,7 @@
 #include "esp_camera.h"
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <WiFiClientSecure.h>
 #include "esp_http_server.h"
 
 // ── Network config ────────────────────────────────────────────────────────────
@@ -26,8 +27,7 @@
 // Main ESP32 sniffer still captures CAM traffic (same channel)
 const char* AP_SSID  = "Redmi Note 9 Pro";
 const char* AP_PASS  = "asdfghjkl";
-const char* BACKEND  = "192.168.24.106";  // laptop IP on hotspot
-const int   PORT     = 5000;
+const char* BACKEND  = "ai-ids-iot-8y4f.onrender.com";  // Cloud Render URL
 
 // ── AI Thinker ESP32-CAM pin map ─────────────────────────────────────────────
 #define PWDN_GPIO_NUM     32
@@ -100,11 +100,13 @@ void startCameraServer() {
 // ── Heartbeat: POST to dashboard every 10s ────────────────────────────────────
 void sendHeartbeat() {
     if (WiFi.status() != WL_CONNECTED) return;
+    WiFiClientSecure client;
+    client.setInsecure();
     HTTPClient http;
-    String url = "http://" + String(BACKEND) + ":" + PORT + "/api/esp32/devices";
+    String url = "https://" + String(BACKEND) + "/api/esp32/devices";
     String body = "{\"devices\":[{\"id\":\"esp32-cam\",\"ip\":\"" +
                   WiFi.localIP().toString() + "\",\"status\":\"online\",\"last_seen\":0}]}";
-    http.begin(url);
+    http.begin(client, url);
     http.addHeader("Content-Type", "application/json");
     http.setTimeout(1500);
     int code = http.POST(body);
