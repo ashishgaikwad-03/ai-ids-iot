@@ -78,21 +78,31 @@ DEVICE_NAMES = {
     '192.168.1.1':    'Router / AP',
 }
 
-def send_telegram(attack_type, confidence, device_ip="192.168.24.167", sustained_secs=0, src_ip="Unknown"):
+def send_telegram(attack_type, confidence, device_ip="192.168.24.167", sustained_secs=0, src_ip="Unknown", is_recovery=False):
     if BOT_TOKEN == "YOUR_BOT_TOKEN_FROM_BOTFATHER":
         print(f"[TELEGRAM SKIPPED] Token not configured. Attack: {attack_type} @ {confidence}% for {sustained_secs:.1f}s")
         return
     device_name = DEVICE_NAMES.get(device_ip, device_ip)
-    text = (
-        f"\U0001f534 <b>AI-IDS ALERT</b>\n\n"
-        f"\u26a0\ufe0f Malicious Traffic Detected\n"
-        f"\U0001f3af Target Device: <b>{device_name}</b>\n"
-        f"\U0001f550 Time: {time.strftime('%H:%M:%S')}\n"
-        f"\U0001f48a Type: <b>{attack_type}</b>\n"
-        f"\U0001f310 Source: <code>{src_ip}</code>\n\n"
-        f"\U0001f517 Open Security Dashboard:\n"
-        f"https://ai-iot-ids.vercel.app/"
-    )
+    
+    if is_recovery:
+        text = (
+            f"🟢 <b>NETWORK SECURE</b>\n\n"
+            f"✅ Malicious traffic has ceased.\n"
+            f"🎯 Device: <b>{device_name}</b>\n"
+            f"🕒 Time: {time.strftime('%H:%M:%S')}\n\n"
+            f"Shields remain fully active. No further action required."
+        )
+    else:
+        text = (
+            f"🔴 <b>AI-IDS ALERT</b>\n\n"
+            f"⚠️ Malicious Traffic Sustained (>5s)\n"
+            f"🎯 Target Device: <b>{device_name}</b>\n"
+            f"🕒 Time: {time.strftime('%H:%M:%S')}\n"
+            f"💊 Type: <b>{attack_type}</b>\n"
+            f"🌐 Source: <code>{src_ip}</code>\n\n"
+            f"🔗 Open Security Dashboard:\n"
+            f"https://ai-iot-ids.vercel.app/"
+        )
     try:
         requests.post(
             f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
@@ -305,6 +315,12 @@ def monitor_attack_state():
             gap = now - attack_state["last_seen"]
             if gap > attack_state["gap_threshold"]:
                 print(f"[ATTACK END] {attack_state['type']} ended after gap {gap:.1f}s")
+                if attack_state["alert_fired"]:
+                    print("[RECOVERY] Sending Telegram recovery message")
+                    threading.Thread(
+                        target=send_telegram,
+                        args=(attack_state["type"], attack_state["confidence"], "192.168.24.167", sustained_secs, "EXTERNAL", True)
+                    ).start()
                 attack_state["active"] = False
                 attack_state["start_time"] = None
                 attack_state["alert_fired"] = False
