@@ -1658,7 +1658,7 @@ if (typeof originalOnPacket === 'function') {
 
 // 4. Attack API Integration
 // Set this to your Render URL when deploying to the cloud (e.g., 'https://my-ai-ids-backend.onrender.com')
-const API_BASE_URL = 'http://127.0.0.1:5000';
+const API_BASE_URL = 'https://ai-ids-iot-8y4f.onrender.com';
 
 window.launchCustomAttack = function(type) {
   let url = API_BASE_URL + '/api/inject?type=' + type;

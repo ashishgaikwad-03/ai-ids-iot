@@ -13,7 +13,7 @@ const char* WIFI_PASSWORD = "asdfghjkl";
 
 // Local Flask backend (laptop) IP address
 // Change to "https://your-flask-app.onrender.com/api/v2/analyze" when deploying
-const char* BACKEND_URL   = "http://192.168.24.106:5000/api/v2/analyze"; 
+const char* BACKEND_URL   = "https://ai-ids-iot-8y4f.onrender.com/api/v2/analyze"; 
 
 // FreeRTOS configuration
 TaskHandle_t InferenceTask;
