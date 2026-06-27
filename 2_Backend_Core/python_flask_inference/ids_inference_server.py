@@ -156,12 +156,7 @@ def device_heartbeat():
             return jsonify({"status": "heartbeat received"}), 200
         else:
             # Handle GET request from dashboard
-            mock_devices = {
-                'esp32-gw':  { 'name': 'ESP32 Gateway', 'ip': '192.168.121.6', 'status': 'ONLINE' },
-                'esp32-cam': { 'name': 'ESP32-CAM',     'ip': '192.168.24.167', 'status': 'ONLINE' },
-                'dht11':     { 'name': 'DHT11 Sensor',  'ip': '192.168.121.6', 'status': 'ONLINE' }
-            }
-            return jsonify({"status": "success", "devices": mock_devices}), 200
+            return jsonify({"status": "success", "devices": {}}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
