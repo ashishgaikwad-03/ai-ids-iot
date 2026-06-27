@@ -1,6 +1,7 @@
 #include <WiFi.h>
 #include <esp_wifi.h>
 #include <HTTPClient.h>
+#include <WiFiClientSecure.h>
 #include <cmath>
 #include "scaler.h"         
 #include "model_binary.h"  
@@ -138,8 +139,10 @@ void forward_telemetry_to_cloud(float features[15], float edge_score, String src
     // CPU cycles to successfully send the HTTP POST during a massive 2500+ pps flood!
     esp_wifi_set_promiscuous(false);
 
+    WiFiClientSecure client;
+    client.setInsecure(); // Bypass SSL certificate validation for Render HTTPS endpoint
     HTTPClient http;
-    http.begin(BACKEND_URL);
+    http.begin(client, BACKEND_URL);
     http.addHeader("Content-Type", "application/json");
 
     String jsonPayload = "{\"features\":[";
@@ -251,9 +254,11 @@ void inferenceLoop(void * pvParameters) {
                 // Video Stream = Mix of 1500-byte frames & 60-byte ACKs (Huge Variance).
                 // Floods = Identical packet sizes (Zero or very low Variance).
                 // =======================================================================
-                if (pCount < 5) {
-                    // Extremely low traffic is always benign (background noise)
-                    score = 0.05 + (pCount * 0.001);
+                // =======================================================================
+                if (pCount < 25) {
+                    // Extremely low traffic is always benign (background noise). 
+                    // Prevents small ambient packets from triggering false positives.
+                    score = 0.01 + (pCount * 0.001);
                 } else if (variance > 15000.0) {
                     // High variance -> Definitely a benign video stream or normal traffic. Suppress score.
                     score = 0.10 + (pCount * 0.0005);
