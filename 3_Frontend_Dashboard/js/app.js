@@ -328,8 +328,8 @@ function tickPerSecond() {
 // ── WEBSOCKET (MQTT OVER WSS) ────────────────────────────────────────────────
 function connectWS() {
   try {
-    // Note: Configure your HiveMQ cluster details here
-    const brokerUrl = 'wss://broker.hivemq.com:8884/mqtt';
+    // Note: Configure your HiveMQ/EMQX cluster details here
+    const brokerUrl = 'wss://broker.emqx.io:8084/mqtt';
     const options = {
       clientId: 'dashboard-' + Math.random().toString(16).substr(2, 8),
       clean: true,

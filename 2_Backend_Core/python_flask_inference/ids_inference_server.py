@@ -38,7 +38,7 @@ CORS(app) # Allows Vercel frontend to call this API if needed
 # CLOUD INTEGRATION SETTINGS
 # ==========================================
 # 1. HiveMQ MQTT (for real-time dashboard updates)
-MQTT_BROKER = "broker.hivemq.com"
+MQTT_BROKER = "broker.emqx.io"
 MQTT_PORT   = 1883 # Public unencrypted port
 MQTT_USER   = ""
 MQTT_PASS   = ""
