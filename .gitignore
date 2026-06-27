@@ -36,8 +36,6 @@ venv.bak/
 # Data
 *.csv
 *.pcap
-*.pkl
-*.model
 
 # Node
 node_modules/
