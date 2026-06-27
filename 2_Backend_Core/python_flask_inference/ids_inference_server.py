@@ -47,7 +47,14 @@ MQTT_PASS   = ""
 BOT_TOKEN   = "8697442024:AAFnMcIqebrFuDg-k8NCEN6FxNITV_VbZls"
 CHAT_ID     = "5120288258"
 
-mqtt_client = mqtt.Client(client_id="flask-ids-backend-" + str(time.time()))
+def publish_mqtt(topic, payload):
+    try:
+        temp_client = mqtt.Client(client_id="flask-pub-" + str(time.time())[:10])
+        temp_client.connect(MQTT_BROKER, MQTT_PORT, keepalive=60)
+        temp_client.publish(topic, payload)
+        temp_client.disconnect()
+    except Exception as e:
+        print(f"[CRITICAL] MQTT Publish Failed: {e}")
 
 # ==========================================
 # SUSTAINED ATTACK TRACKER
@@ -63,16 +70,6 @@ attack_state = {
     "gap_threshold": 8.0,   # seconds gap before attack is considered "over"
     "sustain_threshold": 5.0  # seconds before CRITICAL Telegram fires
 }
-
-def connect_mqtt():
-    try:
-        mqtt_client.connect(MQTT_BROKER, MQTT_PORT, keepalive=60)
-        mqtt_client.loop_start()
-        print("[SUCCESS] Connected to Public HiveMQ Broker.")
-    except Exception as e:
-        print(f"[WARNING] MQTT Connection failed: {e}")
-
-connect_mqtt()
 
 DEVICE_NAMES = {
     '192.168.24.167': 'ESP32-CAM',
@@ -155,7 +152,7 @@ def device_heartbeat():
         if request.method == "POST":
             data = request.get_json()
             if data and "devices" in data:
-                mqtt_client.publish("ids/devices", json.dumps(data["devices"]))
+                publish_mqtt("ids/devices", json.dumps(data["devices"]))
             return jsonify({"status": "heartbeat received"}), 200
         else:
             # Handle GET request from dashboard
@@ -271,8 +268,8 @@ def analyze():
 
         try:
             if is_attack:
-                mqtt_client.publish("ids/alerts", json.dumps(alert_payload))
-            mqtt_client.publish("ids/packets", json.dumps(alert_payload))
+                publish_mqtt("ids/alerts", json.dumps(alert_payload))
+            publish_mqtt("ids/packets", json.dumps(alert_payload))
         except Exception as e:
             print(f"Failed to publish to MQTT: {e}")
 
