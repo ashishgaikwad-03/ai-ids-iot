@@ -167,6 +167,7 @@ const STATE = {
   peakPps: 0,
   sessionStart: Date.now(),
   counts: { BENIGN: 0, UDP_FLOOD: 0, ARP_SPOOF: 0, PORT_SCAN: 0, DATA_SNIFF: 0 },
+  classif: { Benign: 0, DDoS: 0, DoS: 0, Mirai: 0, Recon: 0 },
   devices: JSON.parse(JSON.stringify(DEVICE_CONFIG)),
   allPackets: [],
   alerts: [],
@@ -403,6 +404,85 @@ function onSensorUpdate(data) {
 
 }
 
+// ── LIVE CLASSIFICATION DONUT CHART ──────────────────────────────────────────
+const DONUT_COLORS = {
+  Benign: '#22c55e',
+  DDoS:   '#ef4444',
+  DoS:    '#f97316',
+  Mirai:  '#a855f7',
+  Recon:  '#eab308'
+};
+
+function drawClassifDonut() {
+  const canvas = document.getElementById('classif-donut');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2, r = 60, inner = 36;
+  ctx.clearRect(0, 0, W, H);
+
+  const data = STATE.classif;
+  const total = Object.values(data).reduce((a, b) => a + b, 0);
+
+  // Update legend counts
+  ['benign','ddos','dos','mirai','recon'].forEach(k => {
+    const key = k.charAt(0).toUpperCase() + k.slice(1);
+    const el = document.getElementById('cnt-' + k);
+    if (el) el.textContent = data[key] || 0;
+    const leg = document.getElementById('leg-' + k);
+    if (leg) leg.classList.toggle('active', (data[key] || 0) > 0);
+  });
+
+  const threatCount = total - (data.Benign || 0);
+  const threatPct = total > 0 ? Math.round((threatCount / total) * 100) : 0;
+  const pctEl = document.getElementById('classif-pct');
+  if (pctEl) {
+    pctEl.textContent = threatPct + '%';
+    pctEl.style.color = threatPct > 50 ? '#ef4444' : threatPct > 10 ? '#f97316' : 'var(--text-1)';
+  }
+
+  const badge = document.getElementById('classif-badge');
+  if (badge) {
+    if (threatPct > 50) { badge.textContent = 'UNDER ATTACK'; badge.className = 'badge badge-red'; }
+    else if (threatPct > 5)  { badge.textContent = 'Suspicious';   badge.className = 'badge badge-amber'; }
+    else                     { badge.textContent = 'Monitoring';   badge.className = 'badge badge-amber'; }
+  }
+
+  if (total === 0) {
+    // Draw empty ring placeholder
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(128,128,128,0.15)';
+    ctx.lineWidth = r - inner;
+    ctx.stroke();
+    return;
+  }
+
+  let startAngle = -Math.PI / 2;
+  Object.entries(data).forEach(([label, val]) => {
+    if (!val) return;
+    const slice = (val / total) * Math.PI * 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, startAngle, startAngle + slice);
+    ctx.closePath();
+    // Thick donut ring - clip inner circle
+    ctx.save();
+    ctx.fillStyle = DONUT_COLORS[label] || '#888';
+    ctx.fill();
+    ctx.restore();
+    startAngle += slice;
+  });
+
+  // Punch inner hole for donut effect
+  ctx.save();
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.beginPath();
+  ctx.arc(cx, cy, inner, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
 // ── PACKET HANDLER ────────────────────────────────────────────────────────────
 function onPacket(pkt) {
   STATE.lastPacketMs = Date.now();
@@ -438,6 +518,14 @@ function onPacket(pkt) {
     STATE.attacks++;
     STATE.attackPpsCount += rate;
     STATE.lastSeenAttackType = pkt.attackType || 'Attack';
+
+    // Classify into donut buckets
+    const at = (pkt.attackType || '').toLowerCase();
+    if (at.includes('ddos') || at.includes('udp') || at.includes('flood')) STATE.classif.DDoS++;
+    else if (at.includes('dos') || at.includes('syn'))                      STATE.classif.DoS++;
+    else if (at.includes('mirai') || at.includes('botnet'))                 STATE.classif.Mirai++;
+    else if (at.includes('recon') || at.includes('scan'))                   STATE.classif.Recon++;
+    else STATE.classif.DDoS++; // unknown attack → DDoS bucket
     
     // Automatically set target device status to UNDER_ATTACK
     Object.values(STATE.devices).forEach(d => {
@@ -464,7 +552,11 @@ function onPacket(pkt) {
     if (STATE.recentAttackSeverities.length > 20) STATE.recentAttackSeverities.shift();
     STATE.lastAttackTimestamp = Date.now();
     STATE.lastAttackType      = pkt.attackType || STATE.lastAttackType;
+  } else {
+    STATE.classif.Benign++;
   }
+
+  drawClassifDonut();
 
   STATE.allPackets.unshift(pkt);
   if (STATE.allPackets.length > 1000) STATE.allPackets.pop();

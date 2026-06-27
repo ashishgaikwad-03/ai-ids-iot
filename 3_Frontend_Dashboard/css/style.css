@@ -674,3 +674,18 @@ body {
 #theme-toggle:hover { background: var(--border); }
 
 
+
+/* -- CLASSIFICATION DONUT CHART LEGEND --------------------------------------- */
+.classif-legend-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; cursor: default;
+}
+.classif-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.classif-label { color: var(--text-2); flex: 1; font-weight: 500; }
+.classif-count {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-1); font-weight: 600; min-width: 30px; text-align: right;
+}
+.classif-legend-item.active .classif-label { color: var(--text-1); }
