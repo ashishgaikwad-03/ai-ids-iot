@@ -90,15 +90,7 @@ def send_telegram(attack_type, confidence, device_ip="192.168.24.167",
     engines_str = ", ".join(engines) if engines else "ML"
 
     if is_recovery:
-        text = (
-            f"\U0001f7e2 <b>NETWORK SECURE \u2014 THREAT CLEARED</b>\n\n"
-            f"\u2705 Attack traffic has stopped.\n"
-            f"\U0001f3af Target: <b>{device_name}</b>\n"
-            f"\U0001f4ca Threat type: <b>{attack_type}</b>\n"
-            f"\u23f1 Duration: <b>{sustained_secs:.0f}s</b>\n"
-            f"\U0001f552 Cleared at: {time.strftime('%H:%M:%S')}\n\n"
-            f"\U0001f517 Dashboard: https://ai-iot-ids.vercel.app/"
-        )
+        return
     else:
         text = (
             f"\U0001f534 <b>AI-IDS CRITICAL ALERT</b>\n\n"
@@ -110,7 +102,7 @@ def send_telegram(attack_type, confidence, device_ip="192.168.24.167",
             f"\U0001f9e0 Engines: <code>{engines_str}</code>\n"
             f"\U0001f310 Source IP: <code>{src_ip}</code>\n"
             f"\U0001f552 Time: {time.strftime('%H:%M:%S')}\n\n"
-            f"\U0001f517 https://ai-iot-ids.vercel.app/"
+            f"\U0001f517 https://ai-ids-iot.vercel.app/"
         )
     try:
         requests.post(
