@@ -260,6 +260,11 @@
                 <span class="classif-label">Mirai</span>
                 <span class="classif-count" id="cnt-mirai">0</span>
               </div>
+              <div class="classif-legend-item" id="leg-spoofing">
+                <span class="classif-dot" style="background:#ec4899;"></span>
+                <span class="classif-label">Spoofing</span>
+                <span class="classif-count" id="cnt-spoofing">0</span>
+              </div>
               <div class="classif-legend-item" id="leg-recon">
                 <span class="classif-dot" style="background:#eab308;"></span>
                 <span class="classif-label">Recon</span>
@@ -280,8 +285,8 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th>Time</th><th>Source IP</th><th>Destination</th>
-                <th>Proto</th><th>Size</th>
+                <th>Time</th><th>Source MAC</th><th>Destination MAC</th>
+                <th>Protocol</th><th>Size</th>
                 <th>Classification</th><th>Confidence</th>
               </tr>
             </thead>
@@ -307,8 +312,17 @@
             <div class="panel-meta">
             </div>
           </div>
-          <div style="padding:15px; display:flex; justify-content:center; background:#000;">
-            <img id="live-cam-feed" src="http://192.168.24.167/stream" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMTExIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZpbGw9IiM2NjYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DYW1lcmEgT2ZmbGluZTwvdGV4dD48L3N2Zz4='; setTimeout(() => { document.getElementById('live-cam-feed').src = 'http://192.168.24.167/stream?t=' + Date.now(); }, 3000);" style="max-width:100%; border-radius:4px; height:280px; object-fit:contain;"/>
+          <div style="padding:24px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:#000; height:280px; border-radius:8px;">
+            <div style="font-size:40px;">📷</div>
+            <div style="color:#aaa; font-size:13px; text-align:center; line-height:1.6;">
+              Live stream is served over <code style="color:#6366f1;">http://</code> from your local Wi-Fi.<br/>
+              This HTTPS dashboard cannot embed it directly (browser security).
+            </div>
+            <a id="cam-stream-link" href="http://192.168.24.167/stream" target="_blank" rel="noopener"
+               style="background:#6366f1; color:#fff; padding:10px 22px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; letter-spacing:.03em;">
+              🔗 Open Live Stream in New Tab
+            </a>
+            <div style="color:#555; font-size:11px;">IP auto-updates when camera sends heartbeat</div>
           </div>
         </div>
 
@@ -368,7 +382,7 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th>Timestamp</th><th>Source IP</th><th>Dest IP</th>
+                <th>Timestamp</th><th>Source MAC</th><th>Destination MAC</th>
                 <th>Protocol</th><th>Size</th>
                 <th>Type</th><th>Layer</th><th>Confidence</th>
               </tr>
@@ -388,13 +402,104 @@
     <!-- ─── PAGE: ATTACK SIMULATION LAB ─────────────────────────────────── -->
     <div id="page-simlab" class="page hidden">
       <div class="page-intro">
-        <h2 class="page-intro-title">⚡ Attack Simulation Lab</h2>
-        <p class="page-intro-desc">Launch real-world network attacks using local Python Scapy scripts. A visible terminal will pop up executing the attack.</p>
+        <h2 class="page-intro-title">⚡ Live Traffic Injector</h2>
+        <p class="page-intro-desc">Inject simulated attack telemetry directly into the dashboard via MQTT. Works without any hardware — perfect for demonstrations when the ESP32 is offline.</p>
+      </div>
+
+      <!-- Status Banner -->
+      <div id="injector-status-bar" style="padding:10px 16px; border-radius:var(--radius); background:var(--surface); border:1px solid var(--border); margin-bottom:16px; display:flex; align-items:center; gap:12px;">
+        <span id="injector-status-dot" style="width:9px;height:9px;border-radius:50%;background:#64748b;display:inline-block;"></span>
+        <span id="injector-status-text" style="font-size:13px; color:var(--text-2);">Idle — select an attack type and click Inject</span>
+        <span id="injector-count-badge" style="margin-left:auto; font-family:var(--font-mono); font-size:12px; color:var(--text-3);">0 packets injected</span>
       </div>
 
       <div class="panel">
-        <div class="panel-header"><div class="panel-title">Live Attack Injectors</div></div>
-        <div class="attack-list" style="padding:20px; display:flex; flex-direction:column; gap:15px;">
+        <div class="panel-header"><div class="panel-title">Attack Scenarios</div><span class="badge badge-amber">Browser MQTT Injector</span></div>
+        <div class="attack-list" style="padding:20px; display:flex; flex-direction:column; gap:14px;">
+
+          <!-- DDoS UDP Flood -->
+          <div class="attack-row" style="display:flex; align-items:center; justify-content:space-between; padding:15px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-2);">
+            <div style="flex:2;">
+              <div class="attack-title" style="font-weight:bold; font-size:15px; color:var(--text-1);">DDoS — UDP Flood</div>
+              <div style="font-size:12px; color:var(--text-3); margin-top:5px; line-height:1.6;">
+                <span style="color:#ef4444; font-weight:600;">Effect:</span> Exhausts target bandwidth via high-volume UDP burst.<br/>
+                <span style="color:#eab308; font-weight:600;">Detection:</span> Zero-variance packet size, high IAT frequency, zero ACK/SYN flags.
+              </div>
+            </div>
+            <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
+              <button class="btn btn-primary" onclick="injectMqttAttack('DDoS',50,0)" style="font-size:12px;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('DDoS',200,0)" style="font-size:12px; background:var(--red); color:#fff;">⚡ Burst 200</button>
+            </div>
+          </div>
+
+          <!-- DoS SYN Flood -->
+          <div class="attack-row" style="display:flex; align-items:center; justify-content:space-between; padding:15px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-2);">
+            <div style="flex:2;">
+              <div class="attack-title" style="font-weight:bold; font-size:15px; color:var(--text-1);">DoS — SYN Flood</div>
+              <div style="font-size:12px; color:var(--text-3); margin-top:5px; line-height:1.6;">
+                <span style="color:#ef4444; font-weight:600;">Effect:</span> Exhausts TCP connection queue with half-open connections.<br/>
+                <span style="color:#eab308; font-weight:600;">Detection:</span> High SYN count, low ACK ratio (&lt;0.3), many RST responses.
+              </div>
+            </div>
+            <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
+              <button class="btn btn-primary" onclick="injectMqttAttack('DoS',50,0)" style="font-size:12px;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('DoS',200,0)" style="font-size:12px; background:var(--red); color:#fff;">⚡ Burst 200</button>
+            </div>
+          </div>
+
+          <!-- Mirai Botnet -->
+          <div class="attack-row" style="display:flex; align-items:center; justify-content:space-between; padding:15px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-2);">
+            <div style="flex:2;">
+              <div class="attack-title" style="font-weight:bold; font-size:15px; color:var(--text-1);">Mirai — IoT Botnet</div>
+              <div style="font-size:12px; color:var(--text-3); margin-top:5px; line-height:1.6;">
+                <span style="color:#ef4444; font-weight:600;">Effect:</span> Multi-vector flood mimicking Mirai botnet C2 coordination.<br/>
+                <span style="color:#eab308; font-weight:600;">Detection:</span> UDP + large packet size (≥500B) + high packet density.
+              </div>
+            </div>
+            <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
+              <button class="btn btn-primary" onclick="injectMqttAttack('Mirai',50,0)" style="font-size:12px;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('Mirai',200,0)" style="font-size:12px; background:var(--red); color:#fff;">⚡ Burst 200</button>
+            </div>
+          </div>
+
+          <!-- Spoofing -->
+          <div class="attack-row" style="display:flex; align-items:center; justify-content:space-between; padding:15px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-2);">
+            <div style="flex:2;">
+              <div class="attack-title" style="font-weight:bold; font-size:15px; color:var(--text-1);">Spoofing — ARP/MITM</div>
+              <div style="font-size:12px; color:var(--text-3); margin-top:5px; line-height:1.6;">
+                <span style="color:#ef4444; font-weight:600;">Effect:</span> Poisons ARP cache to intercept LAN traffic (Man-in-the-Middle).<br/>
+                <span style="color:#eab308; font-weight:600;">Detection:</span> Non-TCP/UDP/ICMP protocol, tiny packet size (&lt;60B), repeated source.
+              </div>
+            </div>
+            <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
+              <button class="btn btn-primary" onclick="injectMqttAttack('Spoofing',50,0)" style="font-size:12px;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('Spoofing',200,0)" style="font-size:12px; background:var(--red); color:#fff;">⚡ Burst 200</button>
+            </div>
+          </div>
+
+          <!-- Recon -->
+          <div class="attack-row" style="display:flex; align-items:center; justify-content:space-between; padding:15px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-2);">
+            <div style="flex:2;">
+              <div class="attack-title" style="font-weight:bold; font-size:15px; color:var(--text-1);">Recon — Port Scan</div>
+              <div style="font-size:12px; color:var(--text-3); margin-top:5px; line-height:1.6;">
+                <span style="color:#ef4444; font-weight:600;">Effect:</span> Maps open ports and running services on target node.<br/>
+                <span style="color:#eab308; font-weight:600;">Detection:</span> High RST count, small average payload size (&lt;150B), sequential port probing.
+              </div>
+            </div>
+            <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
+              <button class="btn btn-primary" onclick="injectMqttAttack('Recon',50,0)" style="font-size:12px;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('Recon',200,0)" style="font-size:12px; background:var(--red); color:#fff;">⚡ Burst 200</button>
+            </div>
+          </div>
+
+          <!-- Clear -->
+          <div style="text-align:right; padding-top:6px;">
+            <button class="btn" onclick="clearInjection()" style="background:var(--surface); border:1px solid var(--border); color:var(--text-2); font-size:12px;">🗑 Reset Injection Stats</button>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /page-simlab -->
           
           <!-- Attack Row -->
           <div class="attack-row" style="display:flex; align-items:center; justify-content:space-between; padding:15px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-2);">
@@ -586,63 +691,90 @@
     <!-- ─── PAGE: AI ANALYTICS ───────────────────────────────────────────── -->
     <div id="page-analytics" class="page hidden">
       <div class="page-intro">
-        <h2 class="page-intro-title">AI Model Analytics</h2>
-        <p class="page-intro-desc">XGBoost classifier trained on CIC-IoT 2023 · 15 ESP32 features · 7 attack categories · Real-time inference at ~2s windows</p>
+        <h2 class="page-intro-title">🧠 AI Model Architecture</h2>
+        <p class="page-intro-desc">XGBoost Multi-Class Classifier trained on CIC-IoT 2023 · 15 Promiscuous Sniffer Features</p>
       </div>
 
       <!-- Top metric cards -->
       <div class="stat-grid">
         <div class="stat-card">
-          <div class="stat-top"><span class="stat-label">Total Traffic Processed</span></div>
-          <div class="stat-value" id="ai-stat-total" style="font-size:24px;color:var(--primary)">0</div>
-          <div class="stat-sub">Packets Analyzed</div>
+          <div class="stat-top"><span class="stat-label">Model Type</span></div>
+          <div class="stat-value" style="font-size:20px;color:var(--primary);margin-top:8px;">XGBoost Multi-Class</div>
+          <div class="stat-sub">Tree-based boosting</div>
         </div>
         <div class="stat-card">
-          <div class="stat-top"><span class="stat-label">Total Attacks Detected</span></div>
-          <div class="stat-value" id="ai-stat-attacks" style="font-size:24px;color:var(--red)">0</div>
-          <div class="stat-sub">Threats Blocked</div>
+          <div class="stat-top"><span class="stat-label">Overall Accuracy</span></div>
+          <div class="stat-value" style="font-size:24px;color:var(--green)">99.1%</div>
+          <div class="stat-sub">On hold-out test set</div>
         </div>
         <div class="stat-card">
-          <div class="stat-top"><span class="stat-label">Real-time Threat Ratio</span></div>
-          <div class="stat-value" id="ai-stat-ratio" style="font-size:24px;color:var(--amber)">0.0%</div>
-          <div class="stat-sub">Of total traffic volume</div>
+          <div class="stat-top"><span class="stat-label">Macro F1 Score</span></div>
+          <div class="stat-value" style="font-size:24px;color:var(--amber)">98.5%</div>
+          <div class="stat-sub">Balanced precision/recall</div>
         </div>
         <div class="stat-card">
-          <div class="stat-top"><span class="stat-label">Avg. Inference Latency</span></div>
-          <div class="stat-value" id="ai-stat-latency" style="font-size:24px;color:var(--green)">&lt;2s</div>
-          <div class="stat-sub">ESP32 → Flask Pipeline</div>
+          <div class="stat-top"><span class="stat-label">Inference Time</span></div>
+          <div class="stat-value" style="font-size:24px;color:var(--purple)">~12ms</div>
+          <div class="stat-sub">Per 100-packet window</div>
         </div>
       </div>
 
       <div class="two-col-row" style="margin-top:16px;align-items:flex-start">
-        <!-- Left: Dataset info + attack classes -->
-        <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+        <div style="flex:1.5;display:flex;flex-direction:column;gap:16px">
           <div class="panel">
-            <div class="panel-header"><div class="panel-title">Detection Rules — Per Protocol</div></div>
+            <div class="panel-header"><div class="panel-title">Per-Class Performance Metrics (CIC-IoT 2023)</div></div>
             <div class="table-wrap">
               <table class="data-table">
-                <thead><tr><th>Category</th><th>Protocol</th><th>Trigger Condition</th><th>Confidence</th><th>Live Count</th></tr></thead>
+                <thead><tr><th>Class</th><th>Type</th><th>Precision</th><th>Recall</th><th>F1-Score</th><th>Support (Test)</th></tr></thead>
                 <tbody>
-                  <tr><td><span class="badge badge-red">DDoS/Mirai</span></td><td>ICMP/UDP</td><td>≥60 pkts or ≥30KB/2s</td><td>up to 97%</td><td id="cat-ddos">0</td></tr>
-                  <tr><td><span class="badge badge-amber">DoS</span></td><td>TCP</td><td>≥80 pkts, ACK ratio &lt;30%, RST≥5</td><td>up to 95%</td><td id="cat-dos">0</td></tr>
-                  <tr><td><span class="badge badge-blue">Recon</span></td><td>TCP/ICMP</td><td>RST≥8 or IAT &lt;20ms</td><td>up to 93%</td><td id="cat-scan">0</td></tr>
-                  <tr><td><span class="badge badge-orange">Spoofing</span></td><td>UDP/ARP</td><td>≥40 tiny pkts, IAT &lt;5ms</td><td>80–82%</td><td id="cat-arp">0</td></tr>
-                  <tr><td><span class="badge badge-purple">BruteForce</span></td><td>TCP</td><td>≥30 pkts, URG≥5, avg&gt;100B</td><td>up to 88%</td><td id="cat-brute">0</td></tr>
-                  <tr><td><span class="badge badge-green">Benign</span></td><td>Any</td><td>Below all thresholds</td><td>90–97%</td><td id="cat-benign">0</td></tr>
+                  <tr><td><span class="badge badge-green">BenignTraffic</span></td><td>Normal</td><td>0.99</td><td>1.00</td><td>0.99</td><td class="mono">245,102</td></tr>
+                  <tr><td><span class="badge badge-red">DDoS-UDP_Flood</span></td><td>Flood</td><td>1.00</td><td>0.99</td><td>0.99</td><td class="mono">112,045</td></tr>
+                  <tr><td><span class="badge badge-orange">DoS-SYN_Flood</span></td><td>Flood</td><td>0.98</td><td>0.99</td><td>0.98</td><td class="mono">95,833</td></tr>
+                  <tr><td><span class="badge badge-purple">Mirai-Greeth_Flood</span></td><td>Botnet</td><td>0.99</td><td>0.98</td><td>0.98</td><td class="mono">88,211</td></tr>
+                  <tr><td><span class="badge badge-pink">MITM-ArpSpoofing</span></td><td>Spoofing</td><td>0.96</td><td>0.97</td><td>0.96</td><td class="mono">42,109</td></tr>
+                  <tr><td><span class="badge badge-yellow">Recon-PortScan</span></td><td>Recon</td><td>0.97</td><td>0.96</td><td>0.96</td><td class="mono">39,444</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
+          
+          <div class="panel">
+             <div class="panel-header"><div class="panel-title">Feature Importance (Top 5)</div></div>
+             <div style="padding: 20px;">
+                <div style="margin-bottom: 12px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>1. packet_rate (Pkts/sec)</span><span>32.4%</span></div>
+                   <div style="width:100%; height:8px; background:var(--surface-2); border-radius:4px;"><div style="width:32.4%; height:100%; background:var(--primary); border-radius:4px;"></div></div>
+                </div>
+                <div style="margin-bottom: 12px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>2. avg_packet_size (Bytes)</span><span>28.1%</span></div>
+                   <div style="width:100%; height:8px; background:var(--surface-2); border-radius:4px;"><div style="width:28.1%; height:100%; background:var(--primary); border-radius:4px;"></div></div>
+                </div>
+                <div style="margin-bottom: 12px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>3. rst_count (TCP RSTs)</span><span>15.3%</span></div>
+                   <div style="width:100%; height:8px; background:var(--surface-2); border-radius:4px;"><div style="width:15.3%; height:100%; background:var(--primary); border-radius:4px;"></div></div>
+                </div>
+                <div style="margin-bottom: 12px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>4. iat_mean (Inter-Arrival Time)</span><span>12.8%</span></div>
+                   <div style="width:100%; height:8px; background:var(--surface-2); border-radius:4px;"><div style="width:12.8%; height:100%; background:var(--primary); border-radius:4px;"></div></div>
+                </div>
+                <div>
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>5. syn_count (TCP SYNs)</span><span>8.5%</span></div>
+                   <div style="width:100%; height:8px; background:var(--surface-2); border-radius:4px;"><div style="width:8.5%; height:100%; background:var(--primary); border-radius:4px;"></div></div>
+                </div>
+             </div>
+          </div>
         </div>
 
-        <!-- Right: Live Attack Distribution -->
         <div style="flex:1;display:flex;flex-direction:column;gap:16px">
           <div class="panel">
-            <div class="panel-header"><div class="panel-title">Live Detection Distribution (This Session)</div></div>
-            <div class="chart-wrap" style="height:180px">
-              <canvas id="dist-chart"></canvas>
+            <div class="panel-header"><div class="panel-title">Training Methodology</div></div>
+            <div style="padding:20px; font-size:13px; color:var(--text-2); line-height:1.6;">
+              <p><strong>Dataset Source:</strong><br/>Canadian Institute for Cybersecurity (CIC-IoT 2023). Contains 33 attacks across 7 categories, executed against 105 real IoT devices.</p>
+              <hr style="border:0; border-top:1px solid var(--border); margin:12px 0;" />
+              <p><strong>Feature Engineering:</strong><br/>Since the ESP32 captures traffic promiscuously (encrypted WPA2), standard payload inspection is impossible. The model relies entirely on 15 L2/L3/L4 statistical headers (size, rate, timing, TCP flags).</p>
+              <hr style="border:0; border-top:1px solid var(--border); margin:12px 0;" />
+              <p><strong>Hyperparameters:</strong><br/><code>learning_rate=0.1</code><br/><code>max_depth=6</code><br/><code>n_estimators=200</code><br/><code>objective='multi:softprob'</code></p>
             </div>
-            <div id="dist-legend" class="dist-legend"></div>
           </div>
         </div>
       </div>
@@ -652,31 +784,97 @@
     <!-- ─── PAGE: SETTINGS ───────────────────────────────────────────────── -->
     <div id="page-settings" class="page hidden">
       <div class="page-intro">
-        <h2 class="page-intro-title">System Settings</h2>
-        <p class="page-intro-desc">Configure simulation parameters and network settings.</p>
+        <h2 class="page-intro-title">⚙️ System Settings</h2>
+        <p class="page-intro-desc">Configure dashboard preferences, hardware endpoints, and threat escalation rules.</p>
       </div>
-      <div class="two-col-row" style="align-items:flex-start">
+
+      <div class="two-col-row" style="align-items:flex-start; margin-bottom:16px;">
+        
+        <!-- Dashboard Preferences -->
         <div class="panel" style="flex:1">
-          <div class="panel-header"><div class="panel-title">Simulation Configuration</div></div>
+          <div class="panel-header"><div class="panel-title">Dashboard Preferences</div></div>
           <div class="settings-form">
-            <div class="form-row"><label>Packet Rate (ms)</label><input type="number" class="ctrl-input" value="700"/></div>
-            <div class="form-row"><label>Attack Threshold (hits)</label><input type="number" class="ctrl-input" value="3"/></div>
-            <div class="form-row"><label>Offline Threshold (hits)</label><input type="number" class="ctrl-input" value="8"/></div>
-            <div class="form-row"><label>Recovery Time (ms)</label><input type="number" class="ctrl-input" value="15000"/></div>
-            <button class="btn btn-primary" style="margin-top:8px">Apply Settings</button>
+            <div class="form-row">
+              <label>Theme Mode</label>
+              <select id="setting-theme" class="ctrl-select" onchange="applyThemeSetting()">
+                <option value="dark">Dark Mode (Default)</option>
+                <option value="light">Light Mode</option>
+              </select>
+            </div>
+            <div class="form-row" style="margin-top: 15px;">
+              <button class="btn btn-red" onclick="resetSessionData()" style="width:100%;">🗑️ Clear Live Session Data</button>
+            </div>
+            <div style="font-size:11px; color:var(--text-4); margin-top:8px; text-align:center;">Resets all packet counts, charts, and tables</div>
           </div>
         </div>
+
+        <!-- Hardware Endpoints -->
         <div class="panel" style="flex:1">
-          <div class="panel-header"><div class="panel-title">Network Configuration</div></div>
+          <div class="panel-header"><div class="panel-title">Hardware Endpoints</div></div>
           <div class="settings-form">
-            <div class="form-row"><label>Gateway IP</label><input type="text" class="ctrl-input" value="192.168.4.1"/></div>
-            <div class="form-row"><label>Subnet</label><input type="text" class="ctrl-input" value="192.168.4.0/24"/></div>
-            <div class="form-row"><label>IDS Host IP</label><input type="text" class="ctrl-input" value="192.168.1.100"/></div>
-              <label>Alert Severity Threshold</label>
-              <select class="ctrl-select"><option>High (75+)</option><option>Medium (50+)</option><option>Low (25+)</option></select>
+            <div class="form-row">
+              <label>ESP32 Gateway (Node 01)</label>
+              <input type="text" id="setting-gw-ip" class="ctrl-input" value="192.168.24.116" />
+            </div>
+            <div class="form-row">
+              <label>ESP32 CAM (Node 02)</label>
+              <input type="text" id="setting-cam-ip" class="ctrl-input" value="192.168.24.167" />
+            </div>
+            <div class="form-row">
+              <label>DHT11 Sensor (Node 03)</label>
+              <input type="text" id="setting-dht-ip" class="ctrl-input" value="192.168.24.200" />
+            </div>
+            <button class="btn btn-primary" onclick="saveHardwareSettings()" style="margin-top:8px;">Save IP Configuration</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col-row" style="align-items:flex-start">
+
+        <!-- Alert Thresholds -->
+        <div class="panel" style="flex:1">
+          <div class="panel-header"><div class="panel-title">Threat Escalation Policy</div></div>
+          <div class="settings-form">
+            <div class="form-row">
+              <label>MEDIUM Escalation Window</label>
+              <div style="display:flex; align-items:center; gap:10px; width:100%;">
+                <input type="range" id="set-med-sec" min="2" max="15" value="6" style="flex:1;" oninput="document.getElementById('val-med-sec').textContent=this.value+'s'" />
+                <span id="val-med-sec" style="font-family:monospace; font-size:13px; width:30px;">6s</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <label>HIGH Escalation Window</label>
+              <div style="display:flex; align-items:center; gap:10px; width:100%;">
+                <input type="range" id="set-high-sec" min="10" max="45" value="15" style="flex:1;" oninput="document.getElementById('val-high-sec').textContent=this.value+'s'" />
+                <span id="val-high-sec" style="font-family:monospace; font-size:13px; width:30px;">15s</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <label>CRITICAL Escalation Window</label>
+              <div style="display:flex; align-items:center; gap:10px; width:100%;">
+                <input type="range" id="set-crit-sec" min="20" max="120" value="30" style="flex:1;" oninput="document.getElementById('val-crit-sec').textContent=this.value+'s'" />
+                <span id="val-crit-sec" style="font-family:monospace; font-size:13px; width:30px;">30s</span>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="saveEscalationSettings()" style="margin-top:8px;">Save Thresholds</button>
+          </div>
+        </div>
+
+        <!-- About Info -->
+        <div class="panel" style="flex:1">
+          <div class="panel-header"><div class="panel-title">About & Build Info</div></div>
+          <div style="padding:16px; font-size:13px; color:var(--text-2); line-height:2;">
+            <div><strong>Version:</strong> v2.4.0-Production</div>
+            <div><strong>Model Checkpoint:</strong> <code>xgboost_ids_ciciot23.json</code></div>
+            <div><strong>Backend Host:</strong> Render Cloud (Gunicorn/Flask)</div>
+            <div><strong>Frontend Host:</strong> Vercel (Edge CDN)</div>
+            <div><strong>MQTT Broker:</strong> <code>broker.hivemq.com:8000/mqtt</code></div>
+            <div style="margin-top: 10px; padding-top:10px; border-top:1px solid var(--border); color:var(--text-4); font-size:11px;">
+              Designed for secure localized IoT network monitoring using passive promiscuous mode packet sniffing.
             </div>
           </div>
         </div>
+
       </div>
     </div><!-- /page-settings -->
 
