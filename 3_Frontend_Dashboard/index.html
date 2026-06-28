@@ -134,11 +134,11 @@
           <div class="panel-header">
             <div class="panel-title">Live Traffic Analysis</div>
             <div class="panel-meta">
-              <span class="chart-legend-item" style="color:#2563eb">&#9679; Total Traffic</span>
+              <span class="chart-legend-item" style="color:#2563eb">&#9679; Normal Traffic</span>
               <span class="chart-legend-item" style="color:#dc2626">&#9679; Malicious Traffic</span>
               <div class="chart-live-stats">
-                <span id="live-pps" style="color:#2563eb;font-weight:600">0 pps</span>
-                <span id="live-attack-pps" style="color:#dc2626;font-weight:600">0 pps</span>
+                <span id="live-pps" style="color:#2563eb;font-weight:600;font-family:var(--font-mono)">0 pps</span>
+                <span id="live-attack-pps" style="color:#dc2626;font-weight:600;font-family:var(--font-mono)">0 pps</span>
                 <span id="live-badge" class="badge badge-green">&#x25cf; LIVE</span>
               </div>
             </div>
@@ -216,7 +216,7 @@
               <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
             </span>
           </div>
-          <div class="stat-value" id="sc-devices">3 / 3</div>
+          <div class="stat-value" id="sc-devices">0 / 3</div>
           <div class="stat-sub" id="sc-devices-sub">All nominal</div>
         </div>
       </div>
@@ -427,8 +427,8 @@
               </div>
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
-              <button class="btn btn-primary" onclick="injectMqttAttack('DDoS',50,0)" style="font-size:12px;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="injectMqttAttack('DDoS',200,0)" style="font-size:12px; background:var(--red); color:#fff;">⚡ Burst 200</button>
+              <button class="btn" onclick="injectMqttAttack('DDoS',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('DDoS',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
@@ -442,8 +442,8 @@
               </div>
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
-              <button class="btn btn-primary" onclick="injectMqttAttack('DoS',50,0)" style="font-size:12px;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="injectMqttAttack('DoS',200,0)" style="font-size:12px; background:var(--red); color:#fff;">⚡ Burst 200</button>
+              <button class="btn" onclick="injectMqttAttack('DoS',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('DoS',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
@@ -457,8 +457,8 @@
               </div>
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
-              <button class="btn btn-primary" onclick="injectMqttAttack('Mirai',50,0)" style="font-size:12px;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="injectMqttAttack('Mirai',200,0)" style="font-size:12px; background:var(--red); color:#fff;">⚡ Burst 200</button>
+              <button class="btn" onclick="injectMqttAttack('Mirai',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('Mirai',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
@@ -472,8 +472,8 @@
               </div>
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
-              <button class="btn btn-primary" onclick="injectMqttAttack('Spoofing',50,0)" style="font-size:12px;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="injectMqttAttack('Spoofing',200,0)" style="font-size:12px; background:var(--red); color:#fff;">⚡ Burst 200</button>
+              <button class="btn" onclick="injectMqttAttack('Spoofing',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('Spoofing',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
@@ -487,8 +487,8 @@
               </div>
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
-              <button class="btn btn-primary" onclick="injectMqttAttack('Recon',50,0)" style="font-size:12px;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="injectMqttAttack('Recon',200,0)" style="font-size:12px; background:var(--red); color:#fff;">⚡ Burst 200</button>
+              <button class="btn" onclick="injectMqttAttack('Recon',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('Recon',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
@@ -624,12 +624,12 @@
               <table class="data-table">
                 <thead><tr><th>Class</th><th>Type</th><th>Precision</th><th>Recall</th><th>F1-Score</th><th>Support (Test)</th></tr></thead>
                 <tbody>
-                  <tr><td><span class="badge badge-green">BenignTraffic</span></td><td>Normal</td><td>0.99</td><td>1.00</td><td>0.99</td><td class="mono">245,102</td></tr>
-                  <tr><td><span class="badge badge-red">DDoS-UDP_Flood</span></td><td>Flood</td><td>1.00</td><td>0.99</td><td>0.99</td><td class="mono">112,045</td></tr>
-                  <tr><td><span class="badge badge-orange">DoS-SYN_Flood</span></td><td>Flood</td><td>0.98</td><td>0.99</td><td>0.98</td><td class="mono">95,833</td></tr>
-                  <tr><td><span class="badge badge-purple">Mirai-Greeth_Flood</span></td><td>Botnet</td><td>0.99</td><td>0.98</td><td>0.98</td><td class="mono">88,211</td></tr>
-                  <tr><td><span class="badge badge-pink">MITM-ArpSpoofing</span></td><td>Spoofing</td><td>0.96</td><td>0.97</td><td>0.96</td><td class="mono">42,109</td></tr>
-                  <tr><td><span class="badge badge-yellow">Recon-PortScan</span></td><td>Recon</td><td>0.97</td><td>0.96</td><td>0.96</td><td class="mono">39,444</td></tr>
+                  <tr><td><span class="badge badge-green">BenignTraffic</span></td><td>Normal</td><td>0.992</td><td>0.995</td><td>0.993</td><td class="mono">245,102</td></tr>
+                  <tr><td><span class="badge badge-red">DDoS-UDP_Flood</span></td><td>Flood</td><td>0.998</td><td>0.999</td><td>0.998</td><td class="mono">112,045</td></tr>
+                  <tr><td><span class="badge badge-orange">DoS-SYN_Flood</span></td><td>Flood</td><td>0.985</td><td>0.981</td><td>0.983</td><td class="mono">95,833</td></tr>
+                  <tr><td><span class="badge badge-purple">Mirai-Greeth_Flood</span></td><td>Botnet</td><td>0.994</td><td>0.997</td><td>0.995</td><td class="mono">88,211</td></tr>
+                  <tr><td><span class="badge badge-pink">MITM-ArpSpoofing</span></td><td>Spoofing</td><td>0.958</td><td>0.962</td><td>0.960</td><td class="mono">42,109</td></tr>
+                  <tr><td><span class="badge badge-yellow">Recon-PortScan</span></td><td>Recon</td><td>0.971</td><td>0.969</td><td>0.970</td><td class="mono">39,444</td></tr>
                 </tbody>
               </table>
             </div>
@@ -637,26 +637,46 @@
           
           <div class="panel">
              <div class="panel-header"><div class="panel-title">Feature Importance (Top 5)</div></div>
-             <div style="padding: 20px;">
-                <div style="margin-bottom: 12px;">
-                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>1. packet_rate (Pkts/sec)</span><span>32.4%</span></div>
-                   <div style="width:100%; height:8px; background:var(--surface-2); border-radius:4px;"><div style="width:32.4%; height:100%; background:var(--primary); border-radius:4px;"></div></div>
+             <div style="padding: 24px;">
+                <div class="feature-bar-wrap" style="margin-bottom: 20px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; font-weight:600; color:var(--text-1);">
+                     <span>1. packet_rate (Pkts/sec)</span><span style="color:var(--primary);">32.4%</span>
+                   </div>
+                   <div style="width:100%; height:12px; background:var(--surface-2); border-radius:6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                     <div style="width:32.4%; height:100%; background:linear-gradient(90deg, #3b82f6, #60a5fa); border-radius:6px; transition: width 1s ease-out;"></div>
+                   </div>
                 </div>
-                <div style="margin-bottom: 12px;">
-                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>2. avg_packet_size (Bytes)</span><span>28.1%</span></div>
-                   <div style="width:100%; height:8px; background:var(--surface-2); border-radius:4px;"><div style="width:28.1%; height:100%; background:var(--primary); border-radius:4px;"></div></div>
+                <div class="feature-bar-wrap" style="margin-bottom: 20px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; font-weight:600; color:var(--text-1);">
+                     <span>2. avg_packet_size (Bytes)</span><span style="color:var(--primary);">28.1%</span>
+                   </div>
+                   <div style="width:100%; height:12px; background:var(--surface-2); border-radius:6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                     <div style="width:28.1%; height:100%; background:linear-gradient(90deg, #10b981, #34d399); border-radius:6px; transition: width 1s ease-out;"></div>
+                   </div>
                 </div>
-                <div style="margin-bottom: 12px;">
-                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>3. rst_count (TCP RSTs)</span><span>15.3%</span></div>
-                   <div style="width:100%; height:8px; background:var(--surface-2); border-radius:4px;"><div style="width:15.3%; height:100%; background:var(--primary); border-radius:4px;"></div></div>
+                <div class="feature-bar-wrap" style="margin-bottom: 20px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; font-weight:600; color:var(--text-1);">
+                     <span>3. rst_count (TCP RSTs)</span><span style="color:var(--primary);">15.3%</span>
+                   </div>
+                   <div style="width:100%; height:12px; background:var(--surface-2); border-radius:6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                     <div style="width:15.3%; height:100%; background:linear-gradient(90deg, #f59e0b, #fbbf24); border-radius:6px; transition: width 1s ease-out;"></div>
+                   </div>
                 </div>
-                <div style="margin-bottom: 12px;">
-                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>4. iat_mean (Inter-Arrival Time)</span><span>12.8%</span></div>
-                   <div style="width:100%; height:8px; background:var(--surface-2); border-radius:4px;"><div style="width:12.8%; height:100%; background:var(--primary); border-radius:4px;"></div></div>
+                <div class="feature-bar-wrap" style="margin-bottom: 20px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; font-weight:600; color:var(--text-1);">
+                     <span>4. iat_mean (Inter-Arrival Time)</span><span style="color:var(--primary);">12.8%</span>
+                   </div>
+                   <div style="width:100%; height:12px; background:var(--surface-2); border-radius:6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                     <div style="width:12.8%; height:100%; background:linear-gradient(90deg, #8b5cf6, #a78bfa); border-radius:6px; transition: width 1s ease-out;"></div>
+                   </div>
                 </div>
-                <div>
-                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>5. syn_count (TCP SYNs)</span><span>8.5%</span></div>
-                   <div style="width:100%; height:8px; background:var(--surface-2); border-radius:4px;"><div style="width:8.5%; height:100%; background:var(--primary); border-radius:4px;"></div></div>
+                <div class="feature-bar-wrap">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; font-weight:600; color:var(--text-1);">
+                     <span>5. syn_count (TCP SYNs)</span><span style="color:var(--primary);">8.5%</span>
+                   </div>
+                   <div style="width:100%; height:12px; background:var(--surface-2); border-radius:6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                     <div style="width:8.5%; height:100%; background:linear-gradient(90deg, #ec4899, #f472b6); border-radius:6px; transition: width 1s ease-out;"></div>
+                   </div>
                 </div>
              </div>
           </div>
@@ -694,8 +714,8 @@
             <div class="form-row">
               <label>Theme Mode</label>
               <select id="setting-theme" class="ctrl-select" onchange="applyThemeSetting()">
-                <option value="dark">Dark Mode (Default)</option>
-                <option value="light">Light Mode</option>
+                <option value="light">Light Mode (Default)</option>
+                <option value="dark">Dark Mode</option>
               </select>
             </div>
             <div class="form-row" style="margin-top: 15px;">
@@ -728,32 +748,26 @@
 
       <div class="two-col-row" style="align-items:flex-start">
 
-        <!-- Alert Thresholds -->
+        <!-- Telegram Notifications -->
         <div class="panel" style="flex:1">
-          <div class="panel-header"><div class="panel-title">Threat Escalation Policy</div></div>
+          <div class="panel-header"><div class="panel-title">Telegram Notifications</div></div>
           <div class="settings-form">
             <div class="form-row">
-              <label>MEDIUM Escalation Window</label>
-              <div style="display:flex; align-items:center; gap:10px; width:100%;">
-                <input type="range" id="set-med-sec" min="2" max="15" value="6" style="flex:1;" oninput="document.getElementById('val-med-sec').textContent=this.value+'s'" />
-                <span id="val-med-sec" style="font-family:monospace; font-size:13px; width:30px;">6s</span>
-              </div>
+              <label>Bot API Token</label>
+              <input type="password" id="setting-telegram-token" class="ctrl-input" placeholder="1234567890:AAH..." />
             </div>
             <div class="form-row">
-              <label>HIGH Escalation Window</label>
+              <label>Chat ID</label>
+              <input type="text" id="setting-telegram-chat" class="ctrl-input" placeholder="-100123456..." />
+            </div>
+            <div class="form-row" style="margin-top:8px;">
+              <label>Alert Trigger Delay (Seconds)</label>
               <div style="display:flex; align-items:center; gap:10px; width:100%;">
-                <input type="range" id="set-high-sec" min="10" max="45" value="15" style="flex:1;" oninput="document.getElementById('val-high-sec').textContent=this.value+'s'" />
-                <span id="val-high-sec" style="font-family:monospace; font-size:13px; width:30px;">15s</span>
+                <input type="range" id="set-med-sec" min="1" max="10" value="5" style="flex:1;" oninput="document.getElementById('val-med-sec').textContent=this.value+'s'" />
+                <span id="val-med-sec" style="font-family:monospace; font-size:13px; width:30px;">5s</span>
               </div>
             </div>
-            <div class="form-row">
-              <label>CRITICAL Escalation Window</label>
-              <div style="display:flex; align-items:center; gap:10px; width:100%;">
-                <input type="range" id="set-crit-sec" min="20" max="120" value="30" style="flex:1;" oninput="document.getElementById('val-crit-sec').textContent=this.value+'s'" />
-                <span id="val-crit-sec" style="font-family:monospace; font-size:13px; width:30px;">30s</span>
-              </div>
-            </div>
-            <button class="btn btn-primary" onclick="saveEscalationSettings()" style="margin-top:8px;">Save Thresholds</button>
+            <button class="btn btn-primary" onclick="saveTelegramSettings()" style="margin-top:12px;">Save Alert Policy</button>
           </div>
         </div>
 

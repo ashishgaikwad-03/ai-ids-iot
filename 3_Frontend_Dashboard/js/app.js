@@ -1888,7 +1888,7 @@ if (typeof originalOnPacket === 'function') {
 
 // 4. Settings Implementations
 window.applyThemeSetting = function() {
-  const theme = document.getElementById('setting-theme')?.value || 'dark';
+  const theme = document.getElementById('setting-theme')?.value || 'light';
   if (theme === 'dark') {
     document.body.classList.add('dark-mode');
   } else {
@@ -1958,22 +1958,19 @@ window.saveHardwareSettings = function() {
   alert("Hardware endpoints updated successfully.");
 };
 
-window.saveEscalationSettings = function() {
-  const med = parseInt(document.getElementById('set-med-sec')?.value || 6);
-  const high = parseInt(document.getElementById('set-high-sec')?.value || 15);
-  const crit = parseInt(document.getElementById('set-crit-sec')?.value || 30);
+window.saveTelegramSettings = function() {
+  const token = document.getElementById('setting-telegram-token')?.value || '';
+  const chat = document.getElementById('setting-telegram-chat')?.value || '';
+  const delay = parseInt(document.getElementById('set-med-sec')?.value || 5);
   
-  if (med >= high || high >= crit) {
-    alert("Invalid thresholds. Ensure MEDIUM < HIGH < CRITICAL.");
-    return;
+  if (token && chat) {
+    localStorage.setItem('tg_token', token);
+    localStorage.setItem('tg_chat', chat);
+    localStorage.setItem('tg_delay', delay);
+    alert('Telegram Alert Policy Saved!');
+  } else {
+    alert('Please enter valid Bot Token and Chat ID');
   }
-  
-  STATE.settings.medSec = med;
-  STATE.settings.highSec = high;
-  STATE.settings.critSec = crit;
-  
-  updateHeaderStats(); // Refresh logic immediately
-  alert("Escalation rules updated.");
 };
 
 // Initialize settings fields on load
