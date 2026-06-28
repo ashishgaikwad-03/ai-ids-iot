@@ -325,9 +325,9 @@
                 <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">Normal PPS</div>
                 <div style="font-size:18px; font-weight:600; color:var(--text-1); font-family:var(--font-mono);">~20</div>
               </div>
-              <div style="background:var(--red-bg); padding:10px; border-radius:var(--radius-sm); border:1px solid rgba(239, 68, 68, 0.2);">
-                <div style="font-size:11px; color:var(--red-text); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">Current PPS</div>
-                <div style="font-size:18px; font-weight:600; color:var(--red-text); font-family:var(--font-mono);" id="base-cur-pps">0</div>
+              <div style="background:var(--surface-2); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">Current PPS</div>
+                <div style="font-size:18px; font-weight:600; color:var(--text-1); font-family:var(--font-mono);" id="base-cur-pps">0</div>
               </div>
             </div>
             <div style="margin-top:12px; display:flex; align-items:center; gap:8px;">
@@ -338,8 +338,35 @@
         </div>
       </div>
 
+      <!-- Explainable AI (XAI) Panel -->
+      <div class="panel" style="margin-top:20px;">
+        <div class="panel-header">
+          <div class="panel-title">Explainable AI (XAI) - Latest Prediction</div>
+          <span class="badge badge-primary">SHAP Heuristics</span>
+        </div>
+        <div style="padding:20px; display:flex; gap:24px; align-items:center;">
+          <div style="flex:1; border-right:1px solid var(--border); padding-right:24px;">
+            <div style="font-size:12px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;">Verdict</div>
+            <div style="font-size:24px; font-weight:700; color:var(--text-3);" id="xai-prediction">Awaiting Data...</div>
+            <div style="margin-top:12px; display:flex; align-items:center; gap:8px;">
+              <span style="font-size:13px; color:var(--text-2);">Confidence:</span>
+              <span style="font-size:14px; font-weight:600; color:var(--text-1);" id="xai-confidence">--%</span>
+            </div>
+            <div style="margin-top:8px; font-size:13px; color:var(--text-2);">
+              <span style="font-weight:600;">Detection Reason:</span> <span id="xai-reason">--</span>
+            </div>
+          </div>
+          <div style="flex:2;">
+            <div style="font-size:12px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px;">Top Contributing Features</div>
+            <div id="xai-features" style="display:flex; flex-direction:column; gap:10px;">
+              <div style="font-size:13px; color:var(--text-4); font-style:italic;">No prediction available yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Recent Detections -->
-      <div class="panel">
+      <div class="panel" style="margin-top:20px;">
         <div class="panel-header">
           <div class="panel-title">Recent Detections</div>
           <span class="text-muted" id="detections-count">0 records</span>
@@ -357,32 +384,6 @@
               <tr><td colspan="7" class="empty-cell">Awaiting packets...</td></tr>
             </tbody>
           </table>
-        </div>
-      </div>
-      <!-- Explainable AI (XAI) Panel -->
-      <div class="panel" style="margin-top:20px;">
-        <div class="panel-header">
-          <div class="panel-title">Explainable AI (XAI) - Latest Prediction</div>
-          <span class="badge badge-primary">SHAP Heuristics</span>
-        </div>
-        <div style="padding:20px; display:flex; gap:24px; align-items:center;">
-          <div style="flex:1; border-right:1px solid var(--border); padding-right:24px;">
-            <div style="font-size:12px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;">Verdict</div>
-            <div style="font-size:24px; font-weight:700; color:var(--red);" id="xai-prediction">Awaiting Data...</div>
-            <div style="margin-top:12px; display:flex; align-items:center; gap:8px;">
-              <span style="font-size:13px; color:var(--text-2);">Confidence:</span>
-              <span style="font-size:14px; font-weight:600; color:var(--text-1);" id="xai-confidence">--%</span>
-            </div>
-            <div style="margin-top:8px; font-size:13px; color:var(--text-2);">
-              <span style="font-weight:600;">Detection Reason:</span> <span id="xai-reason">--</span>
-            </div>
-          </div>
-          <div style="flex:2;">
-            <div style="font-size:12px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px;">Top Contributing Features</div>
-            <div id="xai-features" style="display:flex; flex-direction:column; gap:10px;">
-              <div style="font-size:13px; color:var(--text-4); font-style:italic;">No prediction available yet.</div>
-            </div>
-          </div>
         </div>
       </div>
     </div><!-- /page-dashboard -->
