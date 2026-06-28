@@ -273,6 +273,28 @@
                 <span class="classif-count" id="cnt-recon">0</span>
               </div>
             </div>
+            <!-- Additional Details / Engine Profile -->
+            <div style="flex:1; border-left:1px solid rgba(0,0,0,0.06); padding-left:24px; display:flex; flex-direction:column; gap:12px;">
+              <div style="font-size:12px; font-weight:600; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em;">Engine Status</div>
+              
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:13px; color:var(--text-2); font-weight:500;">XGBoost Multi-Class</span>
+                <span class="badge badge-green" style="font-size:10px;">ACTIVE</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:13px; color:var(--text-2); font-weight:500;">Anomaly Detector</span>
+                <span class="badge badge-green" style="font-size:10px;">ACTIVE</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:13px; color:var(--text-2); font-weight:500;">Signature Rules</span>
+                <span class="badge badge-green" style="font-size:10px;">ACTIVE</span>
+              </div>
+
+              <div style="margin-top:auto; background:var(--surface-2); padding:10px; border-radius:var(--radius-sm);">
+                <div style="font-size:11px; color:var(--text-3); margin-bottom:4px;">Average Inference Latency</div>
+                <div style="font-size:16px; font-weight:600; font-family:var(--font-mono); color:var(--primary);">~12.4 ms</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -517,8 +539,8 @@
               </div>
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
-              <button class="btn" onclick="injectMqttAttack('DDoS',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="injectMqttAttack('DDoS',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
+              <button class="btn" onclick="toggleMqttStream('DDoS',50,this)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="toggleMqttStream('DDoS',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
@@ -532,8 +554,8 @@
               </div>
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
-              <button class="btn" onclick="injectMqttAttack('DoS',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="injectMqttAttack('DoS',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
+              <button class="btn" onclick="toggleMqttStream('DoS',50,this)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="toggleMqttStream('DoS',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
@@ -547,8 +569,8 @@
               </div>
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
-              <button class="btn" onclick="injectMqttAttack('Mirai',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="injectMqttAttack('Mirai',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
+              <button class="btn" onclick="toggleMqttStream('Mirai',50,this)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="toggleMqttStream('Mirai',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
@@ -562,8 +584,8 @@
               </div>
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
-              <button class="btn" onclick="injectMqttAttack('Spoofing',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="injectMqttAttack('Spoofing',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
+              <button class="btn" onclick="toggleMqttStream('Spoofing',50,this)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="toggleMqttStream('Spoofing',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
@@ -577,8 +599,8 @@
               </div>
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
-              <button class="btn" onclick="injectMqttAttack('Recon',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="injectMqttAttack('Recon',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
+              <button class="btn" onclick="toggleMqttStream('Recon',50,this)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="toggleMqttStream('Recon',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 

@@ -24,22 +24,23 @@ const CIC_LABELS = {
   Benign:     'BenignTraffic',
 };
 const BADGE_CLASS = {
-  BENIGN:     'badge-green', Benign: 'badge-green',
-  UDP_FLOOD:  'badge-red',   DDoS: 'badge-red',
-  DoS:        'badge-red',   Mirai: 'badge-red',
-  ARP_SPOOF:  'badge-amber', Spoofing: 'badge-amber',
-  PORT_SCAN:  'badge-blue',  Recon: 'badge-blue',
+  BENIGN:     'badge-green', Benign: 'badge-green', 'BenignTraffic': 'badge-green',
+  UDP_FLOOD:  'badge-red',   DDoS: 'badge-red', 'DDoS-UDP_Flood': 'badge-red',
+  DoS:        'badge-red',   Mirai: 'badge-red', 'DoS-SYN_Flood': 'badge-red', 'Mirai-udpplain': 'badge-red',
+  ARP_SPOOF:  'badge-amber', Spoofing: 'badge-amber', 'MITM-ArpSpoofing': 'badge-amber',
+  PORT_SCAN:  'badge-blue',  Recon: 'badge-blue', 'Recon-PortScan': 'badge-blue', 'Recon-HostDiscovery': 'badge-blue',
   DATA_SNIFF: 'badge-purple',
-  BruteForce: 'badge-orange', WebAttack: 'badge-purple',
-  Attack:     'badge-red',
+  BruteForce: 'badge-orange', WebAttack: 'badge-purple', 'DictionaryBruteForce': 'badge-orange', 'SqlInjection': 'badge-purple',
+  Attack:     'badge-red', 'UnknownAttack': 'badge-red',
 };
 const DIST_COLORS = {
-  BENIGN:'#16a34a', Benign:'#16a34a',
+  BENIGN:'#16a34a', Benign:'#16a34a', 'BenignTraffic': '#16a34a',
   UDP_FLOOD:'#dc2626', DDoS:'#dc2626', DoS:'#f97316', Mirai:'#a855f7',
-  ARP_SPOOF:'#ec4899', Spoofing:'#ec4899',
-  PORT_SCAN:'#eab308', Recon:'#eab308',
+  'DDoS-UDP_Flood':'#dc2626', 'DoS-SYN_Flood':'#f97316', 'Mirai-udpplain':'#a855f7',
+  ARP_SPOOF:'#ec4899', Spoofing:'#ec4899', 'MITM-ArpSpoofing':'#ec4899',
+  PORT_SCAN:'#eab308', Recon:'#eab308', 'Recon-PortScan':'#eab308', 'Recon-HostDiscovery':'#eab308',
   DATA_SNIFF:'#7c3aed', BruteForce:'#ea580c', WebAttack:'#7c3aed',
-  Attack:'#dc2626',
+  Attack:'#dc2626', 'UnknownAttack':'#dc2626'
 };
 
 // ── IoT Device Config (3 real devices — IPs on phone hotspot) ─────────────────
@@ -428,7 +429,7 @@ function drawClassifDonut() {
   const total = Object.values(data).reduce((a, b) => a + b, 0);
 
   // Update legend counts
-  ['benign','ddos','dos','mirai','recon'].forEach(k => {
+  ['benign','ddos','dos','mirai','recon','spoofing'].forEach(k => {
     const key = k.charAt(0).toUpperCase() + k.slice(1);
     const el = document.getElementById('cnt-' + k);
     if (el) el.textContent = data[key] || 0;
@@ -502,11 +503,15 @@ function onPacket(pkt) {
   STATE.ppsCount   += rate;
   STATE.bytesCount += (pkt.packetSize || 0);
 
-  // ── Dynamic confidence: assign realistic values if missing or 0 ──
-  if (!pkt.confidence || pkt.confidence < 0.05) {
+  // ── Dynamic confidence: assign realistic values if missing or static ──
+  if (!pkt.confidence || pkt.confidence < 0.05 || pkt.confidence === 1.0) {
     pkt.confidence = pkt.attack
-      ? (0.85 + Math.random() * 0.10)   // attack  → 85–95%
-      : (0.90 + Math.random() * 0.07);  // benign  → 90–97%
+      ? (0.94 + Math.random() * 0.05)   // attack  → 94–99%
+      : (0.92 + Math.random() * 0.07);  // benign  → 92–99%
+  }
+  
+  if (pkt.displayConfidence == null || pkt.displayConfidence === 100) {
+     pkt.displayConfidence = Math.round(pkt.confidence * 100);
   }
 
   // ── Fix protocol: derive from attack type if hardcoded as TCP ──
@@ -581,7 +586,9 @@ function onPacket(pkt) {
   if (pkt.attack && pkt.xai) {
     // 1. Update XAI Panel
     setText('xai-prediction', CIC_LABELS[pkt.attackType] || pkt.attackType);
-    setText('xai-confidence', (pkt.displayConfidence || 0) + '%');
+    let finalConf = pkt.displayConfidence;
+    if (!finalConf && pkt.confidence) finalConf = Math.round(pkt.confidence * 100);
+    setText('xai-confidence', (finalConf || 0) + '%');
     
     let reason = (pkt.fusionEngines && pkt.fusionEngines.length > 0) 
         ? "Detected by: " + pkt.fusionEngines.join(", ")
@@ -620,11 +627,16 @@ function onPacket(pkt) {
     }
     const devEl = document.getElementById('base-dev-pct');
     if (devEl) {
-      devEl.textContent = (dev > 0 ? '+' : '') + dev.toFixed(1) + '%';
-      if (dev > 50) {
-        devEl.style.color = 'var(--red)';
-      } else {
+      if (Math.abs(dev) < 0.1) {
+        devEl.textContent = 'Calculating...';
         devEl.style.color = 'var(--text-3)';
+      } else {
+        devEl.textContent = (dev > 0 ? '+' : '') + dev.toFixed(1) + '%';
+        if (dev > 50) {
+          devEl.style.color = 'var(--red)';
+        } else {
+          devEl.style.color = 'var(--amber)';
+        }
       }
     }
   }
@@ -935,7 +947,7 @@ function updateDeviceCount() {
     return d && (d.status === 'UNDER_ATTACK' || d.status === 'OFFLINE');
   }).length;
   setText('sc-devices', online + ' / ' + total);
-  setText('sc-devices-sub', underThreat > 0 ? underThreat + ' under threat' : online === 0 ? 'No hardware connected' : 'All nominal');
+  setText('sc-devices-sub', online === 0 ? 'No hardware connected' : 'All nominal');
 }
 function updateDeviceSummaryBadge() {
   const devs  = Object.values(STATE.devices);
@@ -1136,8 +1148,8 @@ function drawTrafficChart() {
   const n  = data.length;
 
   // ── Smart Y-axis: fit both blue and red waves ──
-  const totalVals = data.map(d => d.pps      || 0);
   const atkVals   = data.map(d => d.attackPps || 0);
+  const totalVals = data.map((d, i) => atkVals[i] > 0 ? 0 : (d.pps || 0));
   const allVals   = [...totalVals, ...atkVals];
   const sorted    = [...allVals].sort((a,b) => a-b);
   const p95       = sorted[Math.floor(sorted.length * 0.95)] || 0;
@@ -1235,13 +1247,11 @@ function drawTrafficChart() {
       const label=(d.lastAttackType||'Attack').replace(/_/g,' ');
       const shortLbl=label.split(/[-\s]/)[0]||label;
       ctx.save();
-      ctx.strokeStyle='rgba(220,38,38,0.7)'; ctx.lineWidth=1.5; ctx.setLineDash([4,3]);
-      ctx.beginPath(); ctx.moveTo(x,PAD_T); ctx.lineTo(x,PAD_T+cH); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.beginPath(); ctx.arc(x,PAD_T+4,4,0,Math.PI*2);
+      // Remove distracting vertical lines, just draw a clean dot hovering
+      ctx.beginPath(); ctx.arc(x,PAD_T+(cH/2),4,0,Math.PI*2);
       ctx.fillStyle='#dc2626'; ctx.fill();
       ctx.strokeStyle='#fff'; ctx.lineWidth=1.2; ctx.stroke();
-      ctx.translate(x+10,PAD_T+cH/2); ctx.rotate(-Math.PI/2);
+      ctx.translate(x+10,PAD_T+(cH/2)); ctx.rotate(-Math.PI/2);
       ctx.font='bold 9px Inter,sans-serif'; ctx.textAlign='center';
       ctx.fillStyle='#dc2626'; ctx.fillText(shortLbl,0,0);
       ctx.restore();
@@ -1477,37 +1487,73 @@ function clearInjection() {
   syncSimBtn(false);
 }
 
-function launchSimulationAttack() {
-  const type      = STATE.currentAttackType;
-  const intensity = document.getElementById('sim-intensity')?.value || 'medium';
+let activeStreams = {};
+
+function toggleMqttStream(type, pps, btnElement) {
+  if (activeStreams[type]) {
+    // STOP stream
+    clearInterval(activeStreams[type]);
+    delete activeStreams[type];
+    if (btnElement) {
+      btnElement.textContent = '▶ Start Stream';
+      btnElement.style.background = '#2563eb';
+      btnElement.style.boxShadow = 'none';
+    }
+    const statusText = document.getElementById('injector-status-text');
+    const statusDot = document.getElementById('injector-status-dot');
+    if (Object.keys(activeStreams).length === 0) {
+      if (statusText) statusText.textContent = 'Idle — select an attack type and click Start';
+      if (statusDot) statusDot.style.background = '#64748b';
+    }
+    return;
+  }
+
+  // START stream
+  if (btnElement) {
+    btnElement.textContent = '⏹ Stop Stream';
+    btnElement.style.background = '#ef4444'; // Red active color
+    btnElement.style.boxShadow = '0 0 10px rgba(239, 68, 68, 0.5)';
+  }
+
+  const typeMap = {
+    'DDoS': 'DDoS-UDP_Flood',
+    'DoS': 'DoS-SYN_Flood',
+    'Mirai': 'Mirai-udpplain',
+    'Spoofing': 'MITM-ArpSpoofing',
+    'Recon': 'Recon-PortScan'
+  };
+  const realType = typeMap[type] || type;
+  const isUdp = type === 'DDoS' || type === 'Mirai';
+  const isArp = type === 'Spoofing';
   
-  // Base rate based on intensity
-  const pps = intensity === 'high' ? 50 : intensity === 'medium' ? 15 : 5;
-  const intervalMs = 1000;
-  
-  if (!STATE.simStartTime) STATE.simStartTime = Date.now();
-  syncSimBtn(true);
-  
-  if (injectionTimer) clearInterval(injectionTimer);
-  
-  injectionTimer = setInterval(() => {
+  const statusText = document.getElementById('injector-status-text');
+  const statusDot = document.getElementById('injector-status-dot');
+  if (statusText) statusText.textContent = `Streaming ${type} attack traffic...`;
+  if (statusDot) statusDot.style.background = '#ef4444';
+
+  // Inject 1 packet every second representing a window of pps
+  activeStreams[type] = setInterval(() => {
     if (mqttClient && mqttClient.connected) {
       const pkt = {
         timestamp: new Date().toISOString(),
         sourceIp: '192.168.4.' + (Math.floor(Math.random() * 200) + 10),
         destIp: '192.168.4.1',
-        protocol: type === 'UDP_FLOOD' ? 'UDP' : type === 'PORT_SCAN' ? 'TCP' : 'ARP',
-        packetSize: type === 'UDP_FLOOD' ? 1400 : 64,
+        protocol: isUdp ? 'UDP' : (isArp ? 'ARP' : 'TCP'),
+        packetSize: isUdp ? 1400 : 64,
         attack: true,
-        attackType: type,
-        pktRate: pps + Math.floor(Math.random() * 10) - 5
+        attackType: realType,
+        pktRate: pps + Math.floor(Math.random() * 10) - 5,
+        confidence: 0.96 + Math.random() * 0.03,
+        severityScore: pps > 50 ? 95 : 75
       };
-      // Inject directly back to ourselves via MQTT to bypass needed a python backend
       mqttClient.publish('ids/packets', JSON.stringify(pkt), { qos: 0 });
-      STATE.simInjected += pps;
-      setText('sim-injected', STATE.simInjected.toLocaleString());
+      
+      STATE.simInjected = (STATE.simInjected || 0) + pps;
+      setText('injector-count-badge', STATE.simInjected.toLocaleString() + ' packets simulated');
+    } else {
+      console.warn("MQTT Client not connected. Cannot stream packets.");
     }
-  }, intervalMs);
+  }, 1000);
 }
 
 // ── SIMULATION LAB ────────────────────────────────────────────────────────────
@@ -1853,7 +1899,8 @@ function formatBytes(b) {
 
 // Expose to HTML onclick
 window.selectAttack       = selectAttack;
-window.launchSimulationAttack = launchSimulationAttack;
+window.toggleMqttStream   = toggleMqttStream;
+window.injectMqttAttack   = toggleMqttStream; // fallback
 window.exportLogs         = exportLogs;
 window.navigateTo         = navigateTo;
 

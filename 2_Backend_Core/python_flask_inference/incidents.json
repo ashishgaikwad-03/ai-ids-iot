@@ -1,0 +1,26 @@
+[
+    {
+        "id": "C5861043",
+        "timestamp": "2026-06-28 14:54:29",
+        "type": "DoS",
+        "duration_sec": 16.1,
+        "severity": 100.0,
+        "status": "Active"
+    },
+    {
+        "id": "D3B18EA3",
+        "timestamp": "2026-06-28 14:52:43",
+        "type": "DoS",
+        "duration_sec": 16.3,
+        "severity": 100.0,
+        "status": "Active"
+    },
+    {
+        "id": "3E7FC36A",
+        "timestamp": "2026-06-28 14:49:15",
+        "type": "DoS",
+        "duration_sec": 8.1,
+        "severity": 100.0,
+        "status": "Active"
+    }
+]
