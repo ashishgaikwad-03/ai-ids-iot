@@ -397,22 +397,22 @@ def analyze():
         }
 
         try:
-            if is_attack:
+            if final_is_attack:
                 publish_mqtt("ids/alerts", json.dumps(alert_payload))
             publish_mqtt("ids/packets", json.dumps(alert_payload))
         except Exception as e:
             print(f"Failed to publish to MQTT: {e}")
 
         # -- Sustained Attack Tracker (Telegram fires after 5s) --
-        if is_attack:
+        if final_is_attack:
             now = time.time()
             if not attack_state["active"]:
                 attack_state["active"] = True
                 attack_state["start_time"] = now
                 attack_state["alert_fired"] = False
-                attack_state["type"] = attack_type
+                attack_state["type"] = final_attack_type
                 attack_state["confidence"] = display_confidence
-                print(f"[ATTACK START] {attack_type} @ {display_confidence}%")
+                print(f"[ATTACK START] {final_attack_type} @ {display_confidence}%")
             attack_state["last_seen"] = now
             attack_state["type"] = final_attack_type
             attack_state["confidence"] = display_confidence

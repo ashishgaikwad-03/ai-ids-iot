@@ -1809,7 +1809,7 @@ function showAnalysisResults(data) {
 const PAGE_TITLES = {
   dashboard: 'Dashboard', logs: 'Traffic Logs', devices: 'IoT Devices',
   simlab: 'Simulation Lab', analysis: 'File Analysis',
-  analytics: 'AI Analytics', settings: 'Settings',
+  analytics: 'AI Analytics', incidents: 'Incident Center', settings: 'Settings',
 };
 const PAGE_SUBS = {
   dashboard: 'Real-time network monitoring · CIC-IoT 2023 · XGBoost Classifier',
@@ -1818,6 +1818,7 @@ const PAGE_SUBS = {
   simlab:    'Cyberattack simulation · AI detection analysis · CIC-IoT 2023 scenarios',
   analysis:  'Offline AI-powered threat detection on uploaded capture files',
   analytics: 'XGBoost model statistics · CIC-IoT 2023 dataset performance',
+  incidents: 'Incident Response Center · Active Alert Management',
   settings:  'Configure simulation and network parameters',
 };
 
@@ -2073,9 +2074,11 @@ function switchSettingsTab(tabId) {
 
 
 // ─── INCIDENT RESPONSE CENTER ────────────────────────────────────────────────
+const BACKEND_BASE = 'https://ai-ids-iot-8y4f.onrender.com';
+
 async function fetchIncidents() {
   try {
-    const res = await fetch('http://127.0.0.1:5000/api/incidents');
+    const res = await fetch(BACKEND_BASE + '/api/incidents');
     const json = await res.json();
     if (json.status === 'success') {
       renderIncidents(json.data || []);
@@ -2134,18 +2137,34 @@ function renderIncidents(incidents) {
 
 async function resolveIncident(id) {
   try {
-    const res = await fetch(`http://127.0.0.1:5000/api/incidents/${id}/resolve`, { method: 'POST' });
+    const res = await fetch(`${BACKEND_BASE}/api/incidents/${id}/resolve`, { method: 'POST' });
     if (res.ok) fetchIncidents();
   } catch (e) {
     console.error("Failed to resolve incident", e);
   }
 }
 
-// Fetch on load
+// Trigger incident fetch when navigating to the Incident Center page
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(fetchIncidents, 2000);
-  setInterval(fetchIncidents, 10000);
+  // Auto-refresh interval only active while on incidents page
+  let incidentInterval = null;
+  const origNavigateTo = window.navigateTo;
+  window.navigateTo = function(page) {
+    origNavigateTo(page);
+    if (page === 'incidents') {
+      fetchIncidents();
+      if (!incidentInterval) {
+        incidentInterval = setInterval(fetchIncidents, 10000);
+      }
+    } else if (incidentInterval) {
+      clearInterval(incidentInterval);
+      incidentInterval = null;
+    }
+  };
 });
+// Expose for HTML onclick
+window.fetchIncidents   = fetchIncidents;
+window.resolveIncident  = resolveIncident;
 
 
 // ─── AI Analytics Accuracy Bar Chart ───
