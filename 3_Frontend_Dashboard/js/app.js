@@ -1174,31 +1174,30 @@ function drawTrafficChart() {
 
   const data = STATE.trafficHistory;
 
-  // Background
-  const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
-  bgGrad.addColorStop(0, '#0a0f1d');
-  bgGrad.addColorStop(1, '#050810');
-  ctx.fillStyle = bgGrad;
-  ctx.fillRect(0, 0, W, H);
-
-  // Idle placeholder
+  // ── Idle placeholder ──
   if (data.length < 2) {
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(0, 0, W, H);
     const cx = W / 2, cy = H / 2;
-    ctx.shadowColor = '#00f0ff'; ctx.shadowBlur = 15;
-    ctx.beginPath(); ctx.arc(cx, cy - 20, 10, 0, Math.PI * 2);
-    ctx.fillStyle = '#00f0ff'; ctx.fill();
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = '#e2e8f0'; ctx.font = '600 13px "Roboto Mono", monospace'; ctx.textAlign = 'center';
-    ctx.fillText('ESTABLISHING SECURE CONNECTION...', cx, cy + 15);
+    ctx.beginPath(); ctx.arc(cx, cy - 20, 14, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(37,99,235,0.08)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy - 20, 7, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(37,99,235,0.25)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(cx, cy - 20, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#2563eb'; ctx.fill();
+    ctx.fillStyle = '#374151'; ctx.font = '600 13px Inter, sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('Waiting for ESP32...', cx, cy + 4);
+    ctx.font = '11px Inter, sans-serif'; ctx.fillStyle = '#9ca3af';
+    ctx.fillText('Blue = total pps  |  Red = attack pps  |  Both ground-level', cx, cy + 20);
     return;
   }
 
-  const PAD_L = 42, PAD_R = 12, PAD_T = 20, PAD_B = 30;
+  const PAD_L = 42, PAD_R = 12, PAD_T = 14, PAD_B = 30;
   const cW = W - PAD_L - PAD_R;
   const cH = H - PAD_T - PAD_B;
   const n  = data.length;
 
-  // Smart Y-axis
+  // ── Smart Y-axis: fit both blue and red waves ──
   const atkVals   = data.map(d => d.attackPps || 0);
   const totalVals = data.map((d, i) => atkVals[i] > 0 ? 0 : (d.pps || 0));
   const allVals   = [...totalVals, ...atkVals];
@@ -1213,37 +1212,26 @@ function drawTrafficChart() {
 
   STATE.chartLayout = { PAD_L, PAD_R, PAD_T, PAD_B, cW, cH, W, H, n, data };
 
-  // Cyber Grid
-  ctx.lineWidth = 1;
-  ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
-  ctx.beginPath();
-  for (let i = 0; i <= cW; i += 40) {
-    ctx.moveTo(PAD_L + i, PAD_T); ctx.lineTo(PAD_L + i, PAD_T + cH);
-  }
-  for (let i = 0; i <= cH; i += 30) {
-    ctx.moveTo(PAD_L, PAD_T + i); ctx.lineTo(PAD_L + cW, PAD_T + i);
-  }
-  ctx.stroke();
+  // ── Background ──
+  ctx.fillStyle = '#f8fafc'; ctx.fillRect(0, 0, W, H);
 
-  // Grid lines + Y labels
+  // ── Grid lines + Y labels ──
   const STEPS = 4;
-  ctx.font = '10px "Roboto Mono", monospace';
+  ctx.font = '9px Inter, sans-serif';
   for (let i = 0; i <= STEPS; i++) {
     const val = (yMax / STEPS) * (STEPS - i);
     const y   = PAD_T + (cH / STEPS) * i;
-    ctx.strokeStyle = i === STEPS ? 'rgba(0, 240, 255, 0.3)' : 'rgba(0, 240, 255, 0.1)';
-    ctx.setLineDash(i === STEPS ? [] : [2, 4]);
+    ctx.strokeStyle = i===STEPS ? 'rgba(0,0,0,0.12)' : 'rgba(0,0,0,0.04)';
+    ctx.lineWidth=1; ctx.setLineDash([]);
     ctx.beginPath(); ctx.moveTo(PAD_L,y); ctx.lineTo(PAD_L+cW,y); ctx.stroke();
-    ctx.fillStyle = '#00f0ff'; ctx.textAlign='right'; ctx.globalAlpha = 0.7;
-    ctx.fillText(Math.round(val)||'0', PAD_L-8, y+3);
-    ctx.globalAlpha = 1.0;
+    ctx.fillStyle='#9ca3af'; ctx.textAlign='right';
+    ctx.fillText(Math.round(val)||'', PAD_L-4, y+3);
   }
-  ctx.setLineDash([]);
   ctx.save(); ctx.translate(11, PAD_T+cH/2); ctx.rotate(-Math.PI/2);
-  ctx.fillStyle='rgba(0,240,255,0.5)'; ctx.font='bold 9px "Roboto Mono", monospace'; ctx.textAlign='center';
-  ctx.fillText('PKT/S',0,0); ctx.restore();
+  ctx.fillStyle='#6b7280'; ctx.font='bold 9px Inter, sans-serif'; ctx.textAlign='center';
+  ctx.fillText('pps',0,0); ctx.restore();
 
-  // Blue fill: TOTAL pps
+  // ── Blue fill: TOTAL pps — ground-level area ──
   ctx.beginPath();
   ctx.moveTo(toX(0), toY(totalVals[0]));
   for (let i=1;i<n;i++) {
@@ -1252,11 +1240,12 @@ function drawTrafficChart() {
   }
   ctx.lineTo(toX(n-1), PAD_T+cH); ctx.lineTo(toX(0), PAD_T+cH); ctx.closePath();
   const blueGrad = ctx.createLinearGradient(0,PAD_T,0,PAD_T+cH);
-  blueGrad.addColorStop(0,'rgba(0,240,255,0.4)');
-  blueGrad.addColorStop(1,'rgba(0,240,255,0.01)');
+  blueGrad.addColorStop(0,'rgba(37,99,235,0.20)');
+  blueGrad.addColorStop(1,'rgba(37,99,235,0.02)');
   ctx.fillStyle=blueGrad; ctx.fill();
 
-  // Red fill: ATTACK pps
+  // ── Red fill: ATTACK pps — independent ground-level wave ──
+  STATE.chartPins=[];
   const hasAnyAttack = atkVals.some(v => v > 0);
   if (hasAnyAttack) {
     ctx.beginPath();
@@ -1267,45 +1256,40 @@ function drawTrafficChart() {
     }
     ctx.lineTo(toX(n-1), PAD_T+cH); ctx.lineTo(toX(0), PAD_T+cH); ctx.closePath();
     const redGrad = ctx.createLinearGradient(0,PAD_T,0,PAD_T+cH);
-    redGrad.addColorStop(0,'rgba(255,0,85,0.6)');
-    redGrad.addColorStop(1,'rgba(255,0,85,0.02)');
+    redGrad.addColorStop(0,'rgba(220,38,38,0.45)');
+    redGrad.addColorStop(1,'rgba(220,38,38,0.04)');
     ctx.fillStyle=redGrad; ctx.fill();
 
-    // Red stroke
+    // Red stroke line on top
     ctx.beginPath();
     ctx.moveTo(toX(0), toY(atkVals[0]));
     for (let i=1;i<n;i++) {
       const x0=toX(i-1),y0=toY(atkVals[i-1]),x1=toX(i),y1=toY(atkVals[i]);
       ctx.bezierCurveTo((x0+x1)/2,y0,(x0+x1)/2,y1,x1,y1);
     }
-    ctx.shadowColor = '#ff0055'; ctx.shadowBlur = 12;
-    ctx.strokeStyle='#ff0055'; ctx.lineWidth=2.5; ctx.stroke();
-    ctx.shadowBlur = 0;
+    ctx.strokeStyle='rgba(220,38,38,0.85)'; ctx.lineWidth=2;
+    ctx.lineJoin='round'; ctx.lineCap='round'; ctx.setLineDash([]); ctx.stroke();
   }
 
-  // Blue stroke
+  // ── Blue stroke line on top of total pps wave ──
   ctx.beginPath();
   ctx.moveTo(toX(0), toY(totalVals[0]));
   for (let i=1;i<n;i++) {
     const x0=toX(i-1),y0=toY(totalVals[i-1]),x1=toX(i),y1=toY(totalVals[i]);
     ctx.bezierCurveTo((x0+x1)/2,y0,(x0+x1)/2,y1,x1,y1);
   }
-  ctx.shadowColor = '#00f0ff'; ctx.shadowBlur = 10;
-  ctx.strokeStyle='#00f0ff'; ctx.lineWidth=2.5; ctx.stroke();
-  ctx.shadowBlur = 0;
+  ctx.strokeStyle='#2563eb'; ctx.lineWidth=2;
+  ctx.lineJoin='round'; ctx.lineCap='round'; ctx.setLineDash([]); ctx.stroke();
 
-  // Live dot pulsing
+  // ── Live dot ──
   const lx=toX(n-1), ly=toY(totalVals[n-1]);
-  const pulse = (Math.sin(Date.now() / 200) + 1) / 2;
-  ctx.beginPath(); ctx.arc(lx,ly, 4 + pulse * 4, 0, Math.PI*2);
-  ctx.fillStyle='rgba(0,240,255,' + (1 - pulse) + ')'; ctx.fill();
-  
-  ctx.beginPath(); ctx.arc(lx,ly, 4, 0, Math.PI*2);
-  ctx.fillStyle='#fff'; ctx.fill();
-  ctx.shadowColor='#00f0ff'; ctx.shadowBlur=8; ctx.stroke();
-  ctx.shadowBlur=0;
+  ctx.beginPath(); ctx.arc(lx,ly,4,0,Math.PI*2);
+  ctx.fillStyle='#2563eb'; ctx.fill();
+  ctx.strokeStyle='#fff'; ctx.lineWidth=1.5; ctx.stroke();
 
-  // Attack event pins
+
+
+  // Attack event pins (vertical dashed line + label)
   STATE.chartPins=[];
   let prevHad = data.length > 0 && (data[0].attackPps||0) > 0;
   data.forEach((d,i) => {
@@ -1315,38 +1299,24 @@ function drawTrafficChart() {
       const label=(d.lastAttackType||'Attack').replace(/_/g,' ');
       const shortLbl=label.split(/[-\s]/)[0]||label;
       ctx.save();
-      
-      // Vertical laser line
-      ctx.beginPath(); ctx.moveTo(x, PAD_T); ctx.lineTo(x, PAD_T+cH);
-      ctx.strokeStyle='rgba(255,0,85,0.4)'; ctx.setLineDash([4,4]); ctx.stroke();
-      ctx.setLineDash([]);
-      
-      // Base crosshair
-      ctx.beginPath(); ctx.arc(x,PAD_T+cH, 4, 0, Math.PI*2);
-      ctx.fillStyle='#050810'; ctx.fill();
-      ctx.strokeStyle='#ff0055'; ctx.lineWidth=2; ctx.stroke();
-      
-      ctx.beginPath(); ctx.moveTo(x-8, PAD_T+cH); ctx.lineTo(x+8, PAD_T+cH); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(x, PAD_T+cH-8); ctx.lineTo(x, PAD_T+cH+8); ctx.stroke();
-
-      // Label
-      ctx.translate(x+14,PAD_T+cH - 12); ctx.rotate(-Math.PI/2);
-      ctx.font='bold 10px "Roboto Mono", monospace'; ctx.textAlign='center';
-      ctx.shadowColor='#ff0055'; ctx.shadowBlur=8;
-      ctx.fillStyle='#ff0055'; ctx.fillText(shortLbl.toUpperCase(),0,0);
+      ctx.beginPath(); ctx.arc(x,PAD_T+cH,4,0,Math.PI*2);
+      ctx.fillStyle='#dc2626'; ctx.fill();
+      ctx.strokeStyle='#fff'; ctx.lineWidth=1.2; ctx.stroke();
+      ctx.translate(x+10,PAD_T+cH - 8); ctx.rotate(-Math.PI/2);
+      ctx.font='bold 9px Inter,sans-serif'; ctx.textAlign='center';
+      ctx.fillStyle='#dc2626'; ctx.fillText(shortLbl,0,0);
       ctx.restore();
-      
       STATE.chartPins.push({ x, pinY:PAD_T+cH, lineTop:PAD_T, lineBot:PAD_T+cH,
         hitR:16, time:d.time, pps:d.rawPps||d.pps||0, atkType:d.lastAttackType||'Attack', idx:i });
     }
     prevHad=nowHas;
   });
 
-  // X-axis labels
-  ctx.fillStyle='#64748b'; ctx.font='10px "Roboto Mono", monospace'; ctx.textAlign='center';
+  // ?? X-axis labels ?? ──
+  ctx.fillStyle='#9ca3af'; ctx.font='9px Inter,sans-serif'; ctx.textAlign='center'; ctx.setLineDash([]);
   const step=Math.max(1,Math.floor(n/6));
-  for (let i=0;i<n;i+=step) ctx.fillText(data[i].time, toX(i), PAD_T+cH+16);
-  if (n>1) ctx.fillText(data[n-1].time, toX(n-1), PAD_T+cH+16);
+  for (let i=0;i<n;i+=step) ctx.fillText(data[i].time, toX(i), PAD_T+cH+14);
+  if (n>1) ctx.fillText(data[n-1].time, toX(n-1), PAD_T+cH+14);
 }
 
 
