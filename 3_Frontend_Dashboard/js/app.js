@@ -649,10 +649,10 @@ function updateHeaderStats() {
 
   const threatEl = document.getElementById('sc-threat');
   if (threatEl) {
-    threatEl.textContent = level;
+    threatEl.textContent = `${level} (${score}/100)`;
     threatEl.className   = 'stat-value threat-val ' + cls;
   }
-  setText('sc-threat-sub', 'Score: ' + score + ' / 100');
+  setText('sc-threat-sub', 'Risk Score: ' + score + '/100');
 
   // ── Telegram Bot trigger hook (future) ───────────────────────────────────
   // When level becomes CRITICAL, fire alert:
@@ -1984,3 +1984,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+// ─── Settings Tab Logic ───────────────────────────────────────────────────────
+function switchSettingsTab(tabId) {
+  // Update Buttons
+  const buttons = document.querySelectorAll('.settings-tab-btn');
+  buttons.forEach(btn => {
+    btn.classList.remove('active');
+    btn.style.color = 'var(--text-3)';
+    btn.style.borderBottomColor = 'transparent';
+    btn.style.fontWeight = '500';
+  });
+  
+  const activeBtn = document.getElementById('tab-btn-' + tabId);
+  if (activeBtn) {
+    activeBtn.classList.add('active');
+    activeBtn.style.color = 'var(--primary)';
+    activeBtn.style.borderBottomColor = 'var(--primary)';
+    activeBtn.style.fontWeight = '600';
+  }
+
+  // Update Panes
+  const panes = document.querySelectorAll('.settings-pane');
+  panes.forEach(pane => {
+    pane.classList.add('hidden');
+    pane.style.display = 'none';
+  });
+  
+  const activePane = document.getElementById('tab-pane-' + tabId);
+  if (activePane) {
+    activePane.classList.remove('hidden');
+    activePane.style.display = 'block';
+  }
+}

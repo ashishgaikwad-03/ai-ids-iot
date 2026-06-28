@@ -59,27 +59,27 @@
     </a>
     <a class="sb-link" data-page="devices" id="nav-devices">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7 2a1 1 0 00-.707 1.707L7 4.414v3.758a1 1 0 01-.293.707l-4 4C.817 14.769 2.156 18 4.828 18h10.344c2.672 0 4.011-3.231 2.122-5.121l-4-4A1 1 0 0113 8.172V4.414l.707-.707A1 1 0 0013 2H7zm2 6.172V4h2v4.172a3 3 0 00.879 2.12l1.027 1.028a4 4 0 00-2.171.102l-.47.156a4 4 0 01-2.53 0l-.563-.187a1.993 1.993 0 00-.114-.035l1.063-1.063A3 3 0 009 8.172z" clip-rule="evenodd"/></svg>
-      <span>IoT Devices</span>
+      <span>Assets</span>
     </a>
     <a class="sb-link" data-page="logs" id="nav-logs">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
-      <span>Traffic Logs</span>
+      <span>Events</span>
     </a>
 
     <div class="sb-section-label">TOOLS</div>
     <a class="sb-link" data-page="simlab" id="nav-simlab">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"/></svg>
-      <span>Simulation Lab</span>
+      <span>Simulation</span>
     </a>
     <a class="sb-link" data-page="analysis" id="nav-analysis">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-      <span>File Analysis</span>
+      <span>Offline Analysis</span>
     </a>
 
     <div class="sb-section-label">ANALYTICS</div>
     <a class="sb-link" data-page="analytics" id="nav-analytics">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-      <span>AI Analytics</span>
+      <span>Intelligence</span>
     </a>
     <a class="sb-link" data-page="settings" id="nav-settings">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
@@ -179,15 +179,15 @@
       <div class="two-col-row">
       <!-- 4 Stat Cards -->
       <div class="stat-grid" style="flex:1; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-        <div class="stat-card">
+        <div class="stat-card" id="threat-card">
           <div class="stat-top">
-            <span class="stat-label">Total Packets</span>
-            <span class="stat-icon blue">
-              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+            <span class="stat-label">Threat Level</span>
+            <span class="stat-icon amber" id="threat-icon">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
             </span>
           </div>
-          <div class="stat-value" id="sc-total">0</div>
-          <div class="stat-sub" id="sc-pps">0 pkt/s</div>
+          <div class="stat-value threat-val" id="sc-threat" style="font-size:22px;">LOW</div>
+          <div class="stat-sub" id="sc-threat-sub" style="font-weight:500;">Risk Score: 0/100</div>
         </div>
         <div class="stat-card">
           <div class="stat-top">
@@ -199,16 +199,6 @@
           <div class="stat-value" id="sc-attacks">0</div>
           <div class="stat-sub" id="sc-rate">0.0% of traffic</div>
         </div>
-        <div class="stat-card" id="threat-card">
-          <div class="stat-top">
-            <span class="stat-label">Threat Level</span>
-            <span class="stat-icon amber" id="threat-icon">
-              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-            </span>
-          </div>
-          <div class="stat-value threat-val" id="sc-threat">LOW</div>
-          <div class="stat-sub" id="sc-threat-sub">Score: 0 / 100</div>
-        </div>
         <div class="stat-card">
           <div class="stat-top">
             <span class="stat-label">Active Devices</span>
@@ -219,10 +209,18 @@
           <div class="stat-value" id="sc-devices">0 / 3</div>
           <div class="stat-sub" id="sc-devices-sub">All nominal</div>
         </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Current Traffic Rate</span>
+            <span class="stat-icon blue">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+            </span>
+          </div>
+          <div class="stat-value" id="sc-total">0</div>
+          <div class="stat-sub" id="sc-pps">0 pkt/s</div>
+        </div>
       </div>
-
-        <!-- LIVE TRAFFIC CLASSIFICATION DONUT CHART -->
-        <div class="panel" id="classif-panel" style="flex:1; display:flex; flex-direction:column;">
+<div class="panel" id="classif-panel" style="flex:1; display:flex; flex-direction:column;">
           <div class="panel-header">
             <div class="panel-title">Live Traffic Classification</div>
             <div class="panel-meta">
@@ -274,6 +272,67 @@
           </div>
         </div>
       </div>
+      <!-- New Stage 1 Widgets: MITRE & Baseline -->
+      <div class="two-col-row" style="margin-top:20px;">
+        <!-- MITRE ATT&CK Summary -->
+        <div class="panel" style="flex:1;">
+          <div class="panel-header">
+            <div class="panel-title">Active MITRE ATT&CK Techniques</div>
+          </div>
+          <div style="padding:16px;">
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
+              <li style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid var(--surface-2);">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span class="badge badge-red">T1498</span>
+                  <span style="font-weight:600; font-size:13px; color:var(--text-1);">Network Denial of Service</span>
+                </div>
+                <span style="font-size:12px; color:var(--text-3);">DDoS Flood</span>
+              </li>
+              <li style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid var(--surface-2);">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span class="badge badge-amber">T1046</span>
+                  <span style="font-weight:600; font-size:13px; color:var(--text-1);">Network Service Discovery</span>
+                </div>
+                <span style="font-size:12px; color:var(--text-3);">Recon Scan</span>
+              </li>
+              <li style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span class="badge badge-amber">T1557</span>
+                  <span style="font-weight:600; font-size:13px; color:var(--text-1);">Adversary-in-the-Middle</span>
+                </div>
+                <span style="font-size:12px; color:var(--text-3);">ARP Spoofing</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Baseline Deviation -->
+        <div class="panel" style="flex:1;">
+          <div class="panel-header">
+            <div class="panel-title">Device Baseline Deviation</div>
+          </div>
+          <div style="padding:16px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+              <span style="font-weight:600; font-size:14px; color:var(--text-1);">ESP32-CAM</span>
+              <span class="badge badge-red">Anomalous</span>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div style="background:var(--surface-2); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">Normal PPS</div>
+                <div style="font-size:18px; font-weight:600; color:var(--text-1); font-family:var(--font-mono);">~20</div>
+              </div>
+              <div style="background:var(--red-bg); padding:10px; border-radius:var(--radius-sm); border:1px solid rgba(239, 68, 68, 0.2);">
+                <div style="font-size:11px; color:var(--red-text); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">Current PPS</div>
+                <div style="font-size:18px; font-weight:600; color:var(--red-text); font-family:var(--font-mono);" id="base-cur-pps">0</div>
+              </div>
+            </div>
+            <div style="margin-top:12px; display:flex; align-items:center; gap:8px;">
+              <span style="font-size:13px; color:var(--text-2);">Deviation:</span>
+              <span style="font-size:14px; font-weight:600; color:var(--red); font-family:var(--font-mono);" id="base-dev-pct">+0%</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Recent Detections -->
       <div class="panel">
@@ -294,6 +353,32 @@
               <tr><td colspan="7" class="empty-cell">Awaiting packets...</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <!-- Explainable AI (XAI) Panel -->
+      <div class="panel" style="margin-top:20px;">
+        <div class="panel-header">
+          <div class="panel-title">Explainable AI (XAI) - Latest Prediction</div>
+          <span class="badge badge-primary">SHAP Heuristics</span>
+        </div>
+        <div style="padding:20px; display:flex; gap:24px; align-items:center;">
+          <div style="flex:1; border-right:1px solid var(--border); padding-right:24px;">
+            <div style="font-size:12px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;">Verdict</div>
+            <div style="font-size:24px; font-weight:700; color:var(--red);" id="xai-prediction">Awaiting Data...</div>
+            <div style="margin-top:12px; display:flex; align-items:center; gap:8px;">
+              <span style="font-size:13px; color:var(--text-2);">Confidence:</span>
+              <span style="font-size:14px; font-weight:600; color:var(--text-1);" id="xai-confidence">--%</span>
+            </div>
+            <div style="margin-top:8px; font-size:13px; color:var(--text-2);">
+              <span style="font-weight:600;">Detection Reason:</span> <span id="xai-reason">--</span>
+            </div>
+          </div>
+          <div style="flex:2;">
+            <div style="font-size:12px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px;">Top Contributing Features</div>
+            <div id="xai-features" style="display:flex; flex-direction:column; gap:10px;">
+              <div style="font-size:13px; color:var(--text-4); font-style:italic;">No prediction available yet.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div><!-- /page-dashboard -->
@@ -702,90 +787,221 @@
     <div id="page-settings" class="page hidden">
       <div class="page-intro">
         <h2 class="page-intro-title">⚙️ System Settings</h2>
-        <p class="page-intro-desc">Configure dashboard preferences, hardware endpoints, and threat escalation rules.</p>
+        <p class="page-intro-desc">Configure dashboard preferences, alert thresholds, and engine parameters.</p>
       </div>
 
-      <div class="two-col-row" style="align-items:flex-start; margin-bottom:16px;">
-        
-        <!-- Dashboard Preferences -->
-        <div class="panel" style="flex:1">
-          <div class="panel-header"><div class="panel-title">Dashboard Preferences</div></div>
-          <div class="settings-form">
+      <!-- Settings Tabs Navigation -->
+      <div class="settings-tabs" style="display:flex; gap:12px; border-bottom:1px solid var(--border); margin-bottom:20px;">
+        <button class="settings-tab-btn active" onclick="switchSettingsTab('general')" id="tab-btn-general" style="background:none; border:none; padding:10px 16px; font-weight:600; cursor:pointer; color:var(--primary); border-bottom:2px solid var(--primary);">General</button>
+        <button class="settings-tab-btn" onclick="switchSettingsTab('notifications')" id="tab-btn-notifications" style="background:none; border:none; padding:10px 16px; font-weight:500; cursor:pointer; color:var(--text-3); border-bottom:2px solid transparent;">Notifications</button>
+        <button class="settings-tab-btn" onclick="switchSettingsTab('infrastructure')" id="tab-btn-infrastructure" style="background:none; border:none; padding:10px 16px; font-weight:500; cursor:pointer; color:var(--text-3); border-bottom:2px solid transparent;">Infrastructure</button>
+        <button class="settings-tab-btn" onclick="switchSettingsTab('detection')" id="tab-btn-detection" style="background:none; border:none; padding:10px 16px; font-weight:500; cursor:pointer; color:var(--text-3); border-bottom:2px solid transparent;">Detection</button>
+        <button class="settings-tab-btn" onclick="switchSettingsTab('about')" id="tab-btn-about" style="background:none; border:none; padding:10px 16px; font-weight:500; cursor:pointer; color:var(--text-3); border-bottom:2px solid transparent;">About</button>
+      </div>
+
+      <!-- Settings Content Panes -->
+      
+      <!-- 1. GENERAL TAB -->
+      <div id="tab-pane-general" class="settings-pane">
+        <div class="panel" style="max-width: 600px;">
+          <div class="panel-header"><div class="panel-title">General Preferences</div></div>
+          <div class="settings-form" style="padding:20px; display:flex; flex-direction:column; gap:16px;">
             <div class="form-row">
-              <label>Theme Mode</label>
-              <select id="setting-theme" class="ctrl-select" onchange="applyThemeSetting()">
+              <label style="font-weight:600; color:var(--text-2);">Theme Mode</label>
+              <select id="setting-theme" class="ctrl-select" onchange="applyThemeSetting()" style="width:200px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);">
                 <option value="light">Light Mode (Default)</option>
                 <option value="dark">Dark Mode</option>
               </select>
             </div>
-            <div class="form-row" style="margin-top: 15px;">
-              <button class="btn btn-red" onclick="resetSessionData()" style="width:100%;">🗑️ Clear Live Session Data</button>
-            </div>
-            <div style="font-size:11px; color:var(--text-4); margin-top:8px; text-align:center;">Resets all packet counts, charts, and tables</div>
-          </div>
-        </div>
-
-        <!-- Hardware Endpoints -->
-        <div class="panel" style="flex:1">
-          <div class="panel-header"><div class="panel-title">Hardware Endpoints</div></div>
-          <div class="settings-form">
             <div class="form-row">
-              <label>ESP32 Gateway (Node 01)</label>
-              <input type="text" id="setting-gw-ip" class="ctrl-input" value="192.168.24.116" />
+              <label style="font-weight:600; color:var(--text-2);">Auto Refresh Rate</label>
+              <select class="ctrl-select" style="width:200px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                <option value="1">1 second (Real-time)</option>
+                <option value="5">5 seconds</option>
+                <option value="10">10 seconds</option>
+              </select>
             </div>
             <div class="form-row">
-              <label>ESP32 CAM (Node 02)</label>
-              <input type="text" id="setting-cam-ip" class="ctrl-input" value="192.168.24.167" />
+              <label style="font-weight:600; color:var(--text-2);">Session Timeout</label>
+              <select class="ctrl-select" style="width:200px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                <option value="15">15 Minutes</option>
+                <option value="30">30 Minutes</option>
+                <option value="60">1 Hour</option>
+                <option value="0">Never (Kiosk Mode)</option>
+              </select>
             </div>
-            <div class="form-row">
-              <label>DHT11 Sensor (Node 03)</label>
-              <input type="text" id="setting-dht-ip" class="ctrl-input" value="192.168.24.200" />
+            <div style="margin-top:16px; border-top:1px solid var(--border); padding-top:16px;">
+              <button class="btn" onclick="resetSessionData()" style="background:var(--red); color:#fff; border:none; height:38px; border-radius:8px; padding:0 16px; font-weight:500;">🗑️ Clear Local Session Data</button>
+              <div style="font-size:11px; color:var(--text-4); margin-top:8px;">Resets all packet counts, charts, and locally cached tables.</div>
             </div>
-            <button class="btn btn-primary" onclick="saveHardwareSettings()" style="margin-top:8px;">Save IP Configuration</button>
           </div>
         </div>
       </div>
 
-      <div class="two-col-row" style="align-items:flex-start">
-
-        <!-- Telegram Notifications -->
-        <div class="panel" style="flex:1">
+      <!-- 2. NOTIFICATIONS TAB -->
+      <div id="tab-pane-notifications" class="settings-pane hidden" style="display:none;">
+        <div class="panel" style="max-width: 600px;">
           <div class="panel-header"><div class="panel-title">Telegram Notifications</div></div>
-          <div class="settings-form">
-            <div class="form-row">
-              <label>Bot API Token</label>
-              <input type="password" id="setting-telegram-token" class="ctrl-input" placeholder="1234567890:AAH..." />
+          <div class="settings-form" style="padding:20px; display:flex; flex-direction:column; gap:16px;">
+            <div class="form-row" style="display:flex; align-items:center; gap:12px;">
+              <input type="checkbox" id="setting-tg-enable" checked style="width:16px; height:16px;" />
+              <label style="font-weight:600; color:var(--text-2);">Enable Push Alerts</label>
             </div>
             <div class="form-row">
-              <label>Chat ID</label>
-              <input type="text" id="setting-telegram-chat" class="ctrl-input" placeholder="-100123456..." />
+              <label style="font-weight:600; color:var(--text-2);">Bot API Token</label>
+              <input type="password" id="setting-telegram-token" class="ctrl-input" placeholder="1234567890:AAH..." style="width:100%; max-width:400px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);" />
+            </div>
+            <div class="form-row">
+              <label style="font-weight:600; color:var(--text-2);">Chat ID</label>
+              <input type="text" id="setting-telegram-chat" class="ctrl-input" placeholder="-100123456..." style="width:100%; max-width:400px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);" />
+            </div>
+            <div class="form-row">
+              <label style="font-weight:600; color:var(--text-2);">Minimum Severity Threshold</label>
+              <select id="setting-tg-sev" class="ctrl-select" style="width:200px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                <option value="critical">Critical Only</option>
+                <option value="high" selected>High & Critical</option>
+                <option value="all">All Alerts</option>
+              </select>
             </div>
             <div class="form-row" style="margin-top:8px;">
-              <label>Alert Trigger Delay (Seconds)</label>
-              <div style="display:flex; align-items:center; gap:10px; width:100%;">
+              <label style="font-weight:600; color:var(--text-2);">Alert Trigger Delay (Seconds)</label>
+              <div style="display:flex; align-items:center; gap:10px; width:100%; max-width:400px;">
                 <input type="range" id="set-med-sec" min="1" max="10" value="5" style="flex:1;" oninput="document.getElementById('val-med-sec').textContent=this.value+'s'" />
-                <span id="val-med-sec" style="font-family:monospace; font-size:13px; width:30px;">5s</span>
+                <span id="val-med-sec" style="font-family:monospace; font-size:13px; width:30px; font-weight:600;">5s</span>
               </div>
             </div>
-            <button class="btn btn-primary" onclick="saveTelegramSettings()" style="margin-top:12px;">Save Alert Policy</button>
-          </div>
-        </div>
-
-        <!-- About Info -->
-        <div class="panel" style="flex:1">
-          <div class="panel-header"><div class="panel-title">About & Build Info</div></div>
-          <div style="padding:16px; font-size:13px; color:var(--text-2); line-height:2;">
-            <div><strong>Version:</strong> v2.4.0-Production</div>
-            <div><strong>Model Checkpoint:</strong> <code>xgboost_ids_ciciot23.json</code></div>
-            <div><strong>Backend Host:</strong> Render Cloud (Gunicorn/Flask)</div>
-            <div><strong>Frontend Host:</strong> Vercel (Edge CDN)</div>
-            <div><strong>MQTT Broker:</strong> <code>broker.hivemq.com:8000/mqtt</code></div>
-            <div style="margin-top: 10px; padding-top:10px; border-top:1px solid var(--border); color:var(--text-4); font-size:11px;">
-              Designed for secure localized IoT network monitoring using passive promiscuous mode packet sniffing.
+            <div style="margin-top:16px;">
+              <button class="btn" onclick="saveTelegramSettings()" style="background:var(--primary); color:#fff; border:none; height:38px; border-radius:8px; padding:0 16px; font-weight:500;">Save Alert Policy</button>
             </div>
           </div>
         </div>
+      </div>
 
+      <!-- 3. INFRASTRUCTURE TAB -->
+      <div id="tab-pane-infrastructure" class="settings-pane hidden" style="display:none;">
+        <div class="panel" style="max-width: 800px;">
+          <div class="panel-header"><div class="panel-title">Protected Assets Inventory</div></div>
+          <div class="table-wrap" style="padding:16px;">
+            <table class="data-table" style="width:100%; text-align:left; border-collapse:collapse;">
+              <thead>
+                <tr style="border-bottom:1px solid var(--border); color:var(--text-3); font-size:12px;">
+                  <th style="padding:10px;">Device</th>
+                  <th style="padding:10px;">IP Address</th>
+                  <th style="padding:10px;">Status</th>
+                  <th style="padding:10px;">Last Seen</th>
+                  <th style="padding:10px; text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--surface-2);">
+                  <td style="padding:12px 10px; font-weight:600; color:var(--text-1);">ESP32 Gateway (Node 01)</td>
+                  <td style="padding:12px 10px; font-family:var(--font-mono); font-size:13px;">192.168.24.116</td>
+                  <td style="padding:12px 10px;"><span class="badge badge-green">Online</span></td>
+                  <td style="padding:12px 10px; color:var(--text-3); font-size:13px;">Just now</td>
+                  <td style="padding:12px 10px; text-align:right;"><button class="btn" style="height:30px; padding:0 10px;">Edit</button></td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--surface-2);">
+                  <td style="padding:12px 10px; font-weight:600; color:var(--text-1);">ESP32 CAM (Node 02)</td>
+                  <td style="padding:12px 10px; font-family:var(--font-mono); font-size:13px;">192.168.24.167</td>
+                  <td style="padding:12px 10px;"><span class="badge badge-green">Online</span></td>
+                  <td style="padding:12px 10px; color:var(--text-3); font-size:13px;">Just now</td>
+                  <td style="padding:12px 10px; text-align:right;"><button class="btn" style="height:30px; padding:0 10px;">Edit</button></td>
+                </tr>
+                <tr>
+                  <td style="padding:12px 10px; font-weight:600; color:var(--text-1);">DHT11 Sensor (Node 03)</td>
+                  <td style="padding:12px 10px; font-family:var(--font-mono); font-size:13px;">192.168.24.200</td>
+                  <td style="padding:12px 10px;"><span class="badge badge-amber">Offline</span></td>
+                  <td style="padding:12px 10px; color:var(--text-3); font-size:13px;">2 mins ago</td>
+                  <td style="padding:12px 10px; text-align:right;"><button class="btn" style="height:30px; padding:0 10px;">Edit</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. DETECTION TAB -->
+      <div id="tab-pane-detection" class="settings-pane hidden" style="display:none;">
+        <div class="panel" style="max-width: 600px;">
+          <div class="panel-header"><div class="panel-title">Detection Engines Configuration</div></div>
+          <div class="settings-form" style="padding:20px; display:flex; flex-direction:column; gap:20px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding-bottom:12px; border-bottom:1px solid var(--surface-2);">
+              <div>
+                <div style="font-weight:600; color:var(--text-1); font-size:14px;">Machine Learning Engine</div>
+                <div style="font-size:12px; color:var(--text-3); margin-top:4px;">Enable XGBoost multi-class classification</div>
+              </div>
+              <input type="checkbox" checked style="width:20px; height:20px; accent-color:var(--primary);" />
+            </div>
+            
+            <div style="display:flex; align-items:center; justify-content:space-between; padding-bottom:12px; border-bottom:1px solid var(--surface-2);">
+              <div>
+                <div style="font-weight:600; color:var(--text-1); font-size:14px;">Rule-Based Engine</div>
+                <div style="font-size:12px; color:var(--text-3); margin-top:4px;">Hardcoded threshold and flag analysis</div>
+              </div>
+              <input type="checkbox" checked style="width:20px; height:20px; accent-color:var(--primary);" />
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; padding-bottom:12px; border-bottom:1px solid var(--surface-2);">
+              <div>
+                <div style="font-weight:600; color:var(--text-1); font-size:14px;">Behavioral Anomaly Engine</div>
+                <div style="font-size:12px; color:var(--text-3); margin-top:4px;">Rolling window baseline deviation tracking</div>
+              </div>
+              <input type="checkbox" checked style="width:20px; height:20px; accent-color:var(--primary);" />
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; padding-bottom:12px; border-bottom:1px solid var(--surface-2);">
+              <div>
+                <div style="font-weight:600; color:var(--text-1); font-size:14px;">Signature Engine</div>
+                <div style="font-size:12px; color:var(--text-3); margin-top:4px;">Fast pattern matching for known IoT malware headers</div>
+              </div>
+              <input type="checkbox" checked style="width:20px; height:20px; accent-color:var(--primary);" />
+            </div>
+
+            <div class="form-row" style="margin-top:8px;">
+              <label style="font-weight:600; color:var(--text-2);">ML Confidence Threshold (%)</label>
+              <div style="display:flex; align-items:center; gap:10px; width:100%; max-width:400px; margin-top:8px;">
+                <input type="range" id="set-conf-thresh" min="50" max="99" value="85" style="flex:1;" oninput="document.getElementById('val-conf-thresh').textContent=this.value+'%'" />
+                <span id="val-conf-thresh" style="font-family:monospace; font-size:13px; width:40px; font-weight:600;">85%</span>
+              </div>
+            </div>
+            
+            <button class="btn" style="background:var(--primary); color:#fff; border:none; height:38px; border-radius:8px; padding:0 16px; font-weight:500; max-width:200px;">Save Engine Config</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. ABOUT TAB -->
+      <div id="tab-pane-about" class="settings-pane hidden" style="display:none;">
+        <div class="panel" style="max-width: 600px;">
+          <div class="panel-header"><div class="panel-title">System Health & About</div></div>
+          <div style="padding:20px;">
+            <div style="font-size:15px; font-weight:600; color:var(--text-1); margin-bottom:4px;">AI-IDS Dashboard v3.0 (Enterprise)</div>
+            <div style="font-size:13px; color:var(--text-3); margin-bottom:20px;">Lightweight SOC Platform Edition</div>
+
+            <div style="display:flex; flex-direction:column; gap:12px; background:var(--surface-2); padding:16px; border-radius:8px; border:1px solid var(--border);">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-weight:500; font-size:13px; color:var(--text-2);">Backend Host (Flask)</span>
+                <span class="badge badge-green">Operational</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-weight:500; font-size:13px; color:var(--text-2);">MQTT Broker (HiveMQ)</span>
+                <span class="badge badge-green">Connected</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-weight:500; font-size:13px; color:var(--text-2);">ML Inference Engine</span>
+                <span class="badge badge-green">Online</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-weight:500; font-size:13px; color:var(--text-2);">Database (JSON Store)</span>
+                <span class="badge badge-green">W/R Active</span>
+              </div>
+            </div>
+
+            <div style="margin-top:20px; font-size:12px; color:var(--text-4); line-height:1.6; border-top:1px solid var(--border); padding-top:16px;">
+              Engineered for secure, edge-based IoT network monitoring using passive promiscuous mode packet sniffing. Hardware dependencies: ESP32, ESP32-CAM, DHT11.
+            </div>
+          </div>
+        </div>
       </div>
     </div><!-- /page-settings -->
 
