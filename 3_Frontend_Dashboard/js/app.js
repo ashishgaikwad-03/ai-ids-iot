@@ -1289,28 +1289,7 @@ function drawTrafficChart() {
 
 
 
-  // Attack event pins (vertical dashed line + label)
-  STATE.chartPins=[];
-  let prevHad = data.length > 0 && (data[0].attackPps||0) > 0;
-  data.forEach((d,i) => {
-    const nowHas = (d.attackPps||0) > 0;
-    if (nowHas && !prevHad) {
-      const x=toX(i);
-      const label=(d.lastAttackType||'Attack').replace(/_/g,' ');
-      const shortLbl=label.split(/[-\s]/)[0]||label;
-      ctx.save();
-      ctx.beginPath(); ctx.arc(x,PAD_T+cH,4,0,Math.PI*2);
-      ctx.fillStyle='#dc2626'; ctx.fill();
-      ctx.strokeStyle='#fff'; ctx.lineWidth=1.2; ctx.stroke();
-      ctx.translate(x+10,PAD_T+cH - 8); ctx.rotate(-Math.PI/2);
-      ctx.font='bold 9px Inter,sans-serif'; ctx.textAlign='center';
-      ctx.fillStyle='#dc2626'; ctx.fillText(shortLbl,0,0);
-      ctx.restore();
-      STATE.chartPins.push({ x, pinY:PAD_T+cH, lineTop:PAD_T, lineBot:PAD_T+cH,
-        hitR:16, time:d.time, pps:d.rawPps||d.pps||0, atkType:d.lastAttackType||'Attack', idx:i });
-    }
-    prevHad=nowHas;
-  });
+
 
   // ?? X-axis labels ?? ──
   ctx.fillStyle='#9ca3af'; ctx.font='9px Inter,sans-serif'; ctx.textAlign='center'; ctx.setLineDash([]);
@@ -1365,17 +1344,26 @@ function initChartClick() {
 }
 
 function hitTestPin(e, canvas) {
-  if (!STATE.chartPins || !STATE.chartPins.length) return null;
+  if (!STATE.chartLayout || STATE.chartLayout.n < 2) return null;
+  const { PAD_L, cW, n, data, PAD_T, cH } = STATE.chartLayout;
   const rect = canvas.getBoundingClientRect();
   const mx = e.clientX - rect.left;
   const my = e.clientY - rect.top;
-  for (const pin of STATE.chartPins) {
-    const dx = mx - pin.x;
-    // Hit if within horizontal tolerance AND within the vertical line bounds
-    const inY = pin.lineTop != null
-      ? (my >= pin.lineTop && my <= pin.lineBot)
-      : Math.abs(my - pin.pinY) <= pin.hitR;
-    if (Math.abs(dx) <= pin.hitR && inY) return pin;
+  
+  if (mx < PAD_L || mx > PAD_L + cW || my < PAD_T || my > PAD_T + cH) return null;
+  
+  const idx = Math.round(((mx - PAD_L) / cW) * (n - 1));
+  if (idx >= 0 && idx < n) {
+    const d = data[idx];
+    if ((d.attackPps || 0) > 0) {
+      return {
+        x: e.clientX,
+        pinY: my,
+        time: d.time,
+        pps: d.rawPps || d.pps || 0,
+        atkType: d.lastAttackType || 'Attack'
+      };
+    }
   }
   return null;
 }
