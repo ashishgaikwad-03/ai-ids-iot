@@ -7,7 +7,7 @@
 
 // ── CIC-IoT 2023 Label Mapping ────────────────────────────────────────────────
 const CIC_LABELS = {
-  BENIGN:     'BenignTraffic',
+  BENIGN:     'Benign',
   UDP_FLOOD:  'DDoS-UDP_Flood',
   ARP_SPOOF:  'MITM-ArpSpoofing',
   PORT_SCAN:  'Recon-PortScan',
@@ -21,7 +21,8 @@ const CIC_LABELS = {
   BruteForce: 'DictionaryBruteForce',
   WebAttack:  'SqlInjection',
   Attack:     'UnknownAttack',
-  Benign:     'BenignTraffic',
+  Benign:     'Benign',
+  Anomaly:    'Behavioral Anomaly',
 };
 const BADGE_CLASS = {
   BENIGN:     'badge-green', Benign: 'badge-green', 'BenignTraffic': 'badge-green',
@@ -787,9 +788,11 @@ function updateDetectionsTable(pkt) {
   const cc     = pkt.attack ? '#dc2626' : '#16a34a';
   const tr     = document.createElement('tr');
   if (pkt.attack) tr.className = 'is-attack';
-  const formatIp = (ip) => ip ? (ip.includes(':') ? 'MAC: ' + ip : ip) : '--';
-  const date = pkt.timestamp ? new Date(pkt.timestamp) : new Date();
-  const timeStr = date.toLocaleTimeString([], {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'});
+  const formatIp = (ip) => ip ? (ip.includes(':') && !ip.startsWith('MAC') ? 'MAC: ' + ip : ip) : '--';
+  let timeStr = new Date().toLocaleTimeString([], {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'});
+  if (pkt.timestamp && typeof pkt.timestamp === 'string') {
+    timeStr = pkt.timestamp.includes(' ') ? pkt.timestamp.split(' ')[1] : pkt.timestamp;
+  }
   tr.innerHTML =
     '<td class="mono">' + esc(timeStr) + '</td>' +
     '<td class="mono" style="font-size:12px;">' + esc(formatIp(pkt.sourceIp)) + '</td>' +
@@ -2323,3 +2326,29 @@ function initAccuracyChart() {
 document.getElementById('nav-analytics')?.addEventListener('click', () => {
   setTimeout(initAccuracyChart, 100);
 });
+
+// ── TRAFFIC BARS ──
+function updateTrafficBars() {
+  const types = ['Benign', 'DDoS', 'DoS', 'Mirai', 'Spoofing', 'Recon'];
+  const totalPps = Object.values(STATE.classifPpsCount).reduce((a, b) => a + b, 0);
+
+  types.forEach(t => {
+    const wrap = document.getElementById('bar-wrap-' + t);
+    const fill = document.getElementById('bar-fill-' + t);
+    const val  = document.getElementById('bar-val-' + t);
+    if (!wrap || !fill || !val) return;
+
+    const pps = STATE.classifPpsCount[t] || 0;
+    if (pps === 0 && t !== 'Benign') {
+      wrap.style.display = 'none';
+      fill.style.width = '0%';
+    } else {
+      wrap.style.display = 'flex';
+      val.textContent = pps + ' pps';
+      const pct = totalPps > 0 ? Math.round((pps / totalPps) * 100) : 0;
+      fill.style.width = pct + '%';
+    }
+    // reset for next second
+    STATE.classifPpsCount[t] = 0;
+  });
+}
