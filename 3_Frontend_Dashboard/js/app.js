@@ -169,6 +169,7 @@ const STATE = {
   sessionStart: Date.now(),
   counts: { BENIGN: 0, UDP_FLOOD: 0, ARP_SPOOF: 0, PORT_SCAN: 0, DATA_SNIFF: 0, SPOOFING: 0 },
   classif: { Benign: 0, DDoS: 0, DoS: 0, Mirai: 0, Spoofing: 0, Recon: 0 },
+  classifPpsCount: { Benign: 0, DDoS: 0, DoS: 0, Mirai: 0, Spoofing: 0, Recon: 0 },
   devices: JSON.parse(JSON.stringify(DEVICE_CONFIG)),
   allPackets: [],
   alerts: [],
@@ -258,6 +259,8 @@ function tickPerSecond() {
   STATE.mbps = parseFloat((STATE.bytesCount * 8 / 1_000_000).toFixed(3));
   STATE.bytesCount = 0;
   if (STATE.pps > STATE.peakPps) STATE.peakPps = STATE.pps;
+  
+  updateTrafficBars();
 
   const now = new Date();
   const timeStr = now.getHours().toString().padStart(2,'0') + ':'
@@ -555,14 +558,14 @@ function onPacket(pkt) {
     STATE.attackPpsCount += rate;
     STATE.lastSeenAttackType = pkt.attackType || 'Attack';
 
-    // Classify into donut buckets
+    // Classify into donut buckets and live PPS buckets
     const at = (pkt.attackType || '').toLowerCase();
-    if (at.includes('ddos') || at.includes('udp') || at.includes('flood')) STATE.classif.DDoS++;
-    else if (at.includes('dos') || at.includes('syn'))                      STATE.classif.DoS++;
-    else if (at.includes('mirai') || at.includes('botnet'))                 STATE.classif.Mirai++;
-    else if (at.includes('spoof') || at.includes('arp') || at.includes('mitm')) STATE.classif.Spoofing++;
-    else if (at.includes('recon') || at.includes('scan') || at.includes('discovery')) STATE.classif.Recon++;
-    else STATE.classif.DDoS++; // unknown attack → DDoS bucket
+    if (at.includes('ddos') || at.includes('udp') || at.includes('flood')) { STATE.classif.DDoS++; STATE.classifPpsCount.DDoS += rate; }
+    else if (at.includes('dos') || at.includes('syn'))                     { STATE.classif.DoS++; STATE.classifPpsCount.DoS += rate; }
+    else if (at.includes('mirai') || at.includes('botnet'))                { STATE.classif.Mirai++; STATE.classifPpsCount.Mirai += rate; }
+    else if (at.includes('spoof') || at.includes('arp') || at.includes('mitm')) { STATE.classif.Spoofing++; STATE.classifPpsCount.Spoofing += rate; }
+    else if (at.includes('recon') || at.includes('scan') || at.includes('discovery')) { STATE.classif.Recon++; STATE.classifPpsCount.Recon += rate; }
+    else { STATE.classif.DDoS++; STATE.classifPpsCount.DDoS += rate; } // unknown attack → DDoS bucket
     
     // Automatically set target device status to UNDER_ATTACK
     Object.values(STATE.devices).forEach(d => {
@@ -590,7 +593,9 @@ function onPacket(pkt) {
     STATE.lastAttackTimestamp = Date.now();
     STATE.lastAttackType      = pkt.attackType || STATE.lastAttackType;
   } else {
+    STATE.counts.BENIGN++;
     STATE.classif.Benign++;
+    STATE.classifPpsCount.Benign += rate;
   }
 
   drawClassifDonut();
@@ -2067,6 +2072,7 @@ window.resetSessionData = function() {
   STATE.sessionStart = Date.now();
   STATE.counts = { BENIGN: 0, UDP_FLOOD: 0, ARP_SPOOF: 0, PORT_SCAN: 0, DATA_SNIFF: 0, SPOOFING: 0 };
   STATE.classif = { Benign: 0, DDoS: 0, DoS: 0, Mirai: 0, Spoofing: 0, Recon: 0 };
+  STATE.classifPpsCount = { Benign: 0, DDoS: 0, DoS: 0, Mirai: 0, Spoofing: 0, Recon: 0 };
   STATE.allPackets = [];
   STATE.alerts = [];
   STATE.recentAttackSeverities = [];
