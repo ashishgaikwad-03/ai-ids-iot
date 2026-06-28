@@ -195,13 +195,13 @@ const STATE = {
 };
 
 // Client-side hardware watchdog — checks every 5s
-// Marks a device offline if no heartbeat seen in 45s.
+// Marks a device offline if no heartbeat seen in 8s.
 setInterval(() => {
   let anyChanged = false;
   const now = Date.now();
   Object.values(STATE.devices).forEach(d => {
     if (d.status !== 'OFFLINE' && d._lastHeartbeatMs) {
-      if (now - d._lastHeartbeatMs > 45000) {
+      if (now - d._lastHeartbeatMs > 8000) {
         d.status = 'OFFLINE';
         updateIotCard(d);
         updateDeviceDetailCard(d);

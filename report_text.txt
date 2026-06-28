@@ -1,0 +1,1648 @@
+--- Page 1 ---
+ 
+ 
+  
+A Project Phase-II Report  
+On 
+AI Based Multi-Layer Intrusion Detection System for IoT Networks   
+Submitted in the partial fulfillment of the requirements of 
+ 
+Bachelor of Engineering 
+in 
+Electronics and Telecommunication 
+By 
+ 
+ 
+Ashish Gaikwad B400210302 
+Abhishek Singh B400210285 
+Ujjwal Deshmukh B400210297 
+ 
+Under the guidance of 
+Prof. N.P. Mawale 
+ 
+Department of Electronics and Telecommunication Engineering 
+All India Shri Shivaji Memorial Society’s College of Engineering, Pune-01 
+Affiliated to SPPU Pune 
+A.Y 2025-26 
+
+--- Page 2 ---
+ 
+ 
+  
+ 
+CERTIFICATE 
+This is to certify that the Project titled “ AI Based Multi-Layer Intrusion Detection System for 
+IoT Networks” Submitted by, 
+ 
+ 
+ 
+ 
+is a Bonafide record of the Project Phase-II  work carried out by them towards the partial fulfillment of 
+the requirements of Savitribai Phule Pune University, for the award of Bachelor of Electronics and 
+Telecommunication Engineering under my supervision and guidance. 
+ 
+ 
+Signature of the Guide: 
+Prof. N.P. Mawale  
+     Dr. R R Itkarkar                           Dr. S B Dhonde 
+   Project coordinator                                                                                     HOD- E & TC 
+ 
+Date: 
+Place: Pune 
+This report has been examined as per Savitribai Phule Pune University requirements at AISSMS COE, 
+Pune-01 on _______________ 
+ 
+ 
+                       Signature:                                Signature:   
+       
+         Name of Internal Examiner                                                     Name of External Examiner 
+ 
+Ashish Gaikwad B400210302 
+Abhishek Singh B400210285 
+Ujjwal Deshmukh B400210297 
+--- Page 3 ---
+ 
+ 
+ ACKNOWLEDGEMENT  
+ 
+We take this opportunity to express our deep sense of gratitude towards our guide Prof. N. P. Mawale 
+under whose guidance we had the privilege to work on this project. We also express our gratitude 
+towards our project coordinator Prof. R. R. Itkarkar for her kind support and co-operation.  
+We are grateful to Dr. S. B. Dhonde Head of E & TC Engineering Department and all the teaching and 
+non-teaching staff members of E& TC Engineering Department for their direct or indirect help in 
+completion of the Stage-I of project.   
+ 
+ 
+ 
+                 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ Ashish Gaikwad B400210302 
+Abhishek Singh B400210285 
+Ujjwal Deshmukh B400210297 
+--- Page 4 ---
+ 
+ 
+  
+PROLOGUE 
+All India Shri Shivaji Memorial Society, established as early as in 1917, is a premier educational 
+institution in Pune. Ours is a result-oriented Society dedicated to the noble cause of Military, 
+General, Technical & Management Education in India by Shri Chhatrapati Shahu Maharaj of 
+Kolhapur also known as “Rajarshi Shahu”. He was the first Maharaja of the princely state of 
+Kolhapur and a great social reformer. 
+He was an invaluable gem in the history of Maharashtra he worked tirelessly for the cause of the 
+lower caste subjects in his state. Primary education to all regardless of caste and creed was one of 
+his most significant priorities. In our Institute we follow the noble practices established by our great 
+leader and as we know Leader decide the destiny we are blessed to have a leadership and a rich 
+cultural heritage which is totally focused on the noble cause of Quality Education. It functions beyond 
+race, caste, creed, religion & political spirit. The Society Management is very pragmatic & 
+progressive. 
+On Nov 10, 1917, Rajarshi Chhatrapati Shahu Maharaj announced in Delhi, his proposal to establish 
+a Memorial of Chhatrapati Shivaji Maharaj in the City of Pune. In the proposal, he declared his 
+intention of creating a central hall with Chhatrapati Shivaji Maharaj’s life size statue and a hostel to 
+accommodate a hundred Maratha students. The institute was to act as a rallying centre for Maratha 
+activities all over India, giving a concrete shape and impetus to the diverse endeavours for the 
+advancement of the Maratha community. 
+On Dec 27, 1917, Rajarshi Chhatrapati Shahu Maharaj, on a pressing demand from Khaserao Jadhav, 
+presided over the 11th session of the Maratha Educational Conference at Khamgoan. Rajarshi 
+Chhatrapati Shahu Maharaj had convened a meeting of the committee of the All India Shivaji 
+Memorial Society on 25 May 1922. Chhatrapati Rajaram Maharaj was elected President of the All 
+India Shivaji Memorial Society and took on. 
+Core Values : 
+ LEADERSHIP AND CULTURAL HERITAGE  
+ HONESTY AND INTEGRITY  
+ FREEDOM OF THOUGHT AND EXPRESSION  
+ EXCELLENCE  
+ ACCOUNTABILITY AND TRANSPARENCY  
+ ENCOURAGEMENT  
+ SOCIAL RESPONSIBILITY  
+Honesty & Integrity : 
+The foreword of our society is “Satyala Maran Nahi” which means “Truth is eternal” 
+     
+
+--- Page 5 ---
+ 
+ 
+   
+ 
+ 
+ 
+ 
+ 
+Vision :  
+COLLEGE VISION AND MISSION 
+ 
+Service to society through quality education. 
+Mission : 
+ Generation of national wealth through education and research 
+ Imparting quality technical education at the cost affordable to all strata of the society 
+ Enhancing the quality of life through sustainable development 
+ Carrying out high quality intellectual work 
+ Achieving the distinction of highest preferred engineering college in the eyes of the stake 
+holders 
+    Goal : 
+ To inculcate learning habits 
+ To create an environment to make the students creative and innovative 
+ To promote project based learning 
+ To strengthen industry – institute interaction 
+ To ensure continuous improvement in quality 
+ To develop entrepreneurship skills 
+ To nurture the spirit of team work 
+ To catalyse all – round development of students 
+ To develop technologies for sustainable development 
+DEPARTMENT VISION AND MISSION 
+Vision : 
+Society Growth and Welfare Through Competent Electronics and Communication Engineering 
+Graduates. 
+Mission : 
+ To impart quality education in the field of E & TC engineering to solve societal and 
+industrial problems with focus on trans-disciplinary approach 
+ To provide stimulating learning environment with modern tools & technologies. 
+ To produce dynamic graduates with ethics and moral values. 
+ To facilitate E & TC graduates with sight of innovation 
+
+--- Page 6 ---
+ 
+ 
+  
+ 
+Course Outcomes : 
+Course outcomes -Project Stage-1  
+CO1: Identify project for society and industry need by applying engineering knowledge gained 
+throughout the E and TC Engineering program  
+CO2: Investigate identified complex engineering problem using appropriate research methods and 
+techniques 
+CO3:  Test the solution of identified engineering problem with appropriate simulation tool. 
+CO4: Work in team and effective budget Planning to meet the project requirement   
+CO5 : Effectively communicate the project progress through presentations and technical report. 
+CO6: Develop self-learning skills and follow the ethical code of conduct for project. 
+ 
+Course outcomes -Project Satge-2  
+CO1: Develop solutions to the real world problems using modern engineering tools and technologies. 
+CO2: Demonstrate practical skills and knowledge in testing and debugging for both hardware and 
+software based projects. 
+CO3: Work in team to demonstrate the project by using visual aids and visualization techniques. 
+CO4: Effectively communicate project work through publications, competitions, presentations and 
+technical report. 
+CO5: Showcase the project management and self-learning skills for lifelong learning. 
+CO6: Adherence to ethical code of conduct for project execution.  
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- Page 7 ---
+ 
+ 
+  
+Academic Year : 2025 - 26 
+Name of the Programme: Electronics & Telecommunication Engineering. 
+Program Outcomes : 
+1. A graduate student will apply knowledge of mathematics and engineering fundamentals to 
+design electronic circuits and systems such as logical circuits, analog circuits, electrical 
+machines, control and communication systems, digital systems etc. and test the results. 
+2. A graduate student will be able to identify, formulate, solve electronics engineering problems. 
+3. A graduate student will demonstrate the ability to design, implement and evaluate a system, 
+process, component and program to meet the specified needs with appropriate considerations for 
+public, health and safety, society and environment. 
+4. A graduate student will investigate, formulate, analyze and provide appropriate solution to 
+simple and complex engineering problem. 
+5. A graduate student will provide the solutions by using the Modern electronic and IT Engineering 
+Tools and Technologies for practicing electronic Engineering problems 
+6. A graduate student will demonstrate the ability to learn the impact of industries on society by 
+visiting different industries and understand the importance of industrial products for analog and 
+digital circuits and systems. 
+7. A graduate student will understand the importance of environmental issues and will design 
+sustainable systems. 
+8. A graduate student will understand the professional and ethical responsibilities to meet the socio- 
+economic challenges. 
+9. A graduate student will function effectively as an individual, member or leader of a team in 
+multidisciplinary setting. 
+10. A graduate student will be able to communicate effectively at different technical and 
+administrative levels. 
+11. A graduate student will demonstrate knowledge and understanding of engineering and 
+management principles to manage projects. 
+12. A graduate student will recognize the need for and have the preparation and ability to engage in 
+independent and life-long learning in the broadest context of technological change. 
+ 
+--- Page 8 ---
+ 
+ 
+ Program Specific Outcome (PSO’s) of Department 
+ 
+1. Systems Development: Design and develop prototype or system using hardware and software 
+skills for multi-disciplinary applications. 
+2. Adaptability: Demonstrate an ability to adapt emerging technologies in the field of Artificial 
+Intelligence machine learning, Internet of things   and Robotics to solve the real life problems. 
+3. Skill Development: Develop technical and management skills through student clubs and 
+industry interactions. 
+ 
+List of Program Educational Objectives (PEO’s) 
+ 
+1. To build strong fundamental knowledge among graduates required to pursue their higher 
+education and continue professional development. 
+2. To enable graduates to identify, analyze and solve Electronics Engineering problems by 
+applying basic principles and modern techniques. 
+3. To enable graduates to innovate, design and develop hardware & software components and 
+groom their ability to succeed in multidisciplinary & diverse field. 
+4. To inculcate in graduates professional attitude, effective communicational skills, team work 
+skills for becoming a responsible, cultured human being. 
+--- Page 9 ---
+  
+ ABSTRACT 
+ 
+The rapid growth of the Internet of Things (IoT) has connected billions of devices in smart homes, 
+healthcare, agriculture, and industrial systems. However, the limited processing power and memory of 
+IoT devices make them vulnerable to cyberattacks such as DDoS attacks, botnets, port scanning, and 
+spoofing. To address this challenge, this project presents a real-time AI-Based Intrusion Detection 
+System (IDS) designed specifically for IoT networks. 
+The proposed system uses an ESP32 microcontroller to capture network traffic, extract key features, 
+and run a trained XGBoost machine learning model at the edge. Traffic is classified as normal or 
+malicious, and detected threats are forwarded to a Spring Boot backend and Python Flask server for 
+detailed attack classification. The model was trained using the CIC-IoT 2023 dataset and is capable of 
+detecting major attack categories including DDoS UDP Flood, Mirai Botnet, SYN Flood, Port 
+Scanning, ARP Spoofing, Host Discovery, and Brute Force attacks. 
+The system achieves an overall detection accuracy of 92% while maintaining a low deployment cost. 
+Additional features include a real-time web dashboard, Telegram-based alerts, role-based user 
+authentication, offline PCAP/CSV analysis, and a cybersecurity simulation lab. With an average 
+detection time of approximately 2 seconds, the proposed solution provides an affordable and effective 
+approach for securing resource-constrained IoT environments.
+--- Page 10 ---
+ 
+ 
+ Table of Contents  
+ 
+Chapter 
+No. Description Page 
+No. 
+1 Introduction  
+2 Problem Definition & Objective  
+ 2.1 Problem definition  
+ 2.2 Challenges Identified   
+ 2.3 Objectives   
+3 Literature Survey  
+ 3.1 Review of Existing Methodologies  
+ 3.2 Conclusion from Literature survey  
+4 System Overview and Architecture  
+ 4.1 System Architecture  
+ 4.2 Detection Pipeline Flowchart  
+ 4.3 Network Topology  
+5 Methodology and System Design   
+ 5.1 Hardware Selection and Setup  
+ 5.2 Pin Connection Diagram  
+ 5.2 Software Setup  
+6 Dataset, Feature Engineering and AI Model Design  
+ 6.1 CIC-IoT 2023 Dataset Overview  
+ 6.2 Selected Attack Classes  
+ 6.3 Feature Engineering and Extraction  
+ 6.4 Two-Stage Classification Architecture  
+ 6.5 Stage 1: XGBoost Binary Classifier (Edge Layer)  
+ 6.6 Stage 2: Server-Side Multiclass Attack Classification  
+7 Results and Analysis  
+ 7.1 Detection Accuracy  
+--- Page 11 ---
+ 
+ 
+  7.2 System Latency Analysis  
+ 7.3 Performance Metrics  
+ 7.4 Results Discussion  
+8 Merits and Demerits, Applications & Future Scope   
+ 8.1 Merits and Demerits  
+ 8.2 Applications  
+ 8.3 Future Scope  
+9 Conclusion  
+ References  
+ List of Achievements towards project   
+--- Page 12 ---
+  
+1  AISSMS COE, Department of E & TC Engineering  
+  
+1. INTRODUCTION 
+ 
+The Internet of Things (IoT) has emerged as a transformative technology that enables physical devices 
+to communicate and exchange data over the internet. IoT systems are widely used in smart homes, 
+healthcare, industrial automation, agriculture, transportation, and environmental monitoring. While 
+these connected devices improve efficiency and automation, their increasing deployment has also 
+introduced significant security challenges. 
+Most IoT devices are resource-constrained, possessing limited processing power, memory, and storage 
+capacity. As a result, they often lack robust security mechanisms and become vulnerable to cyber threats 
+such as Distributed Denial of Service (DDoS) attacks, botnet infections, spoofing attacks, brute-force 
+attacks, and network reconnaissance activities. Such attacks can compromise sensitive information, 
+disrupt services, and affect the reliability of IoT networks. 
+Traditional Intrusion Detection Systems (IDS) are primarily designed for high-performance computing 
+environments and are unsuitable for deployment on low-cost embedded devices. Therefore, there is a 
+growing need for lightweight and intelligent security solutions capable of detecting malicious activities 
+directly within IoT environments. 
+This project presents an AI-Based Multi-Layer Intrusion Detection System for IoT Networks  that 
+combines embedded hardware, machine learning, and real-time monitoring technologies. The proposed 
+system utilizes an ESP32 microcontroller operating in promiscuous mode to capture network traffic and 
+extract relevant traffic features. A trained XGBoost machine learning model analyzes these features to 
+identify normal and malicious network behavior. 
+The system follows a multi-layer architecture consisting of an edge layer for traffic monitoring and 
+feature extraction, a backend layer for data processing and attack classification, and a user interface 
+layer for visualization and system management. Additional functionalities such as a real-time web 
+dashboard, Telegram-based alerts, offline PCAP/CSV analysis, and role-based access control provide a 
+comprehensive security monitoring solution. 
+The proposed IDS offers a low-cost, scalable, and practical approach for securing IoT networks while 
+demonstrating the effective deployment of machine learning techniques on resource-constrained 
+embedded devices. 
+ 
+ 
+ 
+ 
+ 
+--- Page 13 ---
+  
+2  AISSMS COE, Department of E & TC Engineering  
+  
+2. PROBLEM STATEMENT  
+ 
+2.1 Problem definition  
+The Internet of Things (IoT) has become an essential part of modern technology and is widely used in 
+smart homes, healthcare systems, industries, agriculture, and transportation. These devices 
+continuously exchange information through wireless networks to provide automation and intelligent 
+services. Although IoT technology offers many advantages, it also creates serious security challenges. 
+Most IoT devices are designed with limited memory, low processing power, and minimal security 
+features. Due to these limitations, they are highly vulnerable to cyber attacks such as Distributed 
+Denial of Service (DDoS), Denial of Service (DoS), Mirai botnet attacks, spoofing attacks, port 
+scanning, and brute force attacks. These attacks can disrupt network services, compromise sensitive 
+information, reduce system performance, and cause device failures. 
+Traditional Intrusion Detection Systems require high computational resources and large memory, 
+making them unsuitable for deployment on low-cost IoT devices such as ESP32 microcontrollers. As a 
+result, many IoT networks operate without effective real-time security monitoring. 
+Therefore, there is a need for a lightweight, intelligent, and cost-effective intrusion detection system 
+capable of detecting malicious activities in real time while operating within the hardware limitations of 
+IoT devices. The proposed AI Based Multi-Layer Intrusion Detection System addresses this 
+requirement by combining Machine Learning, Edge Computing, and IoT technologies to provide 
+efficient network security for resource-constrained environments. 
+ 
+2.2 Challenges Identified 
+The following challenges were identified while designing a security solution for IoT networks: 
+1. Limited Hardware Resources:  Most IoT devices have low processing power, memory, and 
+storage, making it difficult to run traditional IDS solutions. 
+2. Real-Time Detection Requirements:  Cyberattacks must be detected quickly to prevent 
+service disruption and device compromise. 
+3. High Volume of Network Traffic:  IoT networks generate continuous traffic, requiring 
+efficient feature extraction and analysis. 
+4. Detection Accuracy:  The system must accurately identify malicious activities while 
+minimizing false alarms. 
+5. Cost Constraints:  Existing enterprise-grade IDS solutions are expensive and unsuitable for 
+small-scale IoT deployments. 
+6. Scalability:  The security solution should support multiple IoT devices and adapt to different 
+network environments. 
+--- Page 14 ---
+  
+3  AISSMS COE, Department of E & TC Engineering  
+ These challenges highlight the need for a lightweight, intelligent, and low-cost intrusion detection 
+system specifically designed for IoT environments. 
+ 
+2.3 Objectives  
+1. To detect cyberattacks in IoT networks in real time. 
+2. To implement AI-based intrusion detection on ESP32 hardware. 
+3. To identify and classify multiple categories of network attacks. 
+4. To provide real-time alerts and monitoring through a web-based dashboard. 
+5. To develop a low-cost and scalable security solution for resource-constrained IoT 
+environments. 
+--- Page 15 ---
+ 
+4  AISSMS COE, Department of E & TC Engineering  
+ 3. LITERATURE REVIEW  
+3.1 Review of Existing Methodologies 
+[1] Ejeofobiri et al. (2024) – AI-Driven Secure Intrusion Detection for IoT Networks 
+The authors reviewed AI-powered intrusion detection techniques for IoT environments and analyzed 
+supervised, unsupervised, and reinforcement learning approaches. The study highlighted the effectiveness 
+of machine learning in detecting anomalous network behavior while addressing the resource constraints 
+of IoT devices. Hybrid models and feature selection techniques were recommended to improve detection 
+accuracy and efficiency. The paper concluded that multi-layer AI-based security frameworks are essential 
+for future IoT security. 
+ 
+[2] Rao et al. (2024) – Strategizing IoT Network Layer Security Through Advanced IDS and AI-Driven 
+Threat Analysis 
+This paper focused on strengthening IoT network-layer security using advanced IDS mechanisms 
+combined with AI-driven threat analysis. The authors emphasized the importance of intelligent attack 
+detection, automated threat response, and adaptive security architectures. The study showed that AI 
+techniques significantly improve detection accuracy and reduce response time compared to traditional 
+methods. 
+ 
+[3] Nisha and Udhayashri (2025) – AI-Powered Intrusion Detection System for IoT Security 
+The authors proposed a hybrid IDS combining CNN, LSTM, Isolation Forest, Reinforcement Learning, 
+and Blockchain technology. The system was designed for real-time attack detection, adaptive learning, 
+and secure logging of security events. The architecture achieved high detection accuracy with low false-
+positive rates while supporting lightweight deployment in IoT environments. 
+ 
+[4] Kakolu et al. (2023) – AI-Enabled Intrusion Detection Systems in IoT Networks 
+This paper presented a comprehensive review of AI-enabled IDS solutions for resource-constrained IoT 
+devices. The study compared traditional IDS techniques with machine learning and deep learning 
+approaches. It highlighted the advantages of AI-based IDS in improving threat detection, reducing false 
+positives, and adapting to evolving cyber threats. The authors identified resource limitations and 
+scalability as major challenges. 
+ 
+[5] Bakhsh et al. (2023) – Enhancing IoT Network Security Through Deep Learning-Powered IDS 
+The authors developed a deep learning-based IDS using Feed Forward Neural Networks (FFNN), Long 
+Short-Term Memory (LSTM), and Random Neural Networks (RandNN). The system was evaluated using 
+the CIC-IoT22 dataset and achieved detection accuracies exceeding 99%. The study demonstrated that 
+--- Page 16 ---
+ 
+5  AISSMS COE, Department of E & TC Engineering  
+ deep learning models can effectively detect complex cyber threats but require significant computational 
+resources. 
+[6] Srinivasan and Senthilkumar (2025) – IDPS Model for IIoT Environments Using Hybridized 
+Framework 
+This paper proposed a hybrid Intrusion Detection and Prevention System (IDPS) for Industrial IoT 
+environments. The framework combined Convolutional Neural Networks (CNN), Reinforcement 
+Learning, and Blockchain technology to provide both intrusion detection and automated threat prevention. 
+Experimental results showed higher detection accuracy and lower false-positive rates compared to existing 
+approaches. 
+ 
+[7] Kantharaju et al. (2024) – Machine Learning Based Intrusion Detection Framework for IoT 
+The authors proposed an advanced intrusion detection framework using a Self-Attention Progressive 
+Generative Adversarial Network (SAPGAN). The model utilized feature selection and optimized 
+preprocessing techniques on the Bot-IoT dataset. Results showed improved detection accuracy and 
+reduced computational time compared to traditional deep learning approaches. 
+ 
+[8] Chiba et al. (2022) – A Deep Study of Novel IDS and IPS for IoT Networks 
+This work presented a survey of modern Intrusion Detection Systems (IDS) and Intrusion Prevention 
+Systems (IPS) developed between 2019 and 2022. The authors analyzed various security frameworks, 
+their strengths, limitations, and deployment challenges in IoT networks. The study identified future 
+research directions including lightweight AI-based IDS solutions and edge deployment strategies. 
+ 
+[9] Saheed et al. (2022) – Machine Learning-Based Intrusion Detection for Detecting IoT Network Attacks 
+The paper proposed a machine learning-based IDS using feature normalization, Principal Component 
+Analysis (PCA), and multiple supervised learning algorithms. The system was evaluated using the 
+UNSW-NB15 dataset and achieved an accuracy of approximately 99.9%. The study demonstrated the 
+effectiveness of machine learning techniques for identifying diverse IoT attack categories. 
+ 
+[10] Kumar et al. (2022) – Distributed IDS to Detect DDoS Attacks in Blockchain-Enabled IoT Networks 
+The authors proposed a distributed IDS architecture using fog computing for blockchain-enabled IoT 
+environments. Random Forest and XGBoost models were deployed on distributed fog nodes and evaluated 
+using the BoT-IoT dataset. The study showed that XGBoost performed better for binary attack detection, 
+while Random Forest achieved better multi-class attack classification. 
+ 
+--- Page 17 ---
+ 
+6  AISSMS COE, Department of E & TC Engineering  
+ 3.2 Conclusion from Literature Review 
+The literature review reveals that the rapid growth of IoT networks has significantly increased the risk of 
+cyberattacks such as DDoS attacks, botnet infections, spoofing attacks, brute-force attacks, and network 
+reconnaissance activities. Traditional security mechanisms and signature-based intrusion detection 
+systems are often ineffective in IoT environments due to the limited computational resources, memory 
+constraints, and dynamic nature of IoT devices. 
+Recent research demonstrates that Artificial Intelligence, Machine Learning, and Deep Learning 
+techniques have substantially improved intrusion detection performance. Algorithms such as XGBoost, 
+Random Forest, CNN, LSTM, and hybrid learning models have achieved high detection accuracy while 
+effectively identifying both known and unknown attacks. Several studies also explored cloud-based, 
+blockchain-enabled, distributed, and hybrid IDS architectures to enhance security and scalability. 
+However, the literature indicates that many existing solutions require high computational power, large 
+memory resources, or cloud infrastructure, making them difficult to deploy on low-cost embedded IoT 
+devices. Furthermore, limited attention has been given to lightweight edge-based implementations that 
+provide real-time monitoring, attack classification, visualization, and alert generation within resource-
+constrained environments. 
+Based on the findings of the reviewed literature, there is a clear need for a lightweight, cost-effective, and 
+intelligent intrusion detection system capable of operating directly on IoT hardware. The proposed AI-
+Powered Multi-Layer Intrusion Detection System addresses this research gap by integrating XGBoost-
+based attack detection, ESP32-based edge deployment, real-time monitoring, dashboard visualization, and 
+alerting mechanisms to provide an efficient and practical security solution for IoT networks. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 18 ---
+ 
+7  AISSMS COE, Department of E & TC Engineering  
+ 4. SYSTEM OVERVIEW AND ARCHITECTURE  
+4.1 System Architecture 
+The AI-IDS system follows a three-layer architecture design. Each layer has specific 
+responsibilities and communicates with the other layers through well-defined interfaces. This 
+separation of concerns makes the system modular, testable, and easier to maintain. The three layers 
+are described below. 
+ 
+4.1.1 Edge / Hardware Layer 
+The Edge Layer consists of the physical IoT devices that form the monitored network. This layer 
+includes the ESP32 Gateway (the main IDS node), the ESP32-CAM (the victim IoT camera 
+device), and the DHT11 temperature and humidity sensor. 
+The ESP32 Gateway serves as the central intelligence unit of the system. It operates in dual Wi-Fi 
+mode, functioning simultaneously as a Wi-Fi Access Point (AP) with IP address 192.168.4.1 and as 
+a Wi-Fi Station (STA) connected to a phone hotspot. The AP network hosts the IoT devices being 
+monitored, while the STA connection provides a communication path to the backend server on the 
+laptop. 
+The ESP32 Gateway runs a Wi-Fi promiscuous sniffer that captures all IEEE 802.11 data frames on 
+the AP channel. Every 2 seconds, it aggregates the captured packet information into 15 features, 
+normalizes them using a RobustScaler, and feeds them into the on-device XGBoost binary 
+classifier. If the classifier detects an attack, the ESP32 sends the feature data to the Spring Boot 
+backend via HTTP POST. 
+The ESP32-CAM serves as a representative IoT device (victim node) that connects to the ESP32 
+Gateway’s AP network at IP address 192.168.4.2. It runs an MJPEG video stream on port 80 and 
+sends heartbeat messages to the backend every 5 seconds. During attacks, the camera stream visibly 
+freezes, providing a compelling visual demonstration of the attack’s impact. 
+ 
+4.1.2 Backend Layer 
+The Backend Layer runs on a laptop computer and consists of two server applications: 
+Spring Boot 3.3 Server (Java 22): This is the main backend server running on port 8080. 
+--- Page 19 ---
+  
+8  AISSMS COE, Department of E & TC Engineering  
+  
+It receives data from the ESP32 devices via HTTP POST endpoints, manages device 
+state, routes features to the Python Flask server for multiclass classification, and pushes 
+real-time updates to all connected dashboard clients via STOMP WebSocket. The server 
+also handles file uploads for offline analysis, user authentication, and Telegram bot 
+integration. 
+Python Flask Inference Server (Port 5000): This lightweight server hosts the rule-
+based multiclass classifier. When the Spring Boot server receives features from the 
+ESP32 that have been flagged as attack traffic, it forwards the features to the Flask 
+server via HTTP POST to the /infer endpoint. The Flask server applies threshold-based 
+detection rules de-rived from the CIC-IoT 2023 dataset analysis to determine the 
+specific attack type and returns the classification result with a confidence score. 
+ 
+4.1.3 Presentation / User Layer 
+The Presentation Layer provides the user interface for monitoring and interacting with 
+the system. It consists of: 
+Web Dashboard: A 7-page Single Page Application (SPA) built with HTML5, 
+JavaScript (ES2020), Canvas API for charts, and STOMP WebSocket for real-time 
+updates. The dash-board runs in any modern web browser at http://localhost:8080 and 
+updates continuously without page refreshes. 
+Telegram Bot: An automated Telegram bot that sends real-time alert notifications to 
+authorized users when attacks are detected. Users can control the bot using commands 
+like /status, /start, and /stop. 
+ 
+--- Page 20 ---
+ 
+9  AISSMS COE, Department of E & TC Engineering  
+      
+                                                                                 Figure 1: System Block Diagram 
+ 
+ 
+4.2 Detection Pipeline Flowchart 
+The complete attack detection sequence from packet capture to dashboard alert 
+follows these steps: 
+1. Attack Traffic Generation: The attacker sends 5,000 packets per second using 
+Python Scapy scripts targeting the ESP32-CAM IP address. 
+2. Wi-Fi Promiscuous Sniffing: The ESP32 Gateway captures all IEEE 802.11 
+frames on the AP channel using the Wi-Fi_promiscuous_cb callback function. 
+3. Feature Window Aggregation: Over a 2-second window, the ESP32 counts 
+packets, calculates byte totals, measures inter-arrival times, counts TCP flags, and 
+computes sta-tistical features, resulting in 15 features. 
+4. RobustScaler Normalization: Each feature is normalized using the formula: 
+xscaled = (x−median)/IQR, where median and IQR values are stored in the scaler.h 
+header file, fitted on the CIC-IoT 2023 training data. 
+5. XGBoost Binary Inference: The 40-tree binary classifier processes the 
+normalized features. If the vote count exceeds the threshold of 0.3, the traffic is 
+classified as attack. 
+
+--- Page 21 ---
+ 
+10  AISSMS COE, Department of E & TC Engineering  
+ 6. HTTP POST to Backend: The ESP32 sends the 15-feature JSON payload to the 
+Spring Boot server at /api/esp32/analyze. 
+7. Python Flask Multiclass Classification: The Spring Boot server forwards the 
+features to the Python Flask server at /infer. The rule-based classifier determines 
+the specific attack type. 
+8. WebSocket Push: The classification result is broadcast to all connected 
+dashboard clients via STOMP WebSocket on /topic/packets. 
+9. Dashboard Update and Telegram Alert: The dashboard updates the traffic chart, 
+alert feed, device card, and threat level indicator. A Telegram alert is sent to 
+authorized users. 
+ 
+ 
+Figure 2: Detection Pipeline Flowchart  
+
+--- Page 22 ---
+ 
+11  AISSMS COE, Department of E & TC Engineering  
+ 4.3 Network Topology 
+The system uses a dual-network architecture that is one of the key innovations of this project. The ESP32 
+Gateway operates on two Wi-Fi networks simultaneously:  
+Network 1– ESP32 Private AP (192.168.4.0/24):  This is the monitored network. The ESP32 Gateway 
+creates this Access Point with SSID “ESP32-IDS”. IoT devices like the ESP32-CAM connect to this 
+network. All traffic on this network is captured by the promiscuous sniffer for analysis.  
+Network 2– Phone Hotspot (192.168.13.0/24):  This is the control/backend communication channel. 
+The ESP32 Gateway connects to this network as a Station to communicate with the laptop running the 
+Spring Boot and Python Flask servers. Table 4.1 shows the complete IP address reference for all devices 
+in the system 
+ 
+ 
+Table 1:Complete IP Address Reference 
+Device IP on ESP32 AP IP on Hotspot Role in System 
+ESP32 Gateway 192.168.4.1 192.168.13.x (DHCP) IDS  node, Wi-Fi  snif- 
+fer, XGBoost inference, 
+DHT11, OLED display 
+ESP32-CAM 192.168.4.2 192.168.13.167 IoT camera node being 
+monitored; target of at-
+tack scripts 
+Laptop / Backend Not connected to AP 192.168.13.106 Spring Boot server, 
+Python Flask, dashboard 
+browser host 
+Attack Scripts Spoofed IPs Target: 192.168.13.167 Simulate  real-world at- 
+tacker traffic 
+Dashboard User N/A Any browser reachable Authenticated user view-
+ing dashboard, receiving 
+Telegram alerts 
+ 
+ 
+--- Page 23 ---
+ 
+12  AISSMS COE, Department of E & TC Engineering  
+  
+Figure 3: Network Topology Diagram  
+  
+
+--- Page 24 ---
+ 
+13  AISSMS COE, Department of E & TC Engineering  
+ 5. METHODOLOGY FOLLOWED /BLOCK DIAGRAM /SYSTEM DESIGN  
+5.1 Hardware Selection and Setup  
+ ESP32 Microcontroller: 
+o The ESP32-WROOM-32 serves as the main processing unit of the proposed AI-Based 
+Intrusion Detection System. It provides built-in Wi-Fi connectivity, dual-core 
+processing capability, and sufficient computational resources to perform network 
+packet monitoring and machine learning inference. 
+o The ESP32 operates in both Access Point (AP) and Station (STA) modes 
+simultaneously. In AP mode, it creates a private IoT network and monitors all 
+connected devices. In STA mode, it communicates with the backend server and 
+dashboard through a hotspot network. 
+o Features: 
+o • Dual-core Xtensa LX6 processor running at 240 MHz 
+o • 520 KB SRAM and 4 MB Flash memory 
+o • Integrated Wi-Fi and Bluetooth 
+o • Supports real-time packet monitoring 
+ 
+Figure 4: ESP32-WROOM-32 Module 
+  
+ 
+ ESP32-CAM Module  
+The ESP32-CAM acts as the victim IoT device within the network. It continuously streams live 
+video over Wi-Fi. During attack simulations such as DDoS and Mirai attacks, the degradation 
+of the video stream provides a visible demonstration of attack impact. 
+Specifications 
+• Processor : ESP32-S Dual-Core Processor 
+• Camera Sensor : OV2640 
+• Resolution : Up to 1600 × 1200 
+• Wi-Fi : IEEE 802.11 b/g/n 
+
+--- Page 25 ---
+ 
+14  AISSMS COE, Department of E & TC Engineering  
+ • Flash Memory : 4 MB 
+• Interface : HTTP MJPEG Video Streaming 
+• Role : Victim IoT Node 
+ 
+ 
+ 
+ 
+ 
+ 
+ DHT11 Sensor 
+The DHT11 sensor measures temperature and humidity values and periodically sends 
+environmental data to the dashboard. This demonstrates integration of additional IoT devices within 
+the monitored network. 
+Specifications 
+• Temperature Range : 0°C to 50°C 
+• Humidity Range : 20% to 90% RH 
+• Accuracy : ±2°C Temperature 
+• Operating Voltage : 3.3V – 5V 
+• Interface : Single Wire Digital 
+• Role : Environmental Data Monitoring 
+ 
+ 
+ 
+ SSD1306 OLED Display 
+            Figure 5: ESP32-CAM Module  
+Figure 6: DHT 11 sensor  
+--- Page 26 ---
+ 
+15  AISSMS COE, Department of E & TC Engineering  
+ The SSD1306 OLED display provides a physical alert output on the ESP32 Gateway. 
+It shows the current threat status, temperature and humidity readings, and IP address 
+infor-mation. When an attack is detected, the display shows “ATTACK” followed by 
+the attack type (e.g., “Mirai”, “DDoS”). 
+Specifications 
+• Display Size : 0.96 Inch 
+• Resolution : 128 × 64 Pixels 
+• Communication Protocol : I2C 
+• Operating Voltage : 3.3V – 5V 
+• Role : Local Status and Alert Display 
+ 
+ 
+ 
+                                                                   
+ 
+ 
+                                                                                    Figure 7: SSD1306 Display 
+ 
+5.2 Pin Connection Diagram 
+Table2 shows the GPIO pin connections for the ESP32 Gateway  
+ 
+Table 2:ESP32 Gateway Pin Connections 
+ESP32 Pin  Connected To Function 
+GPIO 4 DHT11 DATA pin Temperature/Humidity data  
+GPIO 21 SSD1306 SDA OLED I2C data line 
+GPIO 22 SSD1306 SCL OLED I2C clock line 
+3.3V DHT11 VCC + OLED VCC Power supply 
+GND DHT11 GND + OLED GND  Ground connection 
+ 
+ 
+ 
+ 
+
+--- Page 27 ---
+ 
+16  AISSMS COE, Department of E & TC Engineering  
+  
+Figure 8: Hardware Wiring Diagram  
+ 
+5.3 Software Setup 
+The AI-Based Multi-Layer Intrusion Detection System (IDS) consists of three primary software 
+components: the ESP32 firmware (for edge sniffing and machine learning inference), the Python Flask 
+Inference Server (for rule-based multiclass classification), and the Spring Boot Web Backend (for real-
+time dashboard data aggregation and WebSocket transmission). The development and deployment 
+setup for each component is detailed below. 
+ 
+5.3.1 System Requirements & Prerequisites 
+ 
+Before configuring the individual components, we ensured that the following software runtimes and 
+tools were installed on our Windows development machine. We verified the Java installation via the 
+command prompt: 
+ 
+C:\Users\Admin> java -version 
+java version "22" 2024-03-19 
+Java(TM) SE Runtime Environment (build 22+36-2370) 
+Java HotSpot(TM) 64-Bit Server VM (build 22+36-2370, mixed mode, sharing) 
+ 
+ 
+ 
+Tools Utilized:  
+
+--- Page 28 ---
+ 
+17  AISSMS COE, Department of E & TC Engineering  
+  Java Development Kit (JDK) 22 : Used to compile and run the Spring Boot 3.3.0 backend. 
+ Apache Maven 3.9.x : Utilized for dependency management and building the Spring Boot 
+backend. 
+ Python 3.10+ : Used to run the Flask inference server and network attack simulation scripts. 
+ Arduino IDE (v2.x) : Used to compile and upload firmware to the ESP32 Gateway and ESP32-
+CAM nodes. 
+ USB-to-UART Bridge Drivers (CP210x / CH340) : Installed for PC-to-ESP32 
+communication over the USB port. 
+ 
+5.3.2 ESP32 Firmware Setup & Compilation 
+ 
+The firmware is divided into two separate programs: the ESP32 Gateway 
+Sniffer (esp32_demo_open_network.ino) and the ESP32-CAM Stream 
+Node (esp32_cam_stream.ino). 
+ 
+A. Arduino IDE Configuration   
+ 
+To prepare the development environment, the Arduino IDE is configured by adding the Espressif 
+ESP32 board URL (https://dl.espressif.com/dl/package_esp32_index.json) to the system preferences. 
+Subsequently, the esp32 board package (Version 2.0.x) is installed via the Boards Manager. Finally, 
+the following essential libraries are integrated: 
+ ArduinoJson (v6.x): Integrated for parsing network packets and building JSON payloads. 
+ Adafruit SSD1306 & Adafruit GFX Library: Included for driving the I2C OLED physical 
+display. 
+ DHT sensor library by Adafruit: Utilized for reading temperature and humidity metrics. 
+ EloquentTinyML (v0.0.8): Employed to load and execute the trained XGBoost binary 
+classification model directly on the microcontroller. 
+ 
+B. Gateway Promiscuous Sniffer Logic (Gateway Node)   
+ 
+The core functionality of the Gateway involves placing the ESP32 Wi-Fi radio into promiscuous 
+mode. This enables the capture of raw packets on the channel, extraction of 15 distinct features within 
+a 2-second sliding window, and execution of the XGBoost model. Below is the essential hardware-
+interrupt and sniffing logic that is implemented: 
+ 
+ 
+// Core WiFi promiscuous sniffer callback function 
+void snifferCallback(void* buf, wifi_promiscuous_pkt_type_t type) { 
+    wifi_promiscuous_pkt_t* pkt = (wifi_promiscuous_pkt_t*)buf; 
+    int len = pkt->rx_ctrl.sig_len; 
+    uint8_t* payload = pkt->payload; 
+ 
+    // Filter for Data frames only (Type = 2) 
+    uint8_t frameType = (payload[0] >> 2) & 0x03; 
+    if (frameType == 2) {  
+--- Page 29 ---
+ 
+18  AISSMS COE, Department of E & TC Engineering  
+         packetCount++; 
+        totalBytes += len; 
+         
+        // Parse IP header length and protocol type 
+        int ipHeaderOffset = 12; // Standard offset for IEEE 802.11 
+        uint8_t protocol = payload[ipHeaderOffset + 9]; 
+         
+        if (protocol == 6) tcpCount++;       // TCP 
+        else if (protocol == 17) udpCount++;  // UDP 
+        else if (protocol == 1) icmpCount++;  // ICMP 
+    } 
+} 
+ 
+ 
+Figure 9: ESP32 Gateway Code in Arduino IDE  
+C. ESP32-CAM Stream Node (Victim Node)  
+The ESP32-CAM is configured to run an MJPEG video stream on port 80 to act as the victim node 
+during attack scenarios. The essential logic utilized to initialize the OV2640 camera sensor is shown 
+below: 
+ 
+// Essential camera configuration for OV2640 on AI-Thinker board 
+camera_config_t config; 
+config.pixel_format = PIXFORMAT_JPEG; 
+config.frame_size = FRAMESIZE_VGA; 
+config.jpeg_quality = 10; 
+config.fb_count = 1; 
+ 
+
+--- Page 30 ---
+ 
+19  AISSMS COE, Department of E & TC Engineering  
+ // Pin definitions omitted for brevity (Y2_GPIO_NUM to Y9_GPIO_NUM, etc.) 
+ 
+// Initialize the camera hardware 
+esp_err_t err = esp_camera_init(&config); 
+if (err != ESP_OK) { 
+    Serial.printf("Camera init failed with error 0x%x", err); 
+    return; 
+} 
+ 
+ 
+5.3.3 Python Flask Inference Server Setup 
+ 
+The Python Flask server is developed to act as the Stage 2 Multiclass Inference engine. It applies the 
+classification rules and processes model predictions for incoming threat features. The following setup 
+commands are executed in the terminal to prepare the virtual environment and initialize the server: 
+ 
+C:\Users\Admin> cd "C:\IDS PROJECT JAVA  BACKEND" 
+C:\IDS PROJECT JAVA  BACKEND> python -m venv venv 
+C:\IDS PROJECT JAVA  BACKEND> venv\Scripts\activate 
+ 
+(venv) C:\IDS PROJECT JAVA  BACKEND> pip install flask numpy scapy scikit-learn xgboost 
+joblib 
+(venv) C:\IDS PROJECT JAVA  BACKEND> python ids_inference_server.py 
+ * Serving Flask app 'ids_inference_server' 
+ * Debug mode: off 
+ * Running on http://127.0.0.1:5000 (Press CTRL+C to quit) 
+ 
+ 
+ 
+Figure 10: Command Line Setup of the Python Virtual Environment 
+ 
+
+--- Page 31 ---
+ 
+20  AISSMS COE, Department of E & TC Engineering  
+ 5.3.4 Spring Boot Web Backend Setup 
+ 
+The Java Spring Boot application is built to aggregate incoming network flow features from the 
+ESP32, forward them to the Python inference server, log attack histories, and push real-time updates to 
+the monitoring dashboard via WebSockets. The backend is initialized using the 
+automated START.bat script as shown below: 
+ 
+ 
+C:\IDS PROJECT JAVA  BACKEND> START.bat 
+[1/3] Java detected at: C:\Program Files\Java\jdk-22 
+[2/3] Maven detected: C:\IDS PROJECT JAVA  BACKEND\.mvn_cache\apache-maven-
+3.9.16\bin\mvn.cmd 
+[3/3] Project found:  C:\IDS PROJECT JAVA  BACKEND\pom.xml 
+ 
+[OK] All checks passed. Building and starting server... 
+[INFO] Freeing port 8080 if in use... 
+[INFO] Running Maven Spring Boot Application... 
+ 
+ 
+ 
+ 
+ 
+Figure 11: Startup Batch Script Execution 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- Page 32 ---
+ 
+21  AISSMS COE, Department of E & TC Engineering  
+ 5.3.5 Attack Simulation Setup (Attacker Node) 
+ 
+To test and verify the detection accuracy of the system, attack scripts are executed from an attacker PC 
+using Python and the scapy packet crafting library. The attacks are triggered using the following 
+sequence: 
+ 
+C:\Users\Attacker> pip install scapy 
+C:\Users\Attacker> python attack6_mirai.py --target 192.168.4.2 
+[INFO] Targeting ESP32-CAM stream node at 192.168.4.2 
+[INFO] Flooding network on UDP port 80... 
+[ATTACK TRIGGERED] 5000 pkts/sec sent. Stream frozen.  
+ 
+ 
+--- Page 33 ---
+ 
+22  AISSMS COE, Department of E & TC Engineering  
+ 6. DATASET, FEATURE ENGINEERING AND AI MODEL DESIGN  
+ 
+6.1 CIC-IoT 2023 Dataset Overview  
+The CIC-IoT-Dataset-2023 (Canadian Institute for Cybersecurity IoT Dataset 2023) was developed at 
+the University of New Brunswick (UNB) by Neto et al. and published in 2023. It is the most complete 
+publicly available IoT-specific network attack dataset, captured from real IoT devices in a controlled 
+laboratory environment.  
+• Total Records:  4.7 million network flow samples • Attack Classes: 33 different classes including 
+benign traffic 
+• Raw Features:  47 features per flow (reduced to 15 for ESP32 deployment) • Capture Duration: 
+Multi-day capture from real IoT device traffic  
+• IoT Devices Used:  105 real consumer IoT devices including Philips Hue smart bulbs, TP-Link 
+smart plugs, Google Nest cameras, Amazon Echo, and Samsung SmartThings  
+ 
+The dataset captures all network traffic on a real IEEE 802.11 Wi-Fi network with real at tackers 
+executing various attack scenarios. This makes it much more realistic than synthetic datasets or 
+datasets captured in purely simulated environments 
+6.2 Attack Classes Used in This Project 
+From the 33 attack classes available in the CIC-IoT 2023 dataset, we selected 7 major 
+classes that represent the most common and dangerous IoT attack types. These classes were 
+selected based on their frequency in real-world attacks, their impact on IoT devices, and 
+their detectability using the 15 features we extract on the ESP32 . 
+ 
+Table 3:  Attack Classes Used in the AI-IDS Project 
+CIC-IoT Label OSI Layer Protocol Characteristics 
+DDoS-UDP_Flood Layer 4 (Transport)  UDP (proto=17) Rate ≥ 80 pkt/2s, size 900– 
+1400B, random destination 
+ports 
+Mirai-udpplain Layer 4 (Transport)  UDP (proto=17) Average size ≥ 500B, count 
+≥ 50, spoofed Tor exit IPs 
+DoS-SYN_Flood Layer 4 (Transport)  TCP (proto=6) High SYN count, low ACK 
+ratio, RST flags ≥ 5 
+Recon-PortScan Layer 4 (Transport)  TCP (proto=6) RST ≥ 8, avg size < 150B, 
+sequential port access 
+Recon-HostDiscovery  Layer 3 (Network) ICMP (proto=1) Count ≥ 20, low inter-arrival 
+time, ping sweep 
+MITM-ArpSpoofing Layer 2 (Data Link)  ARP Count ≥ 10, very small pack- 
+ets (< 60B) 
+--- Page 34 ---
+ 
+23  AISSMS COE, Department of E & TC Engineering  
+ 6.3 Feature Engineering – 15 Selected Features 
+From the 47 raw features available in the CIC-IoT 2023 dataset, we selected 15 features 
+that can be computed in real-time on the ESP32 from captured Wi-Fi frames. The 
+selection criteria were: (1) the feature must be computable from raw packet headers 
+without deep packet inspection, (2) the feature must have high discriminative power based 
+on the feature importance analysis, and (3) the feature must be computable within the 2-
+second time window. 
+Table 4 lists all 15 features with their descriptions and data types. 
+ 
+ 
+Table 4 : 15 Features Extracted for AI-IDS Classification 
+Index Feature Name Description Type 
+0 flow_duration Duration of the 2-second window in microseconds Float 
+1 Header_Length_var  Variance of IP header lengths in the window Float 
+2 Protocol_Type Dominant protocol (1=ICMP, 6=TCP, 17=UDP) Integer 
+3 Rate Packets per second during the window Float 
+4 Tot_size Total bytes of all packets in the window Float 
+5 IAT Mean inter-arrival time between packets (microsec- 
+onds) Float 
+6 Max Maximum packet size in the window Float 
+7 AVG Average packet size in the window Float 
+8 Num Total number of packets in the window Integer 
+9 Variance Variance of packet sizes in the window Float 
+10 ack_flag_number Count of TCP ACK flags in the window Integer 
+11 rst_count Count of TCP RST flags in the window Integer 
+12 syn_flag_number Count of TCP SYN flags in the window Integer 
+13 fin_flag_number Count of TCP FIN flags in the window Integer 
+14 urg_flag_number Count of TCP URG flags in the window Integer 
+ 
+6.4 Two-Stage Classification Architecture 
+ 
+The AI-IDS system uses a two-stage classification architecture to balance the competing requirements 
+of on-device speed and accurate attack-type identification. 
+Stage 1 (On-Device): A binary XGBoost classifier runs directly on the ESP32 and determines 
+whether the current traffic window is “Benign” or “Attack”. This classifier uses 40 decision trees and 
+achieves sub-2 millisecond inference time. 
+Stage 2 (Server-Side): When Stage 1 detects an attack, the 15 features are sent to the Python Flask 
+server, which runs a rule-based multiclass classifier to identify the specific attack type from 7 possible 
+--- Page 35 ---
+ 
+24  AISSMS COE, Department of E & TC Engineering  
+ classes. This two-stage approach reduces the computational load on the ESP32 by only sending attack 
+traffic to the server for detailed classification  
+6.5 Stage 1: XGBoost Binary Classifier 
+    The binary classifier was trained on the CIC-IoT 2023 dataset using the following configu-ration: 
+Table 5: XGBoost Binary Classifier Configuration 
+Parameter Value 
+Algorithm XGBoost (Extreme Gradient Boosting) 
+Number of Trees (Estimators)  40 
+Task Type Binary classification (0 = Benign, 1 = Attack) 
+Decision Threshold 0.3 (lower than 0.5 to reduce false negatives) 
+Feature Count 15 
+Compiled Model Size Approximately 109 KB (model_binary.h) 
+Inference Time on ESP32 Approximately 2 ms per 2-second window 
+Scaler RobustScaler (fitted on CIC-IoT 2023 training data) 
+Training Framework Python sklearn with xgboost 2.x 
+ 
+ 
+ 
+Figure 12: TWO-STAGE INFERENCE PIPELINE 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- Page 36 ---
+ 
+25  AISSMS COE, Department of E & TC Engineering  
+ 7. RESULTS AND DISCUSSION  
+The proposed AI-Based Multi-Layer Intrusion Detection System was successfully implemented using 
+ESP32 microcontrollers, Spring Boot, Python Flask, and a real-time web dashboard. The system was 
+trained using the CIC-IoT 2023 dataset and evaluated under both normal and attack traffic conditions 
+to verify its effectiveness in detecting cyber threats within IoT networks. 
+The ESP32 gateway continuously monitored wireless network traffic in promiscuous mode and 
+extracted relevant traffic features for analysis. A lightweight XGBoost machine learning model 
+deployed on the ESP32 performed real-time binary classification to identify normal and malicious 
+network activities. When suspicious traffic was detected, the information was forwarded to the 
+backend server for detailed multiclass attack classification. 
+The system was tested against multiple attack categories, including DDoS UDP Flood, Mirai Botnet, 
+DoS SYN Flood, Port Scanning, Host Discovery, ARP Spoofing, and Dictionary Brute Force attacks. 
+Experimental results demonstrated an overall attack detection accuracy of approximately 92%, with 
+DDoS and Mirai attacks achieving detection rates above 96%. The average detection and alert 
+generation time was approximately 2 seconds, primarily due to the feature aggregation window. 
+A web-based monitoring dashboard was developed to visualize network traffic statistics, attack alerts, 
+device status, sensor readings, and historical attack information in real time. WebSocket 
+communication enabled instant dashboard updates and alert notifications whenever malicious traffic 
+was detected. 
+During attack simulations, noticeable performance degradation was observed on target IoT devices, 
+particularly during DDoS and Mirai attacks, where increased network load affected device 
+responsiveness. The proposed IDS successfully identified these attacks and generated timely alerts, 
+demonstrating its capability to provide effective real-time protection for IoT environments. 
+The obtained results confirm that the proposed system is capable of delivering accurate, low-cost, and 
+real-time intrusion detection while operating on resource-constrained IoT hardware platforms. 
+ 
+7.1 Detection Accuracy 
+The system achieved an overall detection accuracy of 92% across seven attack categories. The highest 
+accuracy was obtained for Mirai Botnet attacks, while Web Attacks showed comparatively lower 
+detection accuracy due to the complexity of application-layer traffic patterns. 
+ 
+Attack Type Detection Accuracy 
+DDoS 96% 
+Mirai Botnet 96.5% 
+DoS 93% 
+--- Page 37 ---
+ 
+26  AISSMS COE, Department of E & TC Engineering  
+ Reconnaissance 89.5% 
+Brute Force 86.5% 
+ARP Spoofing 83.5% 
+Web Attacks 80.5% 
+ 
+7.2 System Latency Analysis 
+The complete attack detection pipeline was evaluated to determine the response time of the system. 
+Process Time Required 
+Feature Extraction Window 2000 ms 
+XGBoost Inference on ESP32 ~2 ms 
+HTTP Communication 80–150 ms 
+WebSocket Dashboard Update <10 ms 
+The results show that the proposed system is capable of generating alerts within a few seconds of 
+attack occurrence, making it suitable for real-time IoT security applications. 
+ 
+7.3 Performance Metrics 
+ 
+Parameter Result 
+Overall Detection Accuracy 92% 
+Precision 93% 
+Recall 91% 
+False Positive Rate < 3% 
+ESP32 RAM Usage 280 KB 
+Available RAM 520 KB 
+Dashboard Refresh Time <100 ms 
+Python Server Throughput 500+ Requests/sec 
+--- Page 38 ---
+ 
+27  AISSMS COE, Department of E & TC Engineering  
+ 7.4 Results Discussion 
+The experimental results demonstrate that real-time intrusion detection can be successfully 
+implemented on resource-constrained IoT hardware. Despite the limited computational resources of 
+the ESP32 microcontroller, the system was capable of performing packet capture, feature extraction, 
+and machine learning inference efficiently without significant performance overhead. 
+The deployed XGBoost classifier provided fast and accurate detection of malicious network activities 
+while maintaining low memory and processing requirements. The integration of the Spring Boot 
+backend and Python Flask inference server enabled reliable multiclass attack classification, data 
+processing, and communication between system components. The real-time dashboard effectively 
+visualized network traffic statistics, device status, attack alerts, and historical events, allowing users to 
+monitor security incidents instantly. 
+The system achieved an overall detection accuracy of approximately 92%, with high detection rates for 
+DDoS and Mirai attacks. The average attack detection and alert generation time was around 2 seconds, 
+demonstrating the capability of the proposed solution to identify and report threats in near real time. 
+The results confirm that advanced AI-based intrusion detection can be deployed on low-cost embedded 
+devices without requiring expensive hardware or cloud-dependent processing. The proposed AI-Based 
+Multi-Layer Intrusion Detection System provides an effective, scalable, and economical solution for 
+enhancing the security of IoT networks while maintaining reliable detection performance and rapid 
+response capabilities. 
+ 
+        
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 13: Dashboard Home Page 
+--- Page 39 ---
+ 
+28  AISSMS COE, Department of E & TC Engineering  
+ The dashboard home screen serves as the central monitoring interface of the proposed AI-Based 
+Intrusion Detection System. It provides real-time visualization of network traffic, threat level 
+indicators, connected device status, recent security events, and attack notifications through 
+WebSocket-based communication. 
+The dashboard also displays a live video feed from the ESP32-CAM and continuously updates 
+environmental parameters such as temperature and humidity received from the DHT11 sensor. This 
+demonstrates the successful integration of multiple IoT devices within the monitored network while 
+providing users with a comprehensive view of system status and network activity. 
+ 
+ 
+Figure 14: IoT Device Under Attack Alerts 
+ 
+This figure shows the attack alert generated by the IDS after detecting malicious network activity. The 
+detected attack type, timestamp, severity level, and confidence score are displayed on the dashboard. 
+Real-time alert generation enables users to quickly identify security incidents and take appropriate 
+mitigation actions. 
+The system successfully detected DDoS UDP Flood traffic generated during testing. The attack 
+produced a large volume of UDP packets within a short time interval, causing a sharp increase in 
+packet rate. The XGBoost model correctly classified the traffic as malicious and generated an alert 
+within approximately two seconds. 
+
+--- Page 40 ---
+ 
+29  AISSMS COE, Department of E & TC Engineering  
+  
+                                                  
+ 
+The Offline Analysis Module was tested using CSV and PCAP files containing various cyberattack 
+scenarios, including DDoS UDP Flood, Mirai Botnet, DoS SYN Flood, Port Scanning, Host Discovery, 
+ARP Spoofing, and Dictionary Brute Force attacks. The uploaded traffic files were processed by the 
+backend analysis engine, and the extracted features were evaluated using the trained detection model 
+and attack classification rules. 
+ 
+The system successfully identified and classified the attack patterns present in the uploaded files and 
+displayed the results through the dashboard interface. The analysis included attack type identification, 
+traffic statistics, severity information, and visualization of detected threats. These results demonstrate 
+the capability of the proposed IDS to perform both real-time monitoring and offline forensic analysis of 
+previously captured network traffic. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 15: Offline Traffic Analysis  
+--- Page 41 ---
+ 
+30  AISSMS COE, Department of E & TC Engineering  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The Telegram notification system successfully delivered attack alerts immediately after threat detection. 
+The alert message included the attack type, detection time, and threat severity information.  
+ 
+The Telegram Bot communicates with the backend through the Telegram Bot API and delivers alerts 
+directly to the user’s Telegram account. This enables real-time monitoring of security incidents even 
+when the user is not actively viewing the dashboard. The notification mechanism ensures rapid 
+awareness and response to cyber threats occurring within the IoT network. 
+ 
+ 
+ 
+ 
+ Figure 16: Attack Detection Alerts using 
+Telegram Bot  
+
+--- Page 42 ---
+ 
+31  AISSMS COE, Department of E & TC Engineering  
+  
+ 
+ 
+ 
+The performance of the proposed AI-Based Multi-Layer Intrusion Detection System was evaluated 
+using the CIC-IoT 2023 dataset. The XGBoost-based detection model achieved an overall detection 
+accuracy of approximately 92%, demonstrating its effectiveness in identifying malicious network 
+activities within IoT environments. 
+ 
+High detection rates were achieved for DDoS UDP Flood and Mirai Botnet attacks, while satisfactory 
+performance was also observed for Port Scanning, Host Discovery, ARP Spoofing, and Dictionary Brute 
+Force attacks. The results indicate that the selected feature set and machine learning model are capable 
+of accurately distinguishing between normal and malicious traffic patterns while maintaining a low 
+false-positive rate. 
+ 
+The obtained accuracy confirms the suitability of XGBoost for deployment on resource-constrained IoT 
+devices and validates the effectiveness of the proposed intrusion detection framework. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 17: Detection Accuracy Comparison Graph  
+--- Page 43 ---
+ 
+32  AISSMS COE, Department of E & TC Engineering  
+ 8. Merits and Demerits, Applications & Future Scope 
+ 
+8.1 Merits:   
+ 
+1. Low-Cost Implementation: The complete system can be developed at a very minimal 
+hardware cost, making it affordable for educational, research, and small-scale IoT 
+deployments.  
+2. Edge AI-Based Detection: The XGBoost machine learning model runs directly on the ESP32 
+microcontroller, enabling real-time intrusion detection without requiring expensive server 
+hardware.  
+3. Real-Time Threat Detection: The system detects malicious activities and generates alerts 
+within approximately 2 seconds, allowing rapid response to cyber threats. 
+4. Support for Multiple Attack Types: The proposed IDS can detect and classify seven 
+different categories of IoT network attacks, improving overall network security. 
+5. Real-Time Monitoring Dashboard: The web-based dashboard provides live visualization of 
+network traffic, attack alerts, device status, and security events for effective monitoring.  
+6. Scalable Multi-Layer Architecture: The modular architecture enables future expansion to 
+support additional IoT devices, network segments, and security features. 
+ 
+ 
+8.2 Applications:  
+ 
+1. Smart Home Security: Monitoring smart home devices and wireless networks to detect 
+unauthorized access, botnet activities, and cyberattacks. 
+2. Industrial IoT Security: Protecting industrial sensors, controllers, and automation systems 
+from network-based attacks and malicious activities.  
+3. Healthcare IoT Systems: Securing connected medical devices and patient data communication 
+against cyber threats and unauthorized access.  
+4. Small Business Network Security: Providing an affordable intrusion detection solution for 
+organizations with limited cybersecurity resources and budgets.  
+5. Educational and Training Purposes: Demonstrating cybersecurity concepts, attack detection 
+techniques, and IoT security mechanisms in academic institutions and training laboratories.  
+6. Research and Development: Serving as a platform for experimentation, evaluation, and 
+development of advanced AI-based security solutions for IoT environments.  
+ 
+ 
+ 
+ 
+--- Page 44 ---
+ 
+33  AISSMS COE, Department of E & TC Engineering  
+ 8.3 Future Scope: 
+ 
+1. Multi-Node Deployment: The system can be expanded to support multiple ESP32 gateway 
+nodes monitoring different network segments and reporting to a centralized monitoring 
+dashboard. 
+2. Federated Learning Integration: Future versions can implement federated learning, allowing 
+multiple IDS nodes to collaboratively improve the detection model without sharing raw network 
+traffic data, thereby preserving privacy.  
+3. Mobile Application Development: A dedicated Android and iOS application can be developed 
+to provide real-time monitoring, attack notifications, and dashboard access through mobile 
+devices. 
+4. Support for Additional IoT Protocols: The proposed system can be extended to monitor and 
+analyze communication protocols such as LoRa, Zigbee, Bluetooth Low Energy (BLE), and 
+MQTT for broader IoT security coverage.  
+5. Cloud-Based Threat Intelligence: Future implementations can integrate cloud synchronization 
+and threat intelligence services to enable centralized attack analysis, automated model updates, 
+and large-scale security monitoring.  
+ 
+--- Page 45 ---
+  
+34  AISSMS COE, Department of E & TC Engineering  
+ 9. CONCLUSION 
+ 
+The AI-Based Multi-Layer Intrusion Detection System for IoT Networks was successfully designed, 
+developed, and evaluated using ESP32 microcontrollers, machine learning techniques, and modern web 
+technologies. The system demonstrated the ability to monitor network traffic, extract relevant features, 
+and perform real-time intrusion detection within resource-constrained IoT environments. 
+The deployment of the XGBoost machine learning model directly on the ESP32 validated the feasibility 
+of implementing Edge AI-based security solutions on low-cost embedded hardware. The proposed 
+system effectively detected and classified multiple categories of cyberattacks, including DDoS, Mirai 
+Botnet, DoS SYN Flood, Port Scanning, Host Discovery, ARP Spoofing, and Dictionary Brute Force 
+attacks. 
+ 
+Experimental results showed an overall detection accuracy of approximately 92% with low detection 
+latency and reliable real-time alert generation. The developed web dashboard successfully provided live 
+monitoring of network activity, attack notifications, device status, and security events, enabling effective 
+visualization and management of IoT network security. 
+The findings of this project demonstrate that intelligent intrusion detection can be achieved without 
+relying on expensive hardware or cloud-based infrastructure. Therefore, the proposed AI-Based Multi-
+Layer Intrusion Detection System offers a low-cost, scalable, and efficient solution for improving the 
+security of modern IoT networks and provides a strong foundation for future research in Edge AI-based 
+cybersecurity. 
+--- Page 46 ---
+  
+35  AISSMS COE, Department of E & TC Engineering  
+ REFERENCES 
+ 
+[1] C. K. EJEOFOBIRI , O. O. VICTOR-IGUN, AND C. OKOYE, “AI-DRIVEN SECURE INTRUSION DETECTION 
+FOR INTERNET OF THINGS (IOT) NETWORKS ,” ASIAN JOURNAL OF MATHEMATICS AND COMPUTER 
+RESEARCH, VOL. 31, NO. 4, PP. 40–55, 2024. 
+[2] D. D. RAO, A. A. WAOO, M. P. SINGH, P. K. PAREEK, S. KAMAL, AND S. V. PANDIT, “STRATEGIZING 
+IOT NETWORK LAYER SECURITY THROUGH ADVANCED INTRUSION DETECTION SYSTEMS AND AI-
+DRIVEN THREAT ANALYSIS,” JOURNAL OF INTELLIGENT SYSTEMS AND INTERNET OF THINGS, VOL. 12, NO. 2, 
+PP. 195–207,  2024. 
+[3] M. NISHA AND G. UDHAYASHRI , “AI-POWERED INTRUSION DETECTION SYSTEM FOR IOT SECURITY,” 
+INTERNATIONAL JOURNAL ON SCIENCE AND TECHNOLOGY (IJSAT), VOL. 16, NO. 2, 2025. 
+[4] S. KAKOLU, M. A. FAHEEM, AND M. ASLAM, “AI-ENABLED INTRUSION DETECTION SYSTEMS IN IOT 
+NETWORKS : ADVANCING DEFENSE MECHANISMS FOR RESOURCE-CONSTRAINED DEVICES,” 
+INTERNATIONAL JOURNAL OF SCIENCE AND RESEARCH ARCHIVE, VOL. 9, NO. 1, PP. 752–769,  2023. 
+[5] S. A. BAKHSH, M. A. KHAN, F. AHMED, M. S. ALSHEHRI, H. U. SHAH, AND I. ULLAH, “ENHANCING 
+IOT NETWORK SECURITY THROUGH DEEP LEARNING-POWERED INTRUSION DETECTION SYSTEM,” 
+INTERNET OF THINGS, VOL. 24, P. 100936,  2023. 
+[6] M. SRINIVASAN AND N. C. SENTHILKUMAR , “INTRUSION DETECTION AND PREVENTION SYSTEM 
+(IDPS) MODEL FOR IIOT ENVIRONMENTS USING HYBRIDIZED FRAMEWORK ,” IEEE ACCESS, VOL. 13, PP. 
+26608–26624,  2025. 
+[7] V. KANTHARAJU , T. BHEEMA LINGAIAH, K. NAGALAKSHMI , K. S. GURUMURTHY , AND S. CHANDRA, 
+“MACHINE LEARNING BASED INTRUSION DETECTION FRAMEWORK FOR DETECTING SECURITY ATTACKS 
+IN INTERNET OF THINGS,” SCIENTIFIC REPORTS, VOL. 14, P. 30275, 2024. 
+[8] Z. CHIBA, N. ABGHOUR, K. MOUSSAID, O. LIFANDALI, AND R. KINTA, “A DEEP STUDY OF NOVEL 
+INTRUSION DETECTION SYSTEMS AND INTRUSION PREVENTION SYSTEMS FOR INTERNET OF THINGS 
+NETWORKS ,” PROCEDIA COMPUTER SCIENCE, VOL. 210, PP. 94–103,  2022. 
+[9] Y. K. SAHEED, M. O. AROWOLO, A. BALOGUN, A. GBOLAGADE , AND O. A. OLATUNDE, “A MACHINE 
+LEARNING-BASED INTRUSION DETECTION FOR DETECTING INTERNET OF THINGS NETWORK ATTACKS,” 
+ALEXANDRIA ENGINEERING JOURNAL, VOL. 61, NO. 12, PP. 9395–9409,  2022. 
+[10] R. KUMAR, P. KUMAR, R. TRIPATHI, G. P. GUPTA, S. GARG, AND M. M. HASSAN, “A DISTRIBUTED 
+INTRUSION DETECTION SYSTEM TO DETECT DDOS ATTACKS IN BLOCKCHAIN -ENABLED IOT NETWORK,” 
+JOURNAL OF PARALLEL AND DISTRIBUTED COMPUTING , VOL. 164, PP. 55–68, 2022. 
+[11] E. NETO, A. A. CARDENAS, A. H. LASHKARI, AND A. A. GHORBANI, “CICIOT2023: A REAL-TIME 
+DATASET AND BENCHMARK FOR IOT INTRUSION DETECTION SYSTEMS,” CANADIAN INSTITUTE FOR 
+CYBERSECURITY (CIC), UNIVERSITY OF NEW BRUNSWICK , CANADA, 2023. 
+[12] T. CHEN AND C. GUESTRIN, “XGBOOST: A SCALABLE TREE BOOSTING SYSTEM,” IN PROCEEDINGS 
+OF THE 22ND ACM SIGKDD  INTERNATIONAL CONFERENCE ON KNOWLEDGE DISCOVERY AND DATA MINING 
+(KDD), SAN FRANCISCO , USA, 2016, PP. 785–794. 
+--- Page 47 ---
+ 
+36  AISSMS COE, Department of E & TC Engineering  
+ [13] SPRING PROJECT TEAM, SPRING BOOT DOCUMENTATION , VMWARE INC., 2025. 
+[14] PYTHON SOFTWARE FOUNDATION , FLASK DOCUMENTATION , 2025. 
+[15] ESPRESSIF SYSTEMS, ESP32-WROOM-32  TECHNICAL REFERENCE MANUAL AND DATASHEET , 
+ESPRESSIF SYSTEMS, SHANGHAI, CHINA, 2024. 
+[16] TELEGRAM MESSENGER LLP, TELEGRAM BOT API DOCUMENTATION , 2025. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 48 ---
+ 
+37  AISSMS COE, Department of E & TC Engineering  
+ LIST OF ACHIEVEMENTS TOWARDS PROJECT: 
+ Research Paper Publication - IJRASET Journal 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+
+--- Page 49 ---
+ 
+38  AISSMS COE, Department of E & TC Engineering  
+  
+ 
+ 
+  
+  
+ 
+  
+
+--- Page 50 ---
+ 
+39  AISSMS COE, Department of E & TC Engineering  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- Page 51 ---
+ 
+40  AISSMS COE, Department of E & TC Engineering  
+  IETE – Project Competition 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+
+--- Page 52 ---
+ 
+41  AISSMS COE, Department of E & TC Engineering  
+  
+ 
+  
+
+--- Page 53 ---
+ 
+42  AISSMS COE, Department of E & TC Engineering  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- Page 54 ---
+ 
+43  AISSMS COE, Department of E & TC Engineering  
+  IEI – Technical Paper Presentation Competition 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- Page 55 ---
+ 
+44  AISSMS COE, Department of E & TC Engineering  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+
+--- Page 56 ---
+ 
+45  AISSMS COE, Department of E & TC Engineering  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- Page 57 ---
+ 
+46  AISSMS COE, Department of E & TC Engineering  
+  NCIET Conference 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- Page 58 ---
+ 
+47  AISSMS COE, Department of E & TC Engineering  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- Page 59 ---
+ 
+48  AISSMS COE, Department of E & TC Engineering  
+  
+ 
+
