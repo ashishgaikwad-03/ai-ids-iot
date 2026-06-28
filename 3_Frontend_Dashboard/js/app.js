@@ -940,10 +940,10 @@ function onDeviceUpdate(devs) {
     
     // DHT11 Environmental Data
     if (dev.deviceId === 'esp32-cam' && dev.temp !== undefined) {
-      const tempEl = document.getElementById('env-temp');
-      const humEl = document.getElementById('env-hum');
-      if (tempEl) tempEl.textContent = (dev.temp === "null" || dev.temp === null) ? '--°C' : (dev.temp + '°C');
-      if (humEl) humEl.textContent = (dev.hum === "null" || dev.hum === null) ? '--%' : (dev.hum + '%');
+      const tempEl = document.getElementById('dht-temp');
+      const humEl = document.getElementById('dht-hum');
+      if (tempEl) tempEl.textContent = (dev.temp === "null" || dev.temp === null) ? '--' : dev.temp;
+      if (humEl) humEl.textContent = (dev.hum === "null" || dev.hum === null) ? '--' : dev.hum;
     }
 
     const prev = STATE.devices[dev.deviceId];

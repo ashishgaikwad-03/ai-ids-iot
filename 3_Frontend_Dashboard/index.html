@@ -223,19 +223,6 @@
           <div class="stat-value" id="sc-total">0</div>
           <div class="stat-sub" id="sc-pps" style="font-family:var(--font-mono);">0 pkt/s</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-top">
-            <span class="stat-label">Environment (DHT11)</span>
-            <span class="stat-icon purple">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
-            </span>
-          </div>
-          <div class="stat-value" style="display:flex; gap:12px; align-items:baseline;">
-            <span id="env-temp">--°C</span>
-            <span id="env-hum" style="font-size:18px; color:var(--text-3);">--%</span>
-          </div>
-          <div class="stat-sub">ESP32-CAM Sensor</div>
-        </div>
       </div>
 <div class="panel" id="classif-panel" style="flex:1; display:flex; flex-direction:column;">
           <div class="panel-header">
@@ -331,14 +318,8 @@
             <div class="panel-title">Device Baseline Deviation</div>
           </div>
           <div style="padding:16px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <div style="display:flex; align-items:center; gap:10px;">
-                <span style="font-weight:600; font-size:14px; color:var(--text-1);">ESP32-CAM</span>
-                <a href="http://192.168.24.167/stream" target="_blank" style="background:var(--primary); color:#fff; text-decoration:none; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:600; display:flex; align-items:center; gap:4px; box-shadow:0 0 10px rgba(37,99,235,0.3); transition:all 0.2s;">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-                  Live Stream
-                </a>
-              </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+              <span style="font-weight:600; font-size:14px; color:var(--text-1);">ESP32-CAM</span>
               <span class="badge badge-red">Anomalous</span>
             </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
