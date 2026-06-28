@@ -20,6 +20,11 @@
 #include <HTTPClient.h>
 #include <WiFiClientSecure.h>
 #include "esp_http_server.h"
+#include <DHT.h>
+
+#define DHTPIN 4
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
 
 // ── Network config ────────────────────────────────────────────────────────────
 // Connect directly to phone hotspot (same as main ESP32)
@@ -105,8 +110,13 @@ void sendHeartbeat() {
     HTTPClient http;
     String url = "https://" + String(BACKEND) + "/api/esp32/devices";
     String ip = WiFi.localIP().toString();
+    float t = dht.readTemperature();
+    float h = dht.readHumidity();
+    String tempStr = isnan(t) ? "null" : String(t, 1);
+    String humStr = isnan(h) ? "null" : String(h, 1);
+
     String body = "{\"devices\":[{\"deviceId\":\"esp32-cam\",\"ipAddress\":\"" + ip + 
-                  "\",\"status\":\"ONLINE\",\"last_seen\":0}]}";
+                  "\",\"status\":\"ONLINE\",\"temp\":" + tempStr + ",\"hum\":" + humStr + ",\"last_seen\":0}]}";
     http.begin(client, url);
     http.addHeader("Content-Type", "application/json");
     http.setTimeout(1500);
@@ -120,6 +130,7 @@ void sendHeartbeat() {
 void setup() {
     Serial.begin(115200);
     Serial.println("\n[CAM] ESP32-CAM IDS Node starting...");
+    dht.begin();
 
     // Camera config
     camera_config_t config;

@@ -365,8 +365,8 @@ void setup() {
     
     // Initialize OLED
     Wire.begin(21, 22);
-    if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-        Serial.println("OLED allocation failed");
+    if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3D)) {
+        Serial.println("OLED allocation failed on 0x3D, check wiring!");
     } else {
         display.clearDisplay();
         display.setTextColor(WHITE);
