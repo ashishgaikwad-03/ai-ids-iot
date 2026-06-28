@@ -445,6 +445,34 @@ function drawClassifDonut() {
     pctEl.style.color = threatPct > 50 ? '#ef4444' : threatPct > 10 ? '#f97316' : 'var(--text-1)';
   }
 
+  // Update Dynamic MITRE ATT&CK List
+  const mitreList = document.getElementById('mitre-list');
+  if (mitreList) {
+    let html = '';
+    const addMitre = (id, title, desc, badge) => {
+      html += `
+        <li style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid var(--surface-2);">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="badge ${badge}">${id}</span>
+            <span style="font-weight:600; font-size:13px; color:var(--text-1);">${title}</span>
+          </div>
+          <span style="font-size:12px; color:var(--text-3);">${desc}</span>
+        </li>
+      `;
+    };
+    
+    let hasMitre = false;
+    if ((data.DDoS || 0) > 0 || (data.DoS || 0) > 0) { addMitre('T1498', 'Network Denial of Service', 'DDoS/DoS Flood', 'badge-red'); hasMitre = true; }
+    if ((data.Recon || 0) > 0) { addMitre('T1046', 'Network Service Discovery', 'Recon Scan', 'badge-amber'); hasMitre = true; }
+    if ((data.Spoofing || 0) > 0) { addMitre('T1557', 'Adversary-in-the-Middle', 'ARP Spoofing', 'badge-amber'); hasMitre = true; }
+    if ((data.Mirai || 0) > 0) { addMitre('T1071', 'Application Layer Protocol', 'Mirai Botnet C2', 'badge-purple'); hasMitre = true; }
+    
+    if (!hasMitre) {
+      html = '<li style="font-size:13px; color:var(--text-3); text-align:center; padding:10px;">No active MITRE ATT&CK techniques</li>';
+    }
+    mitreList.innerHTML = html;
+  }
+
   const badge = document.getElementById('classif-badge');
   if (badge) {
     if (threatPct > 50) { badge.textContent = 'UNDER ATTACK'; badge.className = 'badge badge-red'; }
