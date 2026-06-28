@@ -104,8 +104,9 @@ void sendHeartbeat() {
     client.setInsecure();
     HTTPClient http;
     String url = "https://" + String(BACKEND) + "/api/esp32/devices";
-    String body = "{\"devices\":[{\"id\":\"esp32-cam\",\"ip\":\"" +
-                  WiFi.localIP().toString() + "\",\"status\":\"online\",\"last_seen\":0}]}";
+    String ip = WiFi.localIP().toString();
+    String body = "{\"devices\":[{\"deviceId\":\"esp32-cam\",\"ipAddress\":\"" + ip + 
+                  "\",\"status\":\"ONLINE\",\"last_seen\":0}]}";
     http.begin(client, url);
     http.addHeader("Content-Type", "application/json");
     http.setTimeout(1500);
