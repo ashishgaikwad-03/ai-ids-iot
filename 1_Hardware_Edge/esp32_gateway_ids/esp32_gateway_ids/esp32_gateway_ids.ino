@@ -8,6 +8,14 @@
 #include <Adafruit_SSD1306.h>
 #include "scaler.h"         
 #include "model_binary.h"  
+#include <DHT.h>
+
+#define DHTPIN 4
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
+volatile float currentTemp = 0.0;
+volatile float currentHumi = 0.0;
 
 // =====================================================================
 // 1. HARDWARE & NETWORK PROFILE
@@ -172,6 +180,28 @@ void forward_telemetry_to_cloud(float features[15], float edge_score, String src
         Serial.println(httpResponseCode);
     }
     http.end();
+
+    // 2. Send Heartbeat (Every 10 seconds)
+    static unsigned long lastHeartbeat = 0;
+    if (millis() - lastHeartbeat > 10000) {
+        lastHeartbeat = millis();
+        float t = dht.readTemperature();
+        float h = dht.readHumidity();
+        if (!isnan(t) && !isnan(h)) {
+            currentTemp = t;
+            currentHumi = h;
+        }
+        
+        http.begin(client, "https://ai-ids-iot-8y4f.onrender.com/api/esp32/devices");
+        http.addHeader("Content-Type", "application/json");
+        String ip = WiFi.localIP().toString();
+        String json = "{\"devices\":[";
+        json += "{\"deviceId\":\"esp32-gw\", \"status\":\"ONLINE\", \"ipAddress\":\"" + ip + "\"},";
+        json += "{\"deviceId\":\"dht11\", \"status\":\"ONLINE\", \"ipAddress\":\"" + ip + "\", \"temperature\":" + String(currentTemp, 1) + ", \"humidity\":" + String(currentHumi, 1) + "}";
+        json += "]}";
+        http.POST(json);
+        http.end();
+    }
 
     // 🟢 Resume sniffer
     esp_wifi_set_promiscuous(true);
@@ -345,6 +375,9 @@ void setup() {
         display.println("AI-IDS Booting...");
         display.display();
     }
+    
+    // Initialize DHT11
+    dht.begin();
     
     // Connect to AP to get IP and sync Channel
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);

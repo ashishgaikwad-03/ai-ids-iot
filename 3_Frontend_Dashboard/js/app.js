@@ -890,6 +890,8 @@ function onDeviceUpdate(devs) {
           if (img) img.src = cfg.streamUrl;
           const img2 = document.getElementById('live-cam-feed');
           if (img2) img2.src = cfg.streamUrl;
+          const link = document.getElementById('cam-stream-link');
+          if (link) link.href = cfg.streamUrl;
         }
       }
     }
