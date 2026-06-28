@@ -2182,13 +2182,13 @@ function initAccuracyChart() {
       datasets: [
         {
           label: 'Precision (%)',
-          data: [99.5, 98.2, 99.8, 97.4, 96.9],
+          data: [97.8, 95.2, 97.1, 88.9, 91.2],
           backgroundColor: '#5B5CE2',
           borderRadius: 4
         },
         {
           label: 'Recall (%)',
-          data: [99.1, 98.6, 99.9, 96.5, 95.8],
+          data: [98.1, 94.1, 96.3, 90.1, 90.8],
           backgroundColor: '#10B981',
           borderRadius: 4
         }
