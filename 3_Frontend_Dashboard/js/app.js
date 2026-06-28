@@ -1245,7 +1245,29 @@ function drawTrafficChart() {
   ctx.fillStyle=blueGrad; ctx.fill();
 
   // ── Red fill: ATTACK pps — independent ground-level wave ──
-  // Sits flat at y=0 when no attack. Rises as smooth bezier wave during attacks.
+  // 📍 Attack event pins (vertical dashed line + label) 📍
+  STATE.chartPins=[];
+  let prevHad = data.length > 0 && (data[0].attackPps||0) > 0;
+  data.forEach((d,i) => {
+    const nowHas = (d.attackPps||0) > 0;
+    if (nowHas && !prevHad) {
+      const x=toX(i);
+      const label=(d.lastAttackType||'Attack').replace(/_/g,' ');
+      const shortLbl=label.split(/[-\s]/)[0]||label;
+      ctx.save();
+      // Remove distracting vertical lines, just draw a clean dot hovering
+      ctx.beginPath(); ctx.arc(x,PAD_T+cH,4,0,Math.PI*2);
+      ctx.fillStyle='#dc2626'; ctx.fill();
+      ctx.strokeStyle='#fff'; ctx.lineWidth=1.2; ctx.stroke();
+      ctx.translate(x+10,PAD_T+cH - 8); ctx.rotate(-Math.PI/2);
+      ctx.font='bold 9px Inter,sans-serif'; ctx.textAlign='center';
+      ctx.fillStyle='#dc2626'; ctx.fillText(shortLbl,0,0);
+      ctx.restore();
+      STATE.chartPins.push({ x, pinY:PAD_T+cH, lineTop:PAD_T, lineBot:PAD_T+cH,
+        hitR:16, time:d.time, pps:d.rawPps||d.pps||0, atkType:d.lastAttackType||'Attack', idx:i });
+    }
+    prevHad=nowHas;
+  });
   const hasAnyAttack = atkVals.some(v => v > 0);
   if (hasAnyAttack) {
     ctx.beginPath();
@@ -2334,7 +2356,7 @@ document.getElementById('nav-analytics')?.addEventListener('click', () => {
 // ── TRAFFIC BARS ──
 function updateTrafficBars() {
   const types = ['Benign', 'DDoS', 'DoS', 'Mirai', 'Spoofing', 'Recon'];
-  const totalPps = Object.values(STATE.classifPpsCount).reduce((a, b) => a + b, 0);
+  const totalPkts = Object.values(STATE.classif).reduce((a, b) => a + b, 0);
 
   types.forEach(t => {
     const wrap = document.getElementById('bar-wrap-' + t);
@@ -2342,20 +2364,18 @@ function updateTrafficBars() {
     const val  = document.getElementById('bar-val-' + t);
     if (!wrap || !fill || !val) return;
 
-    const pps = STATE.classifPpsCount[t] || 0;
-    if (pps === 0 && t !== 'Benign') {
+    const count = STATE.classif[t] || 0;
+    if (count === 0 && t !== 'Benign') {
       if (wrap.style.display !== 'flex') {
         wrap.style.display = 'none';
       }
       fill.style.width = '0%';
-      val.textContent = '0 pps';
+      val.textContent = '0 pkts';
     } else {
       wrap.style.display = 'flex';
-      val.textContent = pps + ' pps';
-      const pct = totalPps > 0 ? Math.round((pps / totalPps) * 100) : 0;
+      val.textContent = count + ' pkts';
+      const pct = totalPkts > 0 ? Math.round((count / totalPkts) * 100) : 0;
       fill.style.width = pct + '%';
     }
-    // reset for next second
-    STATE.classifPpsCount[t] = 0;
   });
 }
