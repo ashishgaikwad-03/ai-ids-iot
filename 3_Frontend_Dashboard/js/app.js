@@ -48,7 +48,6 @@ const DIST_COLORS = {
 const DEVICE_CONFIG = {
   'esp32-gw':  { deviceId: 'esp32-gw', name: 'ESP32 Gateway', ip: '192.168.121.6',   icon: '📡', role: 'Traffic Sniffer / AP Host', status: 'OFFLINE' },
   'esp32-cam': { deviceId: 'esp32-cam', name: 'ESP32-CAM',     ip: '192.168.24.167',  icon: '📹', role: 'IP Camera / IoT Node', streamUrl: 'http://192.168.24.167/stream', status: 'OFFLINE' },
-  'dht11':     { deviceId: 'dht11', name: 'DHT11 Sensor',  ip: '192.168.121.6',   icon: '🌡️', role: 'Temperature & Humidity (on Gateway)', status: 'OFFLINE' },
 };
 
 
@@ -947,11 +946,16 @@ function onDeviceUpdate(devs) {
     }
     
     // DHT11 Environmental Data
-    if (dev.deviceId === 'esp32-cam' && dev.temp !== undefined) {
+    if (dev.deviceId === 'dht11') {
       const tempEl = document.getElementById('dht-temp');
-      const humEl = document.getElementById('dht-hum');
-      if (tempEl) tempEl.textContent = (dev.temp === "null" || dev.temp === null) ? '--' : dev.temp;
-      if (humEl) humEl.textContent = (dev.hum === "null" || dev.hum === null) ? '--' : dev.hum;
+      const humEl = document.getElementById('dht-humi');
+      if (tempEl) tempEl.textContent = dev.temperature != null ? dev.temperature.toFixed(1) + ' °C' : '--';
+      if (humEl) humEl.textContent = dev.humidity != null ? dev.humidity.toFixed(1) + ' %' : '--';
+      const tempBig = document.getElementById('dht-temp-big');
+      const humiBig = document.getElementById('dht-humi-big');
+      if (tempBig) tempBig.textContent = dev.temperature != null ? dev.temperature.toFixed(1) + '°C' : '-°C';
+      if (humiBig) humiBig.textContent = dev.humidity != null ? dev.humidity.toFixed(1) + '%' : '-%';
+      return;
     }
 
     const prev = STATE.devices[dev.deviceId];
@@ -982,7 +986,7 @@ function renderDeviceEvents() {
   });
 }
 function updateDeviceCount() {
-  const knownIds = Object.keys(STATE.devices);
+  const knownIds = Object.keys(STATE.devices).filter(id => id !== 'dht11');
   const total = knownIds.length;
   const online = knownIds.filter(id => {
     const d = STATE.devices[id];
@@ -2340,8 +2344,11 @@ function updateTrafficBars() {
 
     const pps = STATE.classifPpsCount[t] || 0;
     if (pps === 0 && t !== 'Benign') {
-      wrap.style.display = 'none';
+      if (wrap.style.display !== 'flex') {
+        wrap.style.display = 'none';
+      }
       fill.style.width = '0%';
+      val.textContent = '0 pps';
     } else {
       wrap.style.display = 'flex';
       val.textContent = pps + ' pps';

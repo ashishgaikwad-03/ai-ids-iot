@@ -364,7 +364,7 @@
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
               <div style="background:var(--surface-2); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border);">
                 <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">Normal PPS</div>
-                <div style="font-size:18px; font-weight:600; color:var(--text-1); font-family:var(--font-mono);">~20</div>
+                <div style="font-size:18px; font-weight:600; color:var(--text-1); font-family:var(--font-mono);">20</div>
               </div>
               <div style="background:var(--surface-2); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border);">
                 <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">Current PPS</div>
@@ -533,7 +533,7 @@
     <!-- ─── PAGE: ATTACK SIMULATION LAB ─────────────────────────────────── -->
     <div id="page-simlab" class="page hidden">
       <div class="page-intro">
-        <h2 class="page-intro-title">⚡ Live Traffic Injector</h2>
+        <h2 class="page-intro-title">Live Traffic Injector</h2>
         <p class="page-intro-desc">Inject simulated attack telemetry directly into the dashboard via MQTT. Works without any hardware — perfect for demonstrations when the ESP32 is offline.</p>
       </div>
 
@@ -559,7 +559,7 @@
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
               <button class="btn" onclick="toggleMqttStream('DDoS',50,this)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="toggleMqttStream('DDoS',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
+              <button class="btn" onclick="toggleMqttStream('DDoS',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">Burst 200</button>
             </div>
           </div>
 
@@ -574,7 +574,7 @@
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
               <button class="btn" onclick="toggleMqttStream('DoS',50,this)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="toggleMqttStream('DoS',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
+              <button class="btn" onclick="toggleMqttStream('DoS',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">Burst 200</button>
             </div>
           </div>
 
@@ -589,7 +589,7 @@
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
               <button class="btn" onclick="toggleMqttStream('Mirai',50,this)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="toggleMqttStream('Mirai',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
+              <button class="btn" onclick="toggleMqttStream('Mirai',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">Burst 200</button>
             </div>
           </div>
 
@@ -604,7 +604,7 @@
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
               <button class="btn" onclick="toggleMqttStream('Spoofing',50,this)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="toggleMqttStream('Spoofing',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
+              <button class="btn" onclick="toggleMqttStream('Spoofing',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">Burst 200</button>
             </div>
           </div>
 
@@ -619,7 +619,7 @@
             </div>
             <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
               <button class="btn" onclick="toggleMqttStream('Recon',50,this)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
-              <button class="btn" onclick="toggleMqttStream('Recon',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
+              <button class="btn" onclick="toggleMqttStream('Recon',200,this)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">Burst 200</button>
             </div>
           </div>
 
@@ -841,7 +841,7 @@
     <div id="page-incidents" class="page hidden">
       <div class="page-intro" style="display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <h2 class="page-intro-title">🚨 Incident Response Center</h2>
+          <h2 class="page-intro-title">Incident Response Center</h2>
           <p class="page-intro-desc">Manage, investigate, and resolve triggered security alerts.</p>
         </div>
         <button class="btn" onclick="fetchIncidents()" style="background:var(--surface-2); border:1px solid var(--border); color:var(--text-1);">Refresh DB</button>

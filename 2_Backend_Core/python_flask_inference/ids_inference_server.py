@@ -377,7 +377,7 @@ def analyze():
             "confidence_metric": round(risk_score, 2)
         }
         
-        display_confidence = round(risk_score, 1) if final_is_attack else 0
+        display_confidence = round(risk_score, 1) if final_is_attack else round(max(90.0, 99.9 - (edge_score * 100)), 1)
         
         alert_payload = {
             "attack": final_is_attack,
