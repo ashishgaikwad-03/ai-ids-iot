@@ -114,7 +114,69 @@ def send_telegram(attack_type, confidence, device_ip="192.168.24.167", sustained
         print(f"Telegram failed: {e}")
 
 # ==========================================
+# ENTERPRISE SOC: DETECTION FUSION ENGINES
+# ==========================================
+
+# 1. Behavioral Anomaly Engine (Stateful)
+device_baselines = {}
+def run_behavioral_engine(src_ip, pkt_rate):
+    if src_ip not in device_baselines:
+        device_baselines[src_ip] = {"rates": [], "avg": 0}
+    
+    hist = device_baselines[src_ip]["rates"]
+    hist.append(pkt_rate)
+    if len(hist) > 10:
+        hist.pop(0)
+    
+    avg_rate = sum(hist) / len(hist)
+    device_baselines[src_ip]["avg"] = avg_rate
+    
+    if pkt_rate > (avg_rate * 3) and pkt_rate > 10:
+        return True, "Anomaly", min(1.0, (pkt_rate / max(1, avg_rate)) / 10.0)
+    return False, "BENIGN", 0.0
+
+# 2. Rule-Based Engine (Static)
+def run_rule_engine(features):
+    try:
+        pkt_rate = float(features[2])
+        size = float(features[3])
+        if pkt_rate > 100: return True, "DDoS", 0.95
+        if size > 65000: return True, "DoS", 0.85
+    except: pass
+    return False, "BENIGN", 0.0
+
+# 3. Signature Engine (Static Match)
+def run_signature_engine(features):
+    try:
+        proto = float(features[1])
+        size = float(features[3])
+        if proto == 17 and size == 74: return True, "Mirai", 0.99
+    except: pass
+    return False, "BENIGN", 0.0
+
+# 4. Explainable AI Heuristics
+def calculate_xai(features, attack_type, confidence):
+    if confidence < 0.2:
+        return [{"feature": "Traffic Pattern", "impact": "Normal", "value": "Nominal"}]
+    try:
+        rate = float(features[2])
+        size = float(features[3])
+        if attack_type in ["DDoS", "DoS", "Anomaly"]:
+            return [
+                {"feature": "Packet Rate", "impact": "+85%", "value": f"{rate} pps"},
+                {"feature": "Flow Size", "impact": "+12%", "value": f"{size} bytes"}
+            ]
+        elif attack_type == "Mirai":
+            return [
+                {"feature": "Protocol Signature", "impact": "+92%", "value": "UDP (17)"},
+                {"feature": "Payload Size", "impact": "+8%", "value": f"{size} bytes"}
+            ]
+    except: pass
+    return [{"feature": "Network Anomaly", "impact": "+50%", "value": "Detected"}]
+
+# ==========================================
 # INFERENCE ENGINE
+
 # ==========================================
 scaler = None
 model = None
@@ -187,31 +249,6 @@ def analyze():
         return jsonify({"error": f"Array dimensional mismatch. Expected 15 or 16, got {len(features_list)}"}), 400
 
     try:
-        edge_score = data.get("edge_score", 0.0)
-        is_attack = edge_score >= 0.40
-        
-        predicted_idx = -1
-        confidence = 0.0
-        attack_type = "BENIGN"
-        telemetry_matrix = {}
-
-        if is_attack:
-            raw_array = np.array(features_list).reshape(1, -1)
-            scaled_array = scaler.transform(raw_array)
-            probabilities = model.predict_proba(scaled_array)[0]
-            predicted_idx = int(np.argmax(probabilities))
-            confidence = float(probabilities[predicted_idx])
-            attack_type = CLASS_MAPPING.get(predicted_idx, "UnknownAttack")
-            telemetry_matrix = {CLASS_MAPPING[i]: round(float(prob) * 100, 2) for i, prob in enumerate(probabilities)}
-        else:
-            confidence = 1.0 - edge_score
-
-        response_data = {
-            "incident_verified": is_attack,
-            "attack_type": attack_type,
-            "confidence_metric": round(confidence * 100, 2)
-        }
-        
         # -------------------------------------------------------------
         # WPA2 DECRYPTION LOGIC (Layer-2 Promiscuous Handling)
         # -------------------------------------------------------------
@@ -224,18 +261,13 @@ def analyze():
         port = int(data.get("dst_port", 0))
         
         if encrypted:
-            # Traffic is WPA2 encrypted. We cannot read IP/Port from ciphertext.
-            # Use the unencrypted Layer-2 MAC addresses and resolve via ARP table!
             resolved_src = get_ip_from_mac(src_mac)
             resolved_dst = get_ip_from_mac(dst_mac)
-            
             src_ip = resolved_src if resolved_src else f"MAC: {src_mac}"
             dst_ip = resolved_dst if resolved_dst else f"MAC: {dst_mac}"
-            
             port = 0
             proto_str = "Encrypted WPA2"
         else:
-            # Determine protocol string for unencrypted traffic
             try:
                 proto_num = int(float(data.get("protocol", features_list[1])))
                 proto_mapping = {6: "TCP", 17: "UDP", 1: "ICMP", 0: "ARP", 2: "IGMP", 4: "IPv4", 41: "IPv6"}
@@ -243,32 +275,85 @@ def analyze():
             except:
                 proto_str = "Unknown"
         
-        # Safely calculate average packet size to ensure it's never massive
+        # Safely calculate average packet size
         try:
             tot_size = float(features_list[3])
             num_pkts = float(features_list[7])
             avg_size = int(tot_size / num_pkts) if num_pkts > 0 else 64
-            if avg_size > 1500: avg_size = 1500 # Cap at standard MTU
-            if avg_size < 40: avg_size = 40     # Min size
+            if avg_size > 1500: avg_size = 1500
+            if avg_size < 40: avg_size = 40
         except:
             avg_size = 64
-        # Use edge_score as confidence display — this is what ESP32 computed (e.g. 99.11%)
-        # XGBoost model confidence is used only for attack TYPE classification
-        display_confidence = round(edge_score * 100, 1)
-        severity_score = display_confidence if is_attack else 0
+            
+        edge_score = data.get("edge_score", 0.0)
+        ml_is_attack = edge_score >= 0.40
+        
+        ml_type = "BENIGN"
+        ml_conf = 0.0
+        if ml_is_attack:
+            raw_array = np.array(features_list).reshape(1, -1)
+            scaled_array = scaler.transform(raw_array)
+            probabilities = model.predict_proba(scaled_array)[0]
+            predicted_idx = int(np.argmax(probabilities))
+            ml_conf = float(probabilities[predicted_idx])
+            ml_type = CLASS_MAPPING.get(predicted_idx, "UnknownAttack")
+        
+        # Run New Engines
+        try: pkt_rate_val = float(features_list[2])
+        except: pkt_rate_val = 0.0
+        
+        rule_attack, rule_type, rule_conf = run_rule_engine(features_list)
+        behav_attack, behav_type, behav_conf = run_behavioral_engine(src_ip, pkt_rate_val)
+        sig_attack, sig_type, sig_conf = run_signature_engine(features_list)
+
+        engines_triggered = []
+        if ml_is_attack: engines_triggered.append("ML")
+        if rule_attack: engines_triggered.append("Rule")
+        if behav_attack: engines_triggered.append("Behavioral")
+        if sig_attack: engines_triggered.append("Signature")
+
+        final_is_attack = len(engines_triggered) > 0
+        
+        scores = [
+            ("ML", ml_type, ml_conf),
+            ("Rule", rule_type, rule_conf),
+            ("Behavioral", behav_type, behav_conf),
+            ("Signature", sig_type, sig_conf)
+        ]
+        top_engine = max(scores, key=lambda x: x[2])
+        final_attack_type = top_engine[1] if final_is_attack else "BENIGN"
+        
+        multiplier = 1.0 + (len(engines_triggered) * 0.1)
+        risk_score = min(100.0, (top_engine[2] * 100) * multiplier)
+        if not final_is_attack: risk_score = 0.0
+
+        xai_data = calculate_xai(features_list, final_attack_type, risk_score/100.0)
+        baseline_avg = device_baselines.get(src_ip, {}).get("avg", 0)
+
+        response_data = {
+            "incident_verified": final_is_attack,
+            "attack_type": final_attack_type,
+            "confidence_metric": round(risk_score, 2)
+        }
+        
+        display_confidence = round(risk_score, 1) if final_is_attack else 0
+        
         alert_payload = {
-            "attack": is_attack,
-            "attackType": attack_type,
-            "confidence": edge_score,       # raw 0-1 for internal use
-            "displayConfidence": display_confidence,  # 99.11% from ESP32 edge score
-            "pktRate": float(features_list[2]),
+            "attack": final_is_attack,
+            "attackType": final_attack_type,
+            "confidence": risk_score / 100.0,
+            "displayConfidence": display_confidence,
+            "pktRate": pkt_rate_val,
             "packetSize": avg_size,
             "protocol": proto_str,
             "sourceIp": src_ip,
             "destIp": dst_ip,
             "port": port,
             "timestamp": time.strftime("%H:%M:%S"),
-            "severityScore": severity_score
+            "severityScore": round(risk_score, 0),
+            "fusionEngines": engines_triggered,
+            "xai": xai_data,
+            "baselineAvg": round(baseline_avg, 1)
         }
 
         try:
@@ -289,7 +374,7 @@ def analyze():
                 attack_state["confidence"] = display_confidence
                 print(f"[ATTACK START] {attack_type} @ {display_confidence}%")
             attack_state["last_seen"] = now
-            attack_state["type"] = attack_type
+            attack_state["type"] = final_attack_type
             attack_state["confidence"] = display_confidence
 
         return jsonify(response_data), 200

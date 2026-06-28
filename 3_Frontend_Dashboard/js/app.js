@@ -577,6 +577,58 @@ function onPacket(pkt) {
   }
 
 
+  // ─── Stage 2: Fusion Engines & XAI Updates ───
+  if (pkt.attack && pkt.xai) {
+    // 1. Update XAI Panel
+    setText('xai-prediction', CIC_LABELS[pkt.attackType] || pkt.attackType);
+    setText('xai-confidence', (pkt.displayConfidence || 0) + '%');
+    
+    let reason = (pkt.fusionEngines && pkt.fusionEngines.length > 0) 
+        ? "Detected by: " + pkt.fusionEngines.join(", ")
+        : "Neural Network Heuristics";
+    setText('xai-reason', reason);
+
+    const xaiBox = document.getElementById('xai-features');
+    if (xaiBox) {
+      xaiBox.innerHTML = '';
+      pkt.xai.forEach(x => {
+        const row = document.createElement('div');
+        row.style.display = 'flex';
+        row.style.justifyContent = 'space-between';
+        row.style.alignItems = 'center';
+        row.style.padding = '8px 12px';
+        row.style.background = 'var(--surface-2)';
+        row.style.borderRadius = 'var(--radius-sm)';
+        
+        row.innerHTML = `
+          <span style="font-weight:500; font-size:13px; color:var(--text-1);">${x.feature} <span style="color:var(--text-3); font-weight:400; margin-left:4px;">(${x.value})</span></span>
+          <span style="font-size:12px; font-weight:600; color:var(--red);">${x.impact}</span>
+        `;
+        xaiBox.appendChild(row);
+      });
+    }
+  }
+
+  // 2. Update Baseline Deviation Widget
+  if (pkt.baselineAvg) {
+    const curPps = pkt.pktRate || 0;
+    setText('base-cur-pps', curPps);
+    
+    let dev = 0;
+    if (pkt.baselineAvg > 0) {
+      dev = ((curPps - pkt.baselineAvg) / pkt.baselineAvg) * 100;
+    }
+    const devEl = document.getElementById('base-dev-pct');
+    if (devEl) {
+      devEl.textContent = (dev > 0 ? '+' : '') + dev.toFixed(1) + '%';
+      if (dev > 50) {
+        devEl.style.color = 'var(--red)';
+      } else {
+        devEl.style.color = 'var(--text-3)';
+      }
+    }
+  }
+
   // Update sim lab last detection
   if (pkt.attack) {
     setText('sim-last-det', CIC_LABELS[pkt.attackType] || pkt.attackType);
