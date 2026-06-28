@@ -1245,29 +1245,7 @@ function drawTrafficChart() {
   ctx.fillStyle=blueGrad; ctx.fill();
 
   // ── Red fill: ATTACK pps — independent ground-level wave ──
-  // 📍 Attack event pins (vertical dashed line + label) 📍
   STATE.chartPins=[];
-  let prevHad = data.length > 0 && (data[0].attackPps||0) > 0;
-  data.forEach((d,i) => {
-    const nowHas = (d.attackPps||0) > 0;
-    if (nowHas && !prevHad) {
-      const x=toX(i);
-      const label=(d.lastAttackType||'Attack').replace(/_/g,' ');
-      const shortLbl=label.split(/[-\s]/)[0]||label;
-      ctx.save();
-      // Remove distracting vertical lines, just draw a clean dot hovering
-      ctx.beginPath(); ctx.arc(x,PAD_T+cH,4,0,Math.PI*2);
-      ctx.fillStyle='#dc2626'; ctx.fill();
-      ctx.strokeStyle='#fff'; ctx.lineWidth=1.2; ctx.stroke();
-      ctx.translate(x+10,PAD_T+cH - 8); ctx.rotate(-Math.PI/2);
-      ctx.font='bold 9px Inter,sans-serif'; ctx.textAlign='center';
-      ctx.fillStyle='#dc2626'; ctx.fillText(shortLbl,0,0);
-      ctx.restore();
-      STATE.chartPins.push({ x, pinY:PAD_T+cH, lineTop:PAD_T, lineBot:PAD_T+cH,
-        hitR:16, time:d.time, pps:d.rawPps||d.pps||0, atkType:d.lastAttackType||'Attack', idx:i });
-    }
-    prevHad=nowHas;
-  });
   const hasAnyAttack = atkVals.some(v => v > 0);
   if (hasAnyAttack) {
     ctx.beginPath();
@@ -1309,9 +1287,11 @@ function drawTrafficChart() {
   ctx.fillStyle='#2563eb'; ctx.fill();
   ctx.strokeStyle='#fff'; ctx.lineWidth=1.5; ctx.stroke();
 
-  // ── Attack event pins (vertical dashed line + label) ──
+
+
+  // Attack event pins (vertical dashed line + label)
   STATE.chartPins=[];
-  let prevHad=false;
+  let prevHad = data.length > 0 && (data[0].attackPps||0) > 0;
   data.forEach((d,i) => {
     const nowHas = (d.attackPps||0) > 0;
     if (nowHas && !prevHad) {
@@ -1319,21 +1299,20 @@ function drawTrafficChart() {
       const label=(d.lastAttackType||'Attack').replace(/_/g,' ');
       const shortLbl=label.split(/[-\s]/)[0]||label;
       ctx.save();
-      // Remove distracting vertical lines, just draw a clean dot hovering
-      ctx.beginPath(); ctx.arc(x,PAD_T+(cH/2),4,0,Math.PI*2);
+      ctx.beginPath(); ctx.arc(x,PAD_T+cH,4,0,Math.PI*2);
       ctx.fillStyle='#dc2626'; ctx.fill();
       ctx.strokeStyle='#fff'; ctx.lineWidth=1.2; ctx.stroke();
-      ctx.translate(x+10,PAD_T+(cH/2)); ctx.rotate(-Math.PI/2);
+      ctx.translate(x+10,PAD_T+cH - 8); ctx.rotate(-Math.PI/2);
       ctx.font='bold 9px Inter,sans-serif'; ctx.textAlign='center';
       ctx.fillStyle='#dc2626'; ctx.fillText(shortLbl,0,0);
       ctx.restore();
-      STATE.chartPins.push({ x, pinY:PAD_T+cH/2, lineTop:PAD_T, lineBot:PAD_T+cH,
+      STATE.chartPins.push({ x, pinY:PAD_T+cH, lineTop:PAD_T, lineBot:PAD_T+cH,
         hitR:16, time:d.time, pps:d.rawPps||d.pps||0, atkType:d.lastAttackType||'Attack', idx:i });
     }
     prevHad=nowHas;
   });
 
-  // ── X-axis labels ──
+  // ?? X-axis labels ?? ──
   ctx.fillStyle='#9ca3af'; ctx.font='9px Inter,sans-serif'; ctx.textAlign='center'; ctx.setLineDash([]);
   const step=Math.max(1,Math.floor(n/6));
   for (let i=0;i<n;i+=step) ctx.fillText(data[i].time, toX(i), PAD_T+cH+14);
