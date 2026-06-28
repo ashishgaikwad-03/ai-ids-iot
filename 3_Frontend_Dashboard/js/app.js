@@ -2146,3 +2146,61 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(fetchIncidents, 2000);
   setInterval(fetchIncidents, 10000);
 });
+
+
+// ─── AI Analytics Accuracy Bar Chart ───
+let accuracyChart = null;
+function initAccuracyChart() {
+  const ctx = document.getElementById('accuracyChart');
+  if (!ctx) return;
+  
+  if (accuracyChart) accuracyChart.destroy();
+  
+  accuracyChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['DDoS', 'DoS', 'Mirai', 'Spoofing', 'Recon'],
+      datasets: [
+        {
+          label: 'Precision (%)',
+          data: [99.5, 98.2, 99.8, 97.4, 96.9],
+          backgroundColor: '#5B5CE2',
+          borderRadius: 4
+        },
+        {
+          label: 'Recall (%)',
+          data: [99.1, 98.6, 99.9, 96.5, 95.8],
+          backgroundColor: '#10B981',
+          borderRadius: 4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { color: '#9ca3af', font: { family: 'Inter', size: 11 } }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: { color: '#9ca3af', font: { size: 10 } }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { color: '#9ca3af', font: { size: 11 } }
+        }
+      }
+    }
+  });
+}
+
+// Ensure chart is initialized when navigating to the analytics page
+document.getElementById('nav-analytics')?.addEventListener('click', () => {
+  setTimeout(initAccuracyChart, 100);
+});
