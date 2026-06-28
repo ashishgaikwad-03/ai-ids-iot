@@ -65,6 +65,10 @@
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
       <span>Events</span>
     </a>
+    <a class="sb-link" data-page="incidents" id="nav-incidents">
+      <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd"/></svg>
+      <span>Incident Center</span>
+    </a>
 
     <div class="sb-section-label">TOOLS</div>
     <a class="sb-link" data-page="simlab" id="nav-simlab">
@@ -217,7 +221,7 @@
             </span>
           </div>
           <div class="stat-value" id="sc-total">0</div>
-          <div class="stat-sub" id="sc-pps">0 pkt/s</div>
+          <div class="stat-sub" id="sc-pps" style="font-family:var(--font-mono);">0 pkt/s</div>
         </div>
       </div>
 <div class="panel" id="classif-panel" style="flex:1; display:flex; flex-direction:column;">
@@ -784,6 +788,41 @@
 
 
     <!-- ─── PAGE: SETTINGS ───────────────────────────────────────────────── -->
+    <div id="page-incidents" class="page hidden">
+      <div class="page-intro" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <h2 class="page-intro-title">🚨 Incident Response Center</h2>
+          <p class="page-intro-desc">Manage, investigate, and resolve triggered security alerts.</p>
+        </div>
+        <button class="btn" onclick="fetchIncidents()" style="background:var(--surface-2); border:1px solid var(--border); color:var(--text-1);">Refresh DB</button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Active & Historical Incidents</div>
+          <span class="badge badge-amber" id="incidents-active-badge">0 Active</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" style="width:100%; text-align:left; border-collapse:collapse;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border); color:var(--text-3); font-size:12px;">
+                <th style="padding:10px;">ID</th>
+                <th style="padding:10px;">Timestamp</th>
+                <th style="padding:10px;">Threat Type</th>
+                <th style="padding:10px;">Severity</th>
+                <th style="padding:10px;">Duration</th>
+                <th style="padding:10px;">Status</th>
+                <th style="padding:10px; text-align:right;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="incidents-tbody">
+              <tr><td colspan="7" class="empty-cell" style="padding:20px; text-align:center; color:var(--text-4);">No incidents recorded.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /page-incidents -->
+
     <div id="page-settings" class="page hidden">
       <div class="page-intro">
         <h2 class="page-intro-title">⚙️ System Settings</h2>

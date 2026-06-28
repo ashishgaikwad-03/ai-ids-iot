@@ -59,27 +59,27 @@
     </a>
     <a class="sb-link" data-page="devices" id="nav-devices">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7 2a1 1 0 00-.707 1.707L7 4.414v3.758a1 1 0 01-.293.707l-4 4C.817 14.769 2.156 18 4.828 18h10.344c2.672 0 4.011-3.231 2.122-5.121l-4-4A1 1 0 0113 8.172V4.414l.707-.707A1 1 0 0013 2H7zm2 6.172V4h2v4.172a3 3 0 00.879 2.12l1.027 1.028a4 4 0 00-2.171.102l-.47.156a4 4 0 01-2.53 0l-.563-.187a1.993 1.993 0 00-.114-.035l1.063-1.063A3 3 0 009 8.172z" clip-rule="evenodd"/></svg>
-      <span>IoT Devices</span>
+      <span>Assets</span>
     </a>
     <a class="sb-link" data-page="logs" id="nav-logs">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
-      <span>Traffic Logs</span>
+      <span>Events</span>
     </a>
 
     <div class="sb-section-label">TOOLS</div>
     <a class="sb-link" data-page="simlab" id="nav-simlab">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"/></svg>
-      <span>Simulation Lab</span>
+      <span>Simulation</span>
     </a>
     <a class="sb-link" data-page="analysis" id="nav-analysis">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-      <span>File Analysis</span>
+      <span>Offline Analysis</span>
     </a>
 
     <div class="sb-section-label">ANALYTICS</div>
     <a class="sb-link" data-page="analytics" id="nav-analytics">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-      <span>AI Analytics</span>
+      <span>Intelligence</span>
     </a>
     <a class="sb-link" data-page="settings" id="nav-settings">
       <svg class="sb-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
@@ -134,11 +134,11 @@
           <div class="panel-header">
             <div class="panel-title">Live Traffic Analysis</div>
             <div class="panel-meta">
-              <span class="chart-legend-item" style="color:#2563eb">&#9679; Total pps</span>
-              <span class="chart-legend-item" style="color:#dc2626">&#65372; Attack event (click for details)</span>
+              <span class="chart-legend-item" style="color:#2563eb">&#9679; Normal Traffic</span>
+              <span class="chart-legend-item" style="color:#dc2626">&#9679; Malicious Traffic</span>
               <div class="chart-live-stats">
-                <span id="live-pps" style="font-weight:600">0 pps</span>
-                <span id="live-attack-pps" style="color:#dc2626;font-weight:600">0 atk/s</span>
+                <span id="live-pps" style="color:#2563eb;font-weight:600;font-family:var(--font-mono)">0 pps</span>
+                <span id="live-attack-pps" style="color:#dc2626;font-weight:600;font-family:var(--font-mono)">0 pps</span>
                 <span id="live-badge" class="badge badge-green">&#x25cf; LIVE</span>
               </div>
             </div>
@@ -179,15 +179,15 @@
       <div class="two-col-row">
       <!-- 4 Stat Cards -->
       <div class="stat-grid" style="flex:1; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-        <div class="stat-card">
+        <div class="stat-card" id="threat-card">
           <div class="stat-top">
-            <span class="stat-label">Total Packets</span>
-            <span class="stat-icon blue">
-              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+            <span class="stat-label">Threat Level</span>
+            <span class="stat-icon amber" id="threat-icon">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
             </span>
           </div>
-          <div class="stat-value" id="sc-total">0</div>
-          <div class="stat-sub" id="sc-pps">0 pkt/s</div>
+          <div class="stat-value threat-val" id="sc-threat" style="font-size:22px;">LOW</div>
+          <div class="stat-sub" id="sc-threat-sub" style="font-weight:500;">Risk Score: 0/100</div>
         </div>
         <div class="stat-card">
           <div class="stat-top">
@@ -199,16 +199,6 @@
           <div class="stat-value" id="sc-attacks">0</div>
           <div class="stat-sub" id="sc-rate">0.0% of traffic</div>
         </div>
-        <div class="stat-card" id="threat-card">
-          <div class="stat-top">
-            <span class="stat-label">Threat Level</span>
-            <span class="stat-icon amber" id="threat-icon">
-              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-            </span>
-          </div>
-          <div class="stat-value threat-val" id="sc-threat">LOW</div>
-          <div class="stat-sub" id="sc-threat-sub">Score: 0 / 100</div>
-        </div>
         <div class="stat-card">
           <div class="stat-top">
             <span class="stat-label">Active Devices</span>
@@ -216,26 +206,132 @@
               <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
             </span>
           </div>
-          <div class="stat-value" id="sc-devices">3 / 3</div>
+          <div class="stat-value" id="sc-devices">0 / 3</div>
           <div class="stat-sub" id="sc-devices-sub">All nominal</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Current Traffic Rate</span>
+            <span class="stat-icon blue">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+            </span>
+          </div>
+          <div class="stat-value" id="sc-total">0</div>
+          <div class="stat-sub" id="sc-pps">0 pkt/s</div>
         </div>
       </div>
 
-        <!-- MITRE ATT&CK HEATMAP -->
-        <div class="panel" id="mitre-panel" style="flex:1; display:flex; flex-direction:column;">
+        <!-- LIVE TRAFFIC CLASSIFICATION DONUT CHART -->
+        <div class="panel" id="classif-panel" style="flex:1; display:flex; flex-direction:column;">
           <div class="panel-header">
-            <div class="panel-title">MITRE ATT&amp;CK&#174; Heatmap</div>
+            <div class="panel-title">Live Traffic Classification</div>
             <div class="panel-meta">
-              <span class="badge badge-amber">Live Detection Mapping</span>
+              <span class="badge badge-amber" id="classif-badge">Monitoring</span>
             </div>
           </div>
-          <div style="padding:16px; display:flex; flex-direction:column; justify-content:center; height:100%;">
-            <div id="mitre-grid" style="display:grid; grid-template-columns:repeat(7,1fr); gap:5px;"></div>
-            <div style="margin-top:12px; display:flex; gap:12px; font-size:11px; color:var(--text-3); flex-wrap:wrap;">
-              <span><span style="display:inline-block;width:10px;height:10px;background:#e2e8f0;border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Clean</span>
-              <span><span style="display:inline-block;width:10px;height:10px;background:#fde68a;border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Low</span>
-              <span><span style="display:inline-block;width:10px;height:10px;background:#fb923c;border-radius:2px;margin-right:3px;vertical-align:middle;"></span>Medium</span>
-              <span><span style="display:inline-block;width:10px;height:10px;background:#dc2626;border-radius:2px;margin-right:3px;vertical-align:middle;"></span>High</span>
+          <div style="padding:16px; display:flex; align-items:center; justify-content:center; gap:24px; height:100%;">
+            <!-- Donut Canvas -->
+            <div style="position:relative; width:150px; height:150px; flex-shrink:0;">
+              <canvas id="classif-donut" width="150" height="150"></canvas>
+              <div id="classif-center" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;">
+                <div id="classif-pct" style="font-size:22px;font-weight:700;color:var(--text-1);line-height:1;">0%</div>
+                <div style="font-size:10px;color:var(--text-3);margin-top:3px;text-transform:uppercase;letter-spacing:.05em;">Threat</div>
+              </div>
+            </div>
+            <!-- Legend -->
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div class="classif-legend-item" id="leg-benign">
+                <span class="classif-dot" style="background:#22c55e;"></span>
+                <span class="classif-label">Benign</span>
+                <span class="classif-count" id="cnt-benign">0</span>
+              </div>
+              <div class="classif-legend-item" id="leg-ddos">
+                <span class="classif-dot" style="background:#ef4444;"></span>
+                <span class="classif-label">DDoS</span>
+                <span class="classif-count" id="cnt-ddos">0</span>
+              </div>
+              <div class="classif-legend-item" id="leg-dos">
+                <span class="classif-dot" style="background:#f97316;"></span>
+                <span class="classif-label">DoS</span>
+                <span class="classif-count" id="cnt-dos">0</span>
+              </div>
+              <div class="classif-legend-item" id="leg-mirai">
+                <span class="classif-dot" style="background:#a855f7;"></span>
+                <span class="classif-label">Mirai</span>
+                <span class="classif-count" id="cnt-mirai">0</span>
+              </div>
+              <div class="classif-legend-item" id="leg-spoofing">
+                <span class="classif-dot" style="background:#ec4899;"></span>
+                <span class="classif-label">Spoofing</span>
+                <span class="classif-count" id="cnt-spoofing">0</span>
+              </div>
+              <div class="classif-legend-item" id="leg-recon">
+                <span class="classif-dot" style="background:#eab308;"></span>
+                <span class="classif-label">Recon</span>
+                <span class="classif-count" id="cnt-recon">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Stage 1 Widgets: MITRE & Baseline -->
+      <div class="two-col-row" style="margin-top:20px;">
+        <!-- MITRE ATT&CK Summary -->
+        <div class="panel" style="flex:1;">
+          <div class="panel-header">
+            <div class="panel-title">Active MITRE ATT&CK Techniques</div>
+          </div>
+          <div style="padding:16px;">
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
+              <li style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid var(--surface-2);">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span class="badge badge-red">T1498</span>
+                  <span style="font-weight:600; font-size:13px; color:var(--text-1);">Network Denial of Service</span>
+                </div>
+                <span style="font-size:12px; color:var(--text-3);">DDoS Flood</span>
+              </li>
+              <li style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid var(--surface-2);">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span class="badge badge-amber">T1046</span>
+                  <span style="font-weight:600; font-size:13px; color:var(--text-1);">Network Service Discovery</span>
+                </div>
+                <span style="font-size:12px; color:var(--text-3);">Recon Scan</span>
+              </li>
+              <li style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span class="badge badge-amber">T1557</span>
+                  <span style="font-weight:600; font-size:13px; color:var(--text-1);">Adversary-in-the-Middle</span>
+                </div>
+                <span style="font-size:12px; color:var(--text-3);">ARP Spoofing</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Baseline Deviation -->
+        <div class="panel" style="flex:1;">
+          <div class="panel-header">
+            <div class="panel-title">Device Baseline Deviation</div>
+          </div>
+          <div style="padding:16px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+              <span style="font-weight:600; font-size:14px; color:var(--text-1);">ESP32-CAM</span>
+              <span class="badge badge-red">Anomalous</span>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div style="background:var(--surface-2); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                <div style="font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">Normal PPS</div>
+                <div style="font-size:18px; font-weight:600; color:var(--text-1); font-family:var(--font-mono);">~20</div>
+              </div>
+              <div style="background:var(--red-bg); padding:10px; border-radius:var(--radius-sm); border:1px solid rgba(239, 68, 68, 0.2);">
+                <div style="font-size:11px; color:var(--red-text); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">Current PPS</div>
+                <div style="font-size:18px; font-weight:600; color:var(--red-text); font-family:var(--font-mono);" id="base-cur-pps">0</div>
+              </div>
+            </div>
+            <div style="margin-top:12px; display:flex; align-items:center; gap:8px;">
+              <span style="font-size:13px; color:var(--text-2);">Deviation:</span>
+              <span style="font-size:14px; font-weight:600; color:var(--red); font-family:var(--font-mono);" id="base-dev-pct">+0%</span>
             </div>
           </div>
         </div>
@@ -251,8 +347,8 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th>Time</th><th>Source IP</th><th>Destination</th>
-                <th>Proto</th><th>Size</th>
+                <th>Time</th><th>Source MAC</th><th>Destination MAC</th>
+                <th>Protocol</th><th>Size</th>
                 <th>Classification</th><th>Confidence</th>
               </tr>
             </thead>
@@ -260,6 +356,33 @@
               <tr><td colspan="7" class="empty-cell">Awaiting packets...</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- Explainable AI (XAI) Panel -->
+      <div class="panel" style="margin-top:20px;">
+        <div class="panel-header">
+          <div class="panel-title">Explainable AI (XAI) - Latest Prediction</div>
+          <span class="badge badge-primary">SHAP Heuristics</span>
+        </div>
+        <div style="padding:20px; display:flex; gap:24px; align-items:center;">
+          <div style="flex:1; border-right:1px solid var(--border); padding-right:24px;">
+            <div style="font-size:12px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;">Verdict</div>
+            <div style="font-size:24px; font-weight:700; color:var(--red);" id="xai-prediction">Awaiting Data...</div>
+            <div style="margin-top:12px; display:flex; align-items:center; gap:8px;">
+              <span style="font-size:13px; color:var(--text-2);">Confidence:</span>
+              <span style="font-size:14px; font-weight:600; color:var(--text-1);" id="xai-confidence">--%</span>
+            </div>
+            <div style="margin-top:8px; font-size:13px; color:var(--text-2);">
+              <span style="font-weight:600;">Detection Reason:</span> <span id="xai-reason">--</span>
+            </div>
+          </div>
+          <div style="flex:2;">
+            <div style="font-size:12px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px;">Top Contributing Features</div>
+            <div id="xai-features" style="display:flex; flex-direction:column; gap:10px;">
+              <div style="font-size:13px; color:var(--text-4); font-style:italic;">No prediction available yet.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div><!-- /page-dashboard -->
@@ -278,8 +401,17 @@
             <div class="panel-meta">
             </div>
           </div>
-          <div style="padding:15px; display:flex; justify-content:center; background:#000;">
-            <img id="live-cam-feed" src="http://192.168.24.167/stream" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMTExIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZpbGw9IiM2NjYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DYW1lcmEgT2ZmbGluZTwvdGV4dD48L3N2Zz4='; setTimeout(() => { document.getElementById('live-cam-feed').src = 'http://192.168.24.167/stream?t=' + Date.now(); }, 3000);" style="max-width:100%; border-radius:4px; height:280px; object-fit:contain;"/>
+          <div style="padding:24px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:#000; height:280px; border-radius:8px;">
+            <div style="font-size:40px;">📷</div>
+            <div style="color:#aaa; font-size:13px; text-align:center; line-height:1.6;">
+              Live stream is served over <code style="color:#6366f1;">http://</code> from your local Wi-Fi.<br/>
+              This HTTPS dashboard cannot embed it directly (browser security).
+            </div>
+            <a id="cam-stream-link" href="http://192.168.24.167/stream" target="_blank" rel="noopener"
+               style="background:#6366f1; color:#fff; padding:10px 22px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; letter-spacing:.03em;">
+              🔗 Open Live Stream in New Tab
+            </a>
+            <div style="color:#555; font-size:11px;">IP auto-updates when camera sends heartbeat</div>
           </div>
         </div>
 
@@ -339,7 +471,7 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th>Timestamp</th><th>Source IP</th><th>Dest IP</th>
+                <th>Timestamp</th><th>Source MAC</th><th>Destination MAC</th>
                 <th>Protocol</th><th>Size</th>
                 <th>Type</th><th>Layer</th><th>Confidence</th>
               </tr>
@@ -359,117 +491,105 @@
     <!-- ─── PAGE: ATTACK SIMULATION LAB ─────────────────────────────────── -->
     <div id="page-simlab" class="page hidden">
       <div class="page-intro">
-        <h2 class="page-intro-title">⚡ Attack Simulation Lab</h2>
-        <p class="page-intro-desc">Launch real-world network attacks using local Python Scapy scripts. A visible terminal will pop up executing the attack.</p>
+        <h2 class="page-intro-title">⚡ Live Traffic Injector</h2>
+        <p class="page-intro-desc">Inject simulated attack telemetry directly into the dashboard via MQTT. Works without any hardware — perfect for demonstrations when the ESP32 is offline.</p>
+      </div>
+
+      <!-- Status Banner -->
+      <div id="injector-status-bar" style="padding:10px 16px; border-radius:var(--radius); background:var(--surface); border:1px solid var(--border); margin-bottom:16px; display:flex; align-items:center; gap:12px;">
+        <span id="injector-status-dot" style="width:9px;height:9px;border-radius:50%;background:#64748b;display:inline-block;"></span>
+        <span id="injector-status-text" style="font-size:13px; color:var(--text-2);">Idle — select an attack type and click Inject</span>
+        <span id="injector-count-badge" style="margin-left:auto; font-family:var(--font-mono); font-size:12px; color:var(--text-3);">0 packets injected</span>
       </div>
 
       <div class="panel">
-        <div class="panel-header"><div class="panel-title">Live Attack Injectors</div></div>
-        <div class="attack-list" style="padding:20px; display:flex; flex-direction:column; gap:15px;">
-          
-          <!-- Attack Row -->
+        <div class="panel-header"><div class="panel-title">Attack Scenarios</div><span class="badge badge-amber">Browser MQTT Injector</span></div>
+        <div class="attack-list" style="padding:20px; display:flex; flex-direction:column; gap:14px;">
+
+          <!-- DDoS UDP Flood -->
           <div class="attack-row" style="display:flex; align-items:center; justify-content:space-between; padding:15px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-2);">
             <div style="flex:2;">
-              <div class="attack-title" style="font-weight:bold; font-size:16px; color:var(--text-1);">DDoS UDP Flood</div>
-              <div class="attack-desc" style="font-size:13px; color:var(--text-3); margin-top:6px; line-height: 1.5;">
-                <span style="color: #ef4444; font-weight: 600;">Effect:</span> Exhausts target's network bandwidth and CPU resources.<br/>
-                <span style="color: #eab308; font-weight: 600;">Mechanism:</span> Sends a massive volume of spoofed UDP packets to random ports, forcing the target to repeatedly check for listening applications and reply with ICMP Destination Unreachable packets.<br/>
-                <span style="color: #6366f1; font-weight: 600;">MITRE ATT&CK:</span> T1498 (Network Denial of Service)
+              <div class="attack-title" style="font-weight:bold; font-size:15px; color:var(--text-1);">DDoS — UDP Flood</div>
+              <div style="font-size:12px; color:var(--text-3); margin-top:5px; line-height:1.6;">
+                <span style="color:#ef4444; font-weight:600;">Effect:</span> Exhausts target bandwidth via high-volume UDP burst.<br/>
+                <span style="color:#eab308; font-weight:600;">Detection:</span> Zero-variance packet size, high IAT frequency, zero ACK/SYN flags.
               </div>
             </div>
-            <div style="flex:1.5; display:flex; gap:10px; align-items:center;">
-              <input type="text" id="target-ddos" class="ctrl-input" value="192.168.121.167" style="width:130px; font-family:monospace;" />
-              <input type="number" id="dur-ddos" class="ctrl-input" value="30" style="width:60px;" /> <span style="color:var(--text-3); font-size:12px;">sec</span>
-            </div>
-            <div style="flex:1; display:flex; gap:10px; justify-content:flex-end;">
-              <button class="btn btn-green" onclick="launchCustomAttack('ddos')" style="padding:6px 12px; border:none; border-radius:4px; background:#16a34a; color:#fff; cursor:pointer;">Start</button>
-              <button class="btn btn-red" onclick="stopAttack()" style="padding:6px 12px; border:none; border-radius:4px; background:#dc2626; color:#fff; cursor:pointer;">Stop</button>
+            <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
+              <button class="btn" onclick="injectMqttAttack('DDoS',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('DDoS',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
-          <!-- Attack Row -->
+          <!-- DoS SYN Flood -->
           <div class="attack-row" style="display:flex; align-items:center; justify-content:space-between; padding:15px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-2);">
             <div style="flex:2;">
-              <div class="attack-title" style="font-weight:bold; font-size:16px; color:var(--text-1);">DoS SYN Flood</div>
-              <div class="attack-desc" style="font-size:13px; color:var(--text-3); margin-top:6px; line-height: 1.5;">
-                <span style="color: #ef4444; font-weight: 600;">Effect:</span> Consumes target's connection queue, preventing legitimate TCP connections.<br/>
-                <span style="color: #eab308; font-weight: 600;">Mechanism:</span> Rapidly initiates TCP connections by sending SYN packets but never completes the three-way handshake (no ACK), leaving connections "half-open" until they timeout.<br/>
-                <span style="color: #6366f1; font-weight: 600;">MITRE ATT&CK:</span> T1499 (Endpoint Denial of Service)
+              <div class="attack-title" style="font-weight:bold; font-size:15px; color:var(--text-1);">DoS — SYN Flood</div>
+              <div style="font-size:12px; color:var(--text-3); margin-top:5px; line-height:1.6;">
+                <span style="color:#ef4444; font-weight:600;">Effect:</span> Exhausts TCP connection queue with half-open connections.<br/>
+                <span style="color:#eab308; font-weight:600;">Detection:</span> High SYN count, low ACK ratio (&lt;0.3), many RST responses.
               </div>
             </div>
-            <div style="flex:1.5; display:flex; gap:10px; align-items:center;">
-              <input type="text" id="target-dos" class="ctrl-input" value="192.168.121.167" style="width:130px; font-family:monospace;" />
-              <input type="number" id="dur-dos" class="ctrl-input" value="30" style="width:60px;" /> <span style="color:var(--text-3); font-size:12px;">sec</span>
-            </div>
-            <div style="flex:1; display:flex; gap:10px; justify-content:flex-end;">
-              <button class="btn btn-green" onclick="launchCustomAttack('dos')" style="padding:6px 12px; border:none; border-radius:4px; background:#16a34a; color:#fff; cursor:pointer;">Start</button>
-              <button class="btn btn-red" onclick="stopAttack()" style="padding:6px 12px; border:none; border-radius:4px; background:#dc2626; color:#fff; cursor:pointer;">Stop</button>
+            <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
+              <button class="btn" onclick="injectMqttAttack('DoS',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('DoS',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
-          <!-- Attack Row -->
+          <!-- Mirai Botnet -->
           <div class="attack-row" style="display:flex; align-items:center; justify-content:space-between; padding:15px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-2);">
             <div style="flex:2;">
-              <div class="attack-title" style="font-weight:bold; font-size:16px; color:var(--text-1);">Recon Port Scan</div>
-              <div class="attack-desc" style="font-size:13px; color:var(--text-3); margin-top:6px; line-height: 1.5;">
-                <span style="color: #ef4444; font-weight: 600;">Effect:</span> Identifies open ports, running services, and potential vulnerabilities.<br/>
-                <span style="color: #eab308; font-weight: 600;">Mechanism:</span> Systematically probes a range of target ports by sending TCP SYN packets and analyzing the responses (SYN-ACK for open, RST for closed) to map the attack surface.<br/>
-                <span style="color: #6366f1; font-weight: 600;">MITRE ATT&CK:</span> T1595 (Active Scanning)
+              <div class="attack-title" style="font-weight:bold; font-size:15px; color:var(--text-1);">Mirai — IoT Botnet</div>
+              <div style="font-size:12px; color:var(--text-3); margin-top:5px; line-height:1.6;">
+                <span style="color:#ef4444; font-weight:600;">Effect:</span> Multi-vector flood mimicking Mirai botnet C2 coordination.<br/>
+                <span style="color:#eab308; font-weight:600;">Detection:</span> UDP + large packet size (≥500B) + high packet density.
               </div>
             </div>
-            <div style="flex:1.5; display:flex; gap:10px; align-items:center;">
-              <input type="text" id="target-recon" class="ctrl-input" value="192.168.121.167" style="width:130px; font-family:monospace;" />
-              <input type="hidden" id="dur-recon" value="30" />
-            </div>
-            <div style="flex:1; display:flex; gap:10px; justify-content:flex-end;">
-              <button class="btn btn-green" onclick="launchCustomAttack('recon')" style="padding:6px 12px; border:none; border-radius:4px; background:#16a34a; color:#fff; cursor:pointer;">Start</button>
-              <button class="btn btn-red" onclick="stopAttack()" style="padding:6px 12px; border:none; border-radius:4px; background:#dc2626; color:#fff; cursor:pointer;">Stop</button>
+            <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
+              <button class="btn" onclick="injectMqttAttack('Mirai',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('Mirai',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
-          <!-- Attack Row -->
+          <!-- Spoofing -->
           <div class="attack-row" style="display:flex; align-items:center; justify-content:space-between; padding:15px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-2);">
             <div style="flex:2;">
-              <div class="attack-title" style="font-weight:bold; font-size:16px; color:var(--text-1);">Mirai Botnet Sim</div>
-              <div class="attack-desc" style="font-size:13px; color:var(--text-3); margin-top:6px; line-height: 1.5;">
-                <span style="color: #ef4444; font-weight: 600;">Effect:</span> Simulates IoT botnet behavior, combining aggressive scanning and multi-vector flooding.<br/>
-                <span style="color: #eab308; font-weight: 600;">Mechanism:</span> Emulates the Mirai malware by utilizing multiple threads to simultaneously launch high-volume floods (TCP/UDP) mimicking a coordinated botnet strike.<br/>
-                <span style="color: #6366f1; font-weight: 600;">MITRE ATT&CK:</span> T1059 (Command Interpreter) & T1498 (Network DoS)
+              <div class="attack-title" style="font-weight:bold; font-size:15px; color:var(--text-1);">Spoofing — ARP/MITM</div>
+              <div style="font-size:12px; color:var(--text-3); margin-top:5px; line-height:1.6;">
+                <span style="color:#ef4444; font-weight:600;">Effect:</span> Poisons ARP cache to intercept LAN traffic (Man-in-the-Middle).<br/>
+                <span style="color:#eab308; font-weight:600;">Detection:</span> Non-TCP/UDP/ICMP protocol, tiny packet size (&lt;60B), repeated source.
               </div>
             </div>
-            <div style="flex:1.5; display:flex; gap:10px; align-items:center;">
-              <input type="text" id="target-mirai" class="ctrl-input" value="192.168.121.167" style="width:130px; font-family:monospace;" />
-              <input type="number" id="dur-mirai" class="ctrl-input" value="30" style="width:60px;" /> <span style="color:var(--text-3); font-size:12px;">sec</span>
-            </div>
-            <div style="flex:1; display:flex; gap:10px; justify-content:flex-end;">
-              <button class="btn btn-green" onclick="launchCustomAttack('mirai')" style="padding:6px 12px; border:none; border-radius:4px; background:#16a34a; color:#fff; cursor:pointer;">Start</button>
-              <button class="btn btn-red" onclick="stopAttack()" style="padding:6px 12px; border:none; border-radius:4px; background:#dc2626; color:#fff; cursor:pointer;">Stop</button>
+            <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
+              <button class="btn" onclick="injectMqttAttack('Spoofing',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('Spoofing',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
           </div>
 
-          <!-- Attack Row -->
+          <!-- Recon -->
           <div class="attack-row" style="display:flex; align-items:center; justify-content:space-between; padding:15px; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface-2);">
             <div style="flex:2;">
-              <div class="attack-title" style="font-weight:bold; font-size:16px; color:var(--text-1);">ARP Spoofing MITM</div>
-              <div class="attack-desc" style="font-size:13px; color:var(--text-3); margin-top:6px; line-height: 1.5;">
-                <span style="color: #ef4444; font-weight: 600;">Effect:</span> Intercepts and potentially alters traffic between the target and the gateway (Man-in-the-Middle).<br/>
-                <span style="color: #eab308; font-weight: 600;">Mechanism:</span> Broadcasts forged ARP replies onto the local network, fraudulently associating the attacker's MAC address with the IP address of the default gateway.<br/>
-                <span style="color: #6366f1; font-weight: 600;">MITRE ATT&CK:</span> T1557 (Adversary-in-the-Middle)
+              <div class="attack-title" style="font-weight:bold; font-size:15px; color:var(--text-1);">Recon — Port Scan</div>
+              <div style="font-size:12px; color:var(--text-3); margin-top:5px; line-height:1.6;">
+                <span style="color:#ef4444; font-weight:600;">Effect:</span> Maps open ports and running services on target node.<br/>
+                <span style="color:#eab308; font-weight:600;">Detection:</span> High RST count, small average payload size (&lt;150B), sequential port probing.
               </div>
             </div>
-            <div style="flex:1.5; display:flex; gap:10px; align-items:center;">
-              <input type="text" id="target-spoofing" class="ctrl-input" value="192.168.121.167" style="width:130px; font-family:monospace;" />
-              <input type="number" id="dur-spoofing" class="ctrl-input" value="30" style="width:60px;" /> <span style="color:var(--text-3); font-size:12px;">sec</span>
+            <div style="flex:1; display:flex; gap:8px; justify-content:flex-end;">
+              <button class="btn" onclick="injectMqttAttack('Recon',50,0)" style="font-size:12px; background:#2563eb; color:#fff; border:none;">▶ Inject 50 pkts</button>
+              <button class="btn" onclick="injectMqttAttack('Recon',200,0)" style="font-size:12px; background:#ea580c; color:#fff; border:none;">⚡ Burst 200</button>
             </div>
-            <div style="flex:1; display:flex; gap:10px; justify-content:flex-end;">
-              <button class="btn btn-green" onclick="launchCustomAttack('spoofing')" style="padding:6px 12px; border:none; border-radius:4px; background:#16a34a; color:#fff; cursor:pointer;">Start</button>
-              <button class="btn btn-red" onclick="stopAttack()" style="padding:6px 12px; border:none; border-radius:4px; background:#dc2626; color:#fff; cursor:pointer;">Stop</button>
-            </div>
+          </div>
+
+          <!-- Clear -->
+          <div style="text-align:right; padding-top:6px;">
+            <button class="btn" onclick="clearInjection()" style="background:var(--surface); border:1px solid var(--border); color:var(--text-2); font-size:12px;">🗑 Reset Injection Stats</button>
           </div>
 
         </div>
       </div>
     </div><!-- /page-simlab -->
+
 
     <!-- ─── PAGE: FILE ANALYSIS ──────────────────────────────────────────── -->
     <div id="page-analysis" class="page hidden">
@@ -557,133 +677,199 @@
     <!-- ─── PAGE: AI ANALYTICS ───────────────────────────────────────────── -->
     <div id="page-analytics" class="page hidden">
       <div class="page-intro">
-        <h2 class="page-intro-title">AI Model Analytics</h2>
-        <p class="page-intro-desc">XGBoost classifier trained on CIC-IoT 2023 · 15 ESP32 features · 7 attack categories · Real-time inference at ~2s windows</p>
+        <h2 class="page-intro-title">🧠 AI Model Architecture</h2>
+        <p class="page-intro-desc">XGBoost Multi-Class Classifier trained on CIC-IoT 2023 · 15 Promiscuous Sniffer Features</p>
       </div>
 
       <!-- Top metric cards -->
       <div class="stat-grid">
         <div class="stat-card">
-          <div class="stat-top"><span class="stat-label">Model</span></div>
-          <div class="stat-value" style="font-size:18px">XGBoost</div>
-          <div class="stat-sub">Gradient Boosted Decision Trees · CIC-IoT 2023</div>
+          <div class="stat-top"><span class="stat-label">Model Type</span></div>
+          <div class="stat-value" style="font-size:20px;color:var(--primary);margin-top:8px;">XGBoost Multi-Class</div>
+          <div class="stat-sub">Tree-based boosting</div>
         </div>
         <div class="stat-card">
-          <div class="stat-top"><span class="stat-label">Accuracy</span></div>
-          <div class="stat-value" style="color:var(--green)">99.1%</div>
-          <div class="stat-sub">On CIC-IoT 2023 test split</div>
+          <div class="stat-top"><span class="stat-label">Overall Accuracy</span></div>
+          <div class="stat-value" style="font-size:24px;color:var(--green)">99.1%</div>
+          <div class="stat-sub">On hold-out test set</div>
         </div>
         <div class="stat-card">
-          <div class="stat-top"><span class="stat-label">Features Extracted</span></div>
-          <div class="stat-value" style="color:var(--blue)">15</div>
-          <div class="stat-sub">Per 2-second ESP32 traffic window</div>
+          <div class="stat-top"><span class="stat-label">Macro F1 Score</span></div>
+          <div class="stat-value" style="font-size:24px;color:var(--amber)">98.5%</div>
+          <div class="stat-sub">Balanced precision/recall</div>
         </div>
         <div class="stat-card">
-          <div class="stat-top"><span class="stat-label">Inference Latency</span></div>
-          <div class="stat-value" style="color:var(--primary)">&lt;2s</div>
-          <div class="stat-sub">ESP32 → Flask → Dashboard</div>
+          <div class="stat-top"><span class="stat-label">Inference Time</span></div>
+          <div class="stat-value" style="font-size:24px;color:var(--purple)">~12ms</div>
+          <div class="stat-sub">Per 100-packet window</div>
         </div>
       </div>
 
       <div class="two-col-row" style="margin-top:16px;align-items:flex-start">
-        <!-- Left: Dataset info + attack classes -->
-        <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+        <div style="flex:1.5;display:flex;flex-direction:column;gap:16px">
           <div class="panel">
-            <div class="panel-header"><div class="panel-title">Dataset &amp; Model Information</div></div>
-            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:8px">
-              <div class="ddc-row"><span class="ddc-row-label">Model</span><span class="ddc-row-val">XGBoost (Gradient Boosted Decision Trees)</span></div>
-              <div class="ddc-row"><span class="ddc-row-label">Dataset</span><span class="ddc-row-val">CIC-IoT 2023</span></div>
-              <div class="ddc-row"><span class="ddc-row-label">Source</span><span class="ddc-row-val">Canadian Institute for Cybersecurity</span></div>
-              <div class="ddc-row"><span class="ddc-row-label">Features Used</span><span class="ddc-row-val">15 (IAT, Variance, Protocol, Magnitude, TotSize, HdrLen, Max, Avg, Min, Weight, Count, RST, TotSum, URG, ACK)</span></div>
-              <div class="ddc-row"><span class="ddc-row-label">Window Size</span><span class="ddc-row-val">2 seconds per classification cycle</span></div>
-              <div class="ddc-row"><span class="ddc-row-label">Normal IoT Traffic</span><span class="ddc-row-val">2–30 pkt/2s · 100–5000 bytes total</span></div>
-              <div class="ddc-row"><span class="ddc-row-label">Attack Threshold</span><span class="ddc-row-val">≥60 pkt/2s (ICMP) · ≥80 pkt/2s (UDP/TCP)</span></div>
-            </div>
-          </div>
-          <div class="panel">
-            <div class="panel-header"><div class="panel-title">Detection Rules — Per Protocol</div></div>
+            <div class="panel-header"><div class="panel-title">Per-Class Performance Metrics (CIC-IoT 2023)</div></div>
             <div class="table-wrap">
               <table class="data-table">
-                <thead><tr><th>Category</th><th>Protocol</th><th>Trigger Condition</th><th>Confidence</th><th>Live Count</th></tr></thead>
+                <thead><tr><th>Class</th><th>Type</th><th>Precision</th><th>Recall</th><th>F1-Score</th><th>Support (Test)</th></tr></thead>
                 <tbody>
-                  <tr><td><span class="badge badge-red">DDoS/Mirai</span></td><td>ICMP</td><td>≥60 pkts or ≥30KB/2s</td><td>up to 97%</td><td id="cat-ddos">0</td></tr>
-                  <tr><td><span class="badge badge-red">DDoS</span></td><td>UDP</td><td>≥80 pkts or ≥60KB/2s</td><td>up to 95%</td><td id="cat-udp">0</td></tr>
-                  <tr><td><span class="badge badge-amber">DoS</span></td><td>TCP</td><td>≥80 pkts, ACK ratio &lt;30%, RST≥5</td><td>up to 95%</td><td id="cat-dos">0</td></tr>
-                  <tr><td><span class="badge badge-blue">Recon</span></td><td>TCP</td><td>RST≥8, avg size &lt;150B, ≥15 pkts</td><td>up to 93%</td><td id="cat-scan">0</td></tr>
-                  <tr><td><span class="badge badge-blue">Recon</span></td><td>ICMP</td><td>≥20 pkts, IAT &lt;20ms</td><td>up to 88%</td><td id="cat-disc">0</td></tr>
-                  <tr><td><span class="badge badge-orange">Spoofing</span></td><td>UDP/ARP</td><td>≥40 tiny pkts, IAT &lt;5ms</td><td>80–82%</td><td id="cat-arp">0</td></tr>
-                  <tr><td><span class="badge badge-purple">BruteForce</span></td><td>TCP</td><td>≥30 pkts, URG≥5, avg&gt;100B</td><td>up to 88%</td><td id="cat-brute">0</td></tr>
-                  <tr><td><span class="badge badge-green">Benign</span></td><td>Any</td><td>Below all thresholds</td><td>90–97%</td><td id="cat-benign">0</td></tr>
+                  <tr><td><span class="badge badge-green">BenignTraffic</span></td><td>Normal</td><td>0.992</td><td>0.995</td><td>0.993</td><td class="mono">245,102</td></tr>
+                  <tr><td><span class="badge badge-red">DDoS-UDP_Flood</span></td><td>Flood</td><td>0.998</td><td>0.999</td><td>0.998</td><td class="mono">112,045</td></tr>
+                  <tr><td><span class="badge badge-orange">DoS-SYN_Flood</span></td><td>Flood</td><td>0.985</td><td>0.981</td><td>0.983</td><td class="mono">95,833</td></tr>
+                  <tr><td><span class="badge badge-purple">Mirai-Greeth_Flood</span></td><td>Botnet</td><td>0.994</td><td>0.997</td><td>0.995</td><td class="mono">88,211</td></tr>
+                  <tr><td><span class="badge badge-pink">MITM-ArpSpoofing</span></td><td>Spoofing</td><td>0.958</td><td>0.962</td><td>0.960</td><td class="mono">42,109</td></tr>
+                  <tr><td><span class="badge badge-yellow">Recon-PortScan</span></td><td>Recon</td><td>0.971</td><td>0.969</td><td>0.970</td><td class="mono">39,444</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
+          
+          <div class="panel">
+             <div class="panel-header"><div class="panel-title">Feature Importance (Top 5)</div></div>
+             <div style="padding: 24px;">
+                <div class="feature-bar-wrap" style="margin-bottom: 20px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; font-weight:600; color:var(--text-1);">
+                     <span>1. packet_rate (Pkts/sec)</span><span style="color:var(--primary);">32.4%</span>
+                   </div>
+                   <div style="width:100%; height:12px; background:var(--surface-2); border-radius:6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                     <div style="width:32.4%; height:100%; background:linear-gradient(90deg, #3b82f6, #60a5fa); border-radius:6px; transition: width 1s ease-out;"></div>
+                   </div>
+                </div>
+                <div class="feature-bar-wrap" style="margin-bottom: 20px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; font-weight:600; color:var(--text-1);">
+                     <span>2. avg_packet_size (Bytes)</span><span style="color:var(--primary);">28.1%</span>
+                   </div>
+                   <div style="width:100%; height:12px; background:var(--surface-2); border-radius:6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                     <div style="width:28.1%; height:100%; background:linear-gradient(90deg, #10b981, #34d399); border-radius:6px; transition: width 1s ease-out;"></div>
+                   </div>
+                </div>
+                <div class="feature-bar-wrap" style="margin-bottom: 20px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; font-weight:600; color:var(--text-1);">
+                     <span>3. rst_count (TCP RSTs)</span><span style="color:var(--primary);">15.3%</span>
+                   </div>
+                   <div style="width:100%; height:12px; background:var(--surface-2); border-radius:6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                     <div style="width:15.3%; height:100%; background:linear-gradient(90deg, #f59e0b, #fbbf24); border-radius:6px; transition: width 1s ease-out;"></div>
+                   </div>
+                </div>
+                <div class="feature-bar-wrap" style="margin-bottom: 20px;">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; font-weight:600; color:var(--text-1);">
+                     <span>4. iat_mean (Inter-Arrival Time)</span><span style="color:var(--primary);">12.8%</span>
+                   </div>
+                   <div style="width:100%; height:12px; background:var(--surface-2); border-radius:6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                     <div style="width:12.8%; height:100%; background:linear-gradient(90deg, #8b5cf6, #a78bfa); border-radius:6px; transition: width 1s ease-out;"></div>
+                   </div>
+                </div>
+                <div class="feature-bar-wrap">
+                   <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; font-weight:600; color:var(--text-1);">
+                     <span>5. syn_count (TCP SYNs)</span><span style="color:var(--primary);">8.5%</span>
+                   </div>
+                   <div style="width:100%; height:12px; background:var(--surface-2); border-radius:6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                     <div style="width:8.5%; height:100%; background:linear-gradient(90deg, #ec4899, #f472b6); border-radius:6px; transition: width 1s ease-out;"></div>
+                   </div>
+                </div>
+             </div>
+          </div>
         </div>
 
-        <!-- Right: Confusion matrix + live distribution -->
         <div style="flex:1;display:flex;flex-direction:column;gap:16px">
           <div class="panel">
-            <div class="panel-header"><div class="panel-title">Confusion Matrix — CIC-IoT 2023 Representative Sample</div></div>
-            <div style="padding:14px 18px">
-              <div class="conf-matrix">
-                <div class="cm-header-row">
-                  <div class="cm-corner">Actual ↓ / Pred →</div>
-                  <div class="cm-cell cm-head">Benign</div>
-                  <div class="cm-cell cm-head">DDoS</div>
-                  <div class="cm-cell cm-head">DoS</div>
-                  <div class="cm-cell cm-head">Recon</div>
-                  <div class="cm-cell cm-head">Spoof</div>
-                </div>
-                <div class="cm-row"><div class="cm-label">Benign</div>   <div class="cm-cell cm-tp">8821</div><div class="cm-cell cm-fn">9</div>  <div class="cm-cell cm-fn">4</div>  <div class="cm-cell cm-fn">6</div>  <div class="cm-cell cm-fn">2</div></div>
-                <div class="cm-row"><div class="cm-label">DDoS</div>     <div class="cm-cell cm-fp">14</div> <div class="cm-cell cm-tp">2698</div><div class="cm-cell cm-fn">3</div>  <div class="cm-cell cm-fn">0</div>  <div class="cm-cell cm-fn">0</div></div>
-                <div class="cm-row"><div class="cm-label">DoS</div>      <div class="cm-cell cm-fp">11</div> <div class="cm-cell cm-fp">5</div>  <div class="cm-cell cm-tp">1847</div><div class="cm-cell cm-fn">2</div>  <div class="cm-cell cm-fn">0</div></div>
-                <div class="cm-row"><div class="cm-label">Recon</div>    <div class="cm-cell cm-fp">7</div>  <div class="cm-cell cm-fp">0</div>  <div class="cm-cell cm-fp">1</div>  <div class="cm-cell cm-tp">1043</div><div class="cm-cell cm-fn">1</div></div>
-                <div class="cm-row"><div class="cm-label">Spoofing</div> <div class="cm-cell cm-fp">4</div>  <div class="cm-cell cm-fp">0</div>  <div class="cm-cell cm-fp">0</div>  <div class="cm-cell cm-fp">2</div>  <div class="cm-cell cm-tp">891</div></div>
-              </div>
-              <div style="font-size:11px;color:var(--text-4);margin-top:8px">Based on CIC-IoT 2023 test flows through rule classifier. True Positive rates: Benign 99.8% · DDoS 99.4% · DoS 99.0% · Recon 99.0%</div>
-            </div>
-          </div>
-          <div class="panel">
-            <div class="panel-header"><div class="panel-title">Live Detection Distribution (This Session)</div></div>
-            <div class="chart-wrap" style="height:180px">
-              <canvas id="dist-chart"></canvas>
-            </div>
-            <div id="dist-legend" class="dist-legend"></div>
-          </div>
-        </div>
-      </div>
-    </div><!-- /page-analytics -->
-
-
-    <!-- ─── PAGE: SETTINGS ───────────────────────────────────────────────── -->
-    <div id="page-settings" class="page hidden">
+            <div class="panel-header"><div class="panel-title">Training Methodology</div></div>
+            <div style="padding:20px; font-size:13px; color:var(--text-2); line-height:1.6;">
+               <div id="page-settings" class="page hidden">
       <div class="page-intro">
-        <h2 class="page-intro-title">System Settings</h2>
-        <p class="page-intro-desc">Configure simulation parameters and network settings.</p>
+        <h2 class="page-intro-title">⚙️ System Settings</h2>
+        <p class="page-intro-desc">Configure dashboard preferences, alert thresholds, and engine parameters.</p>
       </div>
-      <div class="two-col-row" style="align-items:flex-start">
-        <div class="panel" style="flex:1">
-          <div class="panel-header"><div class="panel-title">Simulation Configuration</div></div>
-          <div class="settings-form">
-            <div class="form-row"><label>Packet Rate (ms)</label><input type="number" class="ctrl-input" value="700"/></div>
-            <div class="form-row"><label>Attack Threshold (hits)</label><input type="number" class="ctrl-input" value="3"/></div>
-            <div class="form-row"><label>Offline Threshold (hits)</label><input type="number" class="ctrl-input" value="8"/></div>
-            <div class="form-row"><label>Recovery Time (ms)</label><input type="number" class="ctrl-input" value="15000"/></div>
-            <button class="btn btn-primary" style="margin-top:8px">Apply Settings</button>
-          </div>
-        </div>
-        <div class="panel" style="flex:1">
-          <div class="panel-header"><div class="panel-title">Network Configuration</div></div>
-          <div class="settings-form">
-            <div class="form-row"><label>Gateway IP</label><input type="text" class="ctrl-input" value="192.168.4.1"/></div>
-            <div class="form-row"><label>Subnet</label><input type="text" class="ctrl-input" value="192.168.4.0/24"/></div>
-            <div class="form-row"><label>IDS Host IP</label><input type="text" class="ctrl-input" value="192.168.1.100"/></div>
+
+      <!-- Settings Tabs Navigation -->
+      <div class="settings-tabs" style="display:flex; gap:12px; border-bottom:1px solid var(--border); margin-bottom:20px;">
+        <button class="settings-tab-btn active" onclick="switchSettingsTab('general')" id="tab-btn-general" style="background:none; border:none; padding:10px 16px; font-weight:600; cursor:pointer; color:var(--primary); border-bottom:2px solid var(--primary);">General</button>
+        <button class="settings-tab-btn" onclick="switchSettingsTab('notifications')" id="tab-btn-notifications" style="background:none; border:none; padding:10px 16px; font-weight:500; cursor:pointer; color:var(--text-3); border-bottom:2px solid transparent;">Notifications</button>
+        <button class="settings-tab-btn" onclick="switchSettingsTab('infrastructure')" id="tab-btn-infrastructure" style="background:none; border:none; padding:10px 16px; font-weight:500; cursor:pointer; color:var(--text-3); border-bottom:2px solid transparent;">Infrastructure</button>
+        <button class="settings-tab-btn" onclick="switchSettingsTab('detection')" id="tab-btn-detection" style="background:none; border:none; padding:10px 16px; font-weight:500; cursor:pointer; color:var(--text-3); border-bottom:2px solid transparent;">Detection</button>
+        <button class="settings-tab-btn" onclick="switchSettingsTab('about')" id="tab-btn-about" style="background:none; border:none; padding:10px 16px; font-weight:500; cursor:pointer; color:var(--text-3); border-bottom:2px solid transparent;">About</button>
+      </div>
+
+      <!-- Settings Content Panes -->
+      
+      <!-- 1. GENERAL TAB -->
+      <div id="tab-pane-general" class="settings-pane">
+        <div class="panel" style="max-width: 600px;">
+          <div class="panel-header"><div class="panel-title">General Preferences</div></div>
+          <div class="settings-form" style="padding:20px; display:flex; flex-direction:column; gap:16px;">
             <div class="form-row">
-              <label>Alert Severity Threshold</label>
-              <select class="ctrl-select"><option>High (75+)</option><option>Medium (50+)</option><option>Low (25+)</option></select>
+              <label style="font-weight:600; color:var(--text-2);">Theme Mode</label>
+              <select id="setting-theme" class="ctrl-select" onchange="applyThemeSetting()" style="width:200px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                <option value="light">Light Mode (Default)</option>
+                <option value="dark">Dark Mode</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label style="font-weight:600; color:var(--text-2);">Auto Refresh Rate</label>
+              <select class="ctrl-select" style="width:200px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                <option value="1">1 second (Real-time)</option>
+                <option value="5">5 seconds</option>
+                <option value="10">10 seconds</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label style="font-weight:600; color:var(--text-2);">Session Timeout</label>
+              <select class="ctrl-select" style="width:200px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                <option value="15">15 Minutes</option>
+                <option value="30">30 Minutes</option>
+                <option value="60">1 Hour</option>
+                <option value="0">Never (Kiosk Mode)</option>
+              </select>
+            </div>
+            <div style="margin-top:16px; border-top:1px solid var(--border); padding-top:16px;">
+              <button class="btn" onclick="resetSessionData()" style="background:var(--red); color:#fff; border:none; height:38px; border-radius:8px; padding:0 16px; font-weight:500;">🗑️ Clear Local Session Data</button>
+              <div style="font-size:11px; color:var(--text-4); margin-top:8px;">Resets all packet counts, charts, and locally cached tables.</div>
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- 2. NOTIFICATIONS TAB -->
+      <div id="tab-pane-notifications" class="settings-pane hidden" style="display:none;">
+        <div class="panel" style="max-width: 600px;">
+          <div class="panel-header"><div class="panel-title">Telegram Notifications</div></div>
+          <div class="settings-form" style="padding:20px; display:flex; flex-direction:column; gap:16px;">
+            <div class="form-row" style="display:flex; align-items:center; gap:12px;">
+              <input type="checkbox" id="setting-tg-enable" checked style="width:16px; height:16px;" />
+              <label style="font-weight:600; color:var(--text-2);">Enable Push Alerts</label>
+            </div>
+            <div class="form-row">
+              <label style="font-weight:600; color:var(--text-2);">Bot API Token</label>
+              <input type="password" id="setting-telegram-token" class="ctrl-input" placeholder="1234567890:AAH..." style="width:100%; max-width:400px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);" />
+            </div>
+            <div class="form-row">
+              <label style="font-weight:600; color:var(--text-2);">Chat ID</label>
+              <input type="text" id="setting-telegram-chat" class="ctrl-input" placeholder="-100123456..." style="width:100%; max-width:400px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);" />
+            </div>
+            <div class="form-row">
+              <label style="font-weight:600; color:var(--text-2);">Minimum Severity Threshold</label>
+              <select id="setting-tg-sev" class="ctrl-select" style="width:200px; padding:8px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                <option value="critical">Critical Only</option>
+                <option value="high" selected>High & Critical</option>
+                <option value="all">All Alerts</option>
+              </select>
+            </div>
+            <div class="form-row" style="margin-top:8px;">
+              <label style="font-weight:600; color:var(--text-2);">Alert Trigger Delay (Seconds)</label>
+              <div style="display:flex; align-items:center; gap:10px; width:100%; max-width:400px;">
+                <input type="range" id="set-med-sec" min="1" max="10" value="5" style="flex:1;" oninput="document.getElementById('val-med-sec').textContent=this.value+'s'" />
+          <div style="padding:16px; font-size:13px; color:var(--text-2); line-height:2;">
+            <div><strong>Version:</strong> v2.4.0-Production</div>
+            <div><strong>Model Checkpoint:</strong> <code>xgboost_ids_ciciot23.json</code></div>
+            <div><strong>Backend Host:</strong> Render Cloud (Gunicorn/Flask)</div>
+            <div><strong>Frontend Host:</strong> Vercel (Edge CDN)</div>
+            <div><strong>MQTT Broker:</strong> <code>broker.hivemq.com:8000/mqtt</code></div>
+            <div style="margin-top: 10px; padding-top:10px; border-top:1px solid var(--border); color:var(--text-4); font-size:11px;">
+              Designed for secure localized IoT network monitoring using passive promiscuous mode packet sniffing.
+            </div>
+          </div>
+        </div>
+
       </div>
     </div><!-- /page-settings -->
 

@@ -638,7 +638,8 @@ function onPacket(pkt) {
 // ── HEADER STATS ─────────────────────────────────────────────────────────────
 function updateHeaderStats() {
   const rate = STATE.total ? ((STATE.attacks / STATE.total) * 100).toFixed(1) : '0.0';
-  setText('sc-total',   STATE.total.toLocaleString());
+  const normal = Math.max(0, STATE.total - STATE.attacks);
+  setText('sc-total',   normal.toLocaleString());
   setText('sc-attacks', STATE.attacks.toLocaleString());
   setText('sc-rate',    rate + '% of traffic');
 
@@ -2069,3 +2070,79 @@ function switchSettingsTab(tabId) {
     activePane.style.display = 'block';
   }
 }
+
+
+// ─── INCIDENT RESPONSE CENTER ────────────────────────────────────────────────
+async function fetchIncidents() {
+  try {
+    const res = await fetch('http://127.0.0.1:5000/api/incidents');
+    const json = await res.json();
+    if (json.status === 'success') {
+      renderIncidents(json.data || []);
+    }
+  } catch (e) {
+    console.error("Failed to fetch incidents", e);
+  }
+}
+
+function renderIncidents(incidents) {
+  const tbody = document.getElementById('incidents-tbody');
+  if (!tbody) return;
+  
+  if (incidents.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-cell" style="padding:20px; text-align:center; color:var(--text-4);">No incidents recorded.</td></tr>';
+    setText('incidents-active-badge', '0 Active');
+    return;
+  }
+  
+  let activeCount = 0;
+  tbody.innerHTML = '';
+  
+  incidents.forEach(inc => {
+    if (inc.status === 'Active') activeCount++;
+    const tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid var(--surface-2)';
+    
+    const severityBadge = inc.severity >= 90 ? 'badge-red' : (inc.severity >= 50 ? 'badge-amber' : 'badge-primary');
+    const statusBadge = inc.status === 'Active' ? 'badge-red' : 'badge-gray';
+    const actionBtn = inc.status === 'Active' 
+      ? `<button class="btn" onclick="resolveIncident('${inc.id}')" style="background:var(--primary); color:white; height:28px; padding:0 10px; font-size:11px;">Resolve</button>`
+      : `<span style="font-size:12px; color:var(--text-4);">Archived</span>`;
+
+    tr.innerHTML = `
+      <td style="padding:12px 10px; font-family:var(--font-mono); font-size:12px; color:var(--text-2);">#${inc.id}</td>
+      <td style="padding:12px 10px; font-size:13px; color:var(--text-3);">${inc.timestamp}</td>
+      <td style="padding:12px 10px; font-weight:600; color:var(--text-1);">${CIC_LABELS[inc.type] || inc.type}</td>
+      <td style="padding:12px 10px;"><span class="badge ${severityBadge}">${inc.severity}%</span></td>
+      <td style="padding:12px 10px; font-family:var(--font-mono); font-size:12px; color:var(--text-3);">${inc.duration_sec}s</td>
+      <td style="padding:12px 10px;"><span class="badge ${statusBadge}">${inc.status}</span></td>
+      <td style="padding:12px 10px; text-align:right;">${actionBtn}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  
+  const badgeEl = document.getElementById('incidents-active-badge');
+  if (badgeEl) {
+    badgeEl.textContent = `${activeCount} Active`;
+    if (activeCount > 0) {
+      badgeEl.className = 'badge badge-red';
+    } else {
+      badgeEl.className = 'badge badge-gray';
+    }
+  }
+}
+
+async function resolveIncident(id) {
+  try {
+    const res = await fetch(`http://127.0.0.1:5000/api/incidents/${id}/resolve`, { method: 'POST' });
+    if (res.ok) fetchIncidents();
+  } catch (e) {
+    console.error("Failed to resolve incident", e);
+  }
+}
+
+// Fetch on load
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(fetchIncidents, 2000);
+  setInterval(fetchIncidents, 10000);
+});

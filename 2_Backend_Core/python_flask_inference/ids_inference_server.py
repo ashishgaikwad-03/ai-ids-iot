@@ -174,6 +174,46 @@ def calculate_xai(features, attack_type, confidence):
     except: pass
     return [{"feature": "Network Anomaly", "impact": "+50%", "value": "Detected"}]
 
+import uuid
+import os
+
+INCIDENTS_DB_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "incidents.json")
+
+def load_incidents():
+    if os.path.exists(INCIDENTS_DB_FILE):
+        try:
+            with open(INCIDENTS_DB_FILE, "r") as f:
+                return json.load(f)
+        except:
+            return []
+    return []
+
+def save_incidents(data):
+    try:
+        with open(INCIDENTS_DB_FILE, "w") as f:
+            json.dump(data, f, indent=4)
+    except Exception as e:
+        print(f"Failed to save incidents DB: {e}")
+
+def create_incident(record):
+    data = load_incidents()
+    data.insert(0, record)  # prepend latest
+    save_incidents(data)
+
+@app.route("/api/incidents", methods=["GET"])
+def get_incidents():
+    return jsonify({"status": "success", "data": load_incidents()}), 200
+
+@app.route("/api/incidents/<incident_id>/resolve", methods=["POST"])
+def resolve_incident(incident_id):
+    data = load_incidents()
+    for inc in data:
+        if inc.get("id") == incident_id:
+            inc["status"] = "Resolved"
+            save_incidents(data)
+            return jsonify({"status": "success", "message": "Incident resolved"}), 200
+    return jsonify({"error": "Incident not found"}), 404
+
 # ==========================================
 # INFERENCE ENGINE
 
@@ -400,6 +440,16 @@ def monitor_attack_state():
             gap = now - attack_state["last_seen"]
             if gap > attack_state["gap_threshold"]:
                 print(f"[ATTACK END] {attack_state['type']} ended after gap {gap:.1f}s")
+                # Save to Incident DB
+                incident_record = {
+                    "id": str(uuid.uuid4())[:8].upper(),
+                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(attack_state.get("start_time", time.time()))),
+                    "type": attack_state["type"],
+                    "duration_sec": round(sustained_secs, 1),
+                    "severity": attack_state["confidence"],
+                    "status": "Active"
+                }
+                create_incident(incident_record)
                 if attack_state["alert_fired"]:
                     print("[RECOVERY] Sending Telegram recovery message")
                     threading.Thread(
