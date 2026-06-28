@@ -755,8 +755,10 @@ function updateDetectionsTable(pkt) {
   const tr     = document.createElement('tr');
   if (pkt.attack) tr.className = 'is-attack';
   const formatIp = (ip) => ip ? (ip.includes(':') ? 'MAC: ' + ip : ip) : '--';
+  const date = pkt.timestamp ? new Date(pkt.timestamp) : new Date();
+  const timeStr = date.toLocaleTimeString([], {hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'});
   tr.innerHTML =
-    '<td class="mono">' + esc(pkt.timestamp||'') + '</td>' +
+    '<td class="mono">' + esc(timeStr) + '</td>' +
     '<td class="mono" style="font-size:12px;">' + esc(formatIp(pkt.sourceIp)) + '</td>' +
     '<td class="mono" style="font-size:12px;">' + esc(formatIp(pkt.destIp)) + '</td>' +
     '<td><span class="badge badge-gray">' + esc(pkt.protocol||'') + '</span></td>' +
@@ -1544,7 +1546,14 @@ function toggleMqttStream(type, pps, btnElement) {
         attackType: realType,
         pktRate: pps + Math.floor(Math.random() * 10) - 5,
         confidence: 0.96 + Math.random() * 0.03,
-        severityScore: pps > 50 ? 95 : 75
+        severityScore: pps > 50 ? 95 : 75,
+        baselineAvg: 20,
+        xai: [
+          { feature: isUdp ? "Flow Bytes/s" : "SYN Flag Count", contribution: 0.45 },
+          { feature: "Packet Length Std", contribution: 0.30 },
+          { feature: "Flow IAT Mean", contribution: 0.15 }
+        ],
+        fusionEngines: ["XGBoost Multi-Class", "Anomaly Detector"]
       };
       mqttClient.publish('ids/packets', JSON.stringify(pkt), { qos: 0 });
       
