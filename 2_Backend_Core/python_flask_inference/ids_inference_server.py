@@ -142,9 +142,14 @@ def run_behavioral_engine(src_ip, pkt_rate):
 # 2. Rule-Based Engine (Static)
 def run_rule_engine(features):
     try:
+        proto = float(features[1])
         pkt_rate = float(features[2])
         # Real DDoS attacks hit 1000-5000+ pps. 800 is a safe threshold.
         if pkt_rate > 800: return True, "DDoS", 0.95
+        
+        # The camera uses TCP for its video stream. If we see >100 pps of UDP, it is definitely a UDP Flood.
+        # This catches attacks even if the WiFi router throttles them below 800 pps.
+        if proto == 17 and pkt_rate > 100: return True, "DDoS", 0.90
         
         # REMOVED: if size > 65000 -> False positive on video streams!
     except: pass
