@@ -150,10 +150,10 @@ def run_rule_engine(features):
         variance = float(features[8])
         
         # SURESHOT DEMO OVERRIDE:
-        # A video stream has HUGE variance (mixed 1500B frames + 60B ACKs).
-        # A DDoS flood has ZERO variance (identical 1024B packets).
-        # If rate is > 80 pps and variance is near zero, it is definitively the attack script!
-        if pkt_rate >= 80 and variance < 500: 
+        # A video stream has HUGE variance (mixed 1500B frames + 60B ACKs) -> variance > 150,000.
+        # A DDoS flood has LOW variance (identical 1024B packets + minor background noise) -> variance < 30,000.
+        # If rate is > 80 pps and variance is within the attack range, it is definitively the attack script!
+        if pkt_rate >= 80 and variance < 30000: 
             return True, "DDoS-UDP_Flood", 0.99
             
     except: pass
@@ -350,13 +350,12 @@ def analyze():
             ml_type = CLASS_MAPPING.get(predicted_idx, "UnknownAttack")
             
         # CRITICAL FIX: The Ultimate Sureshot Suppression!
-        # Since open hotspots drop packets and background noise explodes the variance math,
-        # we abandon variance and use absolute rate. The ESP32-CAM video maxes out at ~75 pps.
-        # Anything below 90 pps is normal/benign. Anything above 90 pps is a flood.
+        # Suppress if rate is low (< 80 pps) or if variance is huge (> 50,000) indicating normal video stream.
         if ml_is_attack:
             try:
                 rate_val = float(features_list[2])
-                if rate_val < 90:
+                var_val = float(features_list[8])
+                if rate_val < 80 or var_val > 50000:
                     ml_is_attack = False
                     ml_type = "BENIGN"
                     ml_conf = 0.0
