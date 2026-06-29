@@ -299,19 +299,16 @@ void inferenceLoop(void * pvParameters) {
                 // 2. variance > 20000       → mixed sizes = video stream, suppress
                 // 3. rate < 30 pps          → real floods hit 500+ pps, this is benign
                 // =================================================================
+                // =================================================================
                 if (pCount < 40) {
                     // Too few packets in 2s window. Background noise, not an attack.
                     score = 0.01 + (pCount * 0.001);
-                } else if (variance > 20000.0) {
-                    // High variance = mixed packet sizes = video stream or normal TCP.
-                    // Real floods use identical-sized packets (near-zero variance).
-                    score = 0.05 + (pCount * 0.0003);
                 } else if (rate < 30.0) {
                     // Rate < 30 pps even with low variance is just background ARP/MDNS.
                     // Real DDoS starts at 200+ pps. Suppress this.
                     score = 0.05 + (rate * 0.003);
                 } else {
-                    // High rate + Low variance = Flood pattern. Trust the AI model!
+                    // Flood pattern. Trust the AI model!
                 }
                 
                 Serial.printf("[IDS] Window Complete. Packets: %lu | Threat Score: %.2f%%\n", pCount, score * 100);
