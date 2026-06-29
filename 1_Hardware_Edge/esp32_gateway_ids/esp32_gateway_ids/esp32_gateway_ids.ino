@@ -21,7 +21,7 @@ volatile float currentHumi = 0.0;
 // 1. HARDWARE & NETWORK PROFILE
 // =====================================================================
 const char* WIFI_SSID     = "Redmi Note 9 Pro";   // Target AP to lock channel
-const char* WIFI_PASSWORD = "asdfghjkl"; 
+const char* WIFI_PASSWORD = ""; 
 
 // Local Flask backend (laptop) IP address
 // Change to "https://your-flask-app.onrender.com/api/v2/analyze" when deploying
@@ -301,14 +301,16 @@ void inferenceLoop(void * pvParameters) {
                 // =================================================================
                 // =================================================================
                 if (pCount < 40) {
-                    // Too few packets in 2s window. Background noise, not an attack.
-                    score = 0.01 + (pCount * 0.001);
-                } else if (rate < 30.0) {
-                    // Rate < 30 pps even with low variance is just background ARP/MDNS.
-                    // Real DDoS starts at 200+ pps. Suppress this.
-                    score = 0.05 + (rate * 0.003);
+                    // Too few packets, always background noise
+                    score = 0.01;
+                } else if (rate < 80.0) {
+                    // Rate is too low for a real flood. Suppress.
+                    score = 0.05;
+                } else if (variance > 30000.0) {
+                    // High variance = video stream. Suppress.
+                    score = 0.05;
                 } else {
-                    // Flood pattern. Trust the AI model!
+                    // High rate, low variance flood pattern. Trust the AI model!
                 }
                 
                 Serial.printf("[IDS] Window Complete. Packets: %lu | Threat Score: %.2f%%\n", pCount, score * 100);
