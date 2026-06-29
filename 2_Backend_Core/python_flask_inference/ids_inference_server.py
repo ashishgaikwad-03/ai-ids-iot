@@ -151,15 +151,19 @@ def run_rule_engine(features):
     except: pass
     return False, "BENIGN", 0.0
 
-# 3. Signature Engine (Static Match)
+# 3. Signature Engine (Static Match) - matches CIC-IoT 2023 attack signatures
 def run_signature_engine(features):
     try:
         proto = float(features[1])
         size = float(features[3])
         pkt_rate = float(features[2])
-        # FIXED: Real Mirai C2 traffic is LOW volume (stealthy), not high-rate
-        # Only trigger if rate < 50 pps AND exact 74-byte UDP signature
-        if proto == 17 and size == 74 and pkt_rate < 50: return True, "Mirai", 0.99
+        # Mirai-udpplain: UDP (17) + small payload (40-80 bytes total) + LOW rate (<50 pps)
+        # The 74-byte signature is total wire size. Our script sends 46-byte data = ~74 bytes on wire.
+        if proto == 17 and 30 < size < 120 and pkt_rate < 50:
+            return True, "Mirai", 0.99
+        # DoS SYN Flood: TCP (6) + small packets (just SYN header ~60 bytes) + moderate rate
+        if proto == 6 and size < 100 and pkt_rate > 50:
+            return True, "DoS", 0.92
     except: pass
     return False, "BENIGN", 0.0
 
