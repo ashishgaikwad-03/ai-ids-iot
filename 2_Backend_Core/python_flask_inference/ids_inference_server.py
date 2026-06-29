@@ -350,6 +350,12 @@ def analyze():
             predicted_idx = int(np.argmax(probabilities))
             ml_conf = float(probabilities[predicted_idx])
             ml_type = CLASS_MAPPING.get(predicted_idx, "UnknownAttack")
+            
+            # CRITICAL FIX: If Python XGBoost multi-class says it's BENIGN, 
+            # override the Edge model's false positive!
+            if ml_type.upper() == "BENIGN":
+                ml_is_attack = False
+                ml_conf = 0.0
         
         # Run New Engines
         try: pkt_rate_val = float(features_list[2])
