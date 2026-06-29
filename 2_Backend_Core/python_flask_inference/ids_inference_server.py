@@ -146,9 +146,14 @@ def run_rule_engine(features):
         
         # Real floods (like fatal_ddos) send identical packets, so variance is near 0.
         # Normal video streams have high variance (mixed 1500 and 60 byte packets).
-        # So if we see high rate AND low variance, it is definitively an attack!
         if pkt_rate > 100 and variance < 5000:
-            return True, "DDoS", 0.90
+            avg_sz = float(features[6])
+            if avg_sz > 800:
+                return True, "DDoS", 0.90
+            elif avg_sz < 150:
+                return True, "Mirai", 0.90
+            else:
+                return True, "DoS", 0.90
             
     except: pass
     return False, "BENIGN", 0.0
