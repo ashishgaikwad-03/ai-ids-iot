@@ -150,9 +150,9 @@ def run_rule_engine(features):
         variance = float(features[8])
         
         # SURESHOT DEMO OVERRIDE:
-        # If the packet rate spikes above 130 pps, it is a guaranteed flood attack.
+        # If the packet rate spikes above 110 pps, it is a guaranteed flood attack.
         # Normal video streams (even HD) hover around 40-80 pps.
-        if pkt_rate >= 130: 
+        if pkt_rate >= 110: 
             return True, "DDoS-UDP_Flood", 0.99
         # Real floods (like fatal_ddos) send identical packets, so variance is near 0.
         # Normal video streams have high variance (mixed 1500 and 60 byte packets).
@@ -368,14 +368,20 @@ def analyze():
             ml_conf = float(probabilities[predicted_idx])
             ml_type = CLASS_MAPPING.get(predicted_idx, "UnknownAttack")
             
-        # CRITICAL FIX: Aggressively suppress ML false positives!
-        # The ML model is getting stuck on small background recovery packets after the attack stops.
-        # Since real floods (like fatal_ddos) push the rate above 130 pps, we will simply 
-        # silence the ML model for anything under 120 pps. This guarantees a clean, blue dashboard!
+        # CRITICAL FIX: Suppress ML false positives!
         if ml_is_attack:
             try:
                 rate_val = float(features_list[2])
-                if rate_val < 120:
+                var_val = float(features_list[8])
+                avg_sz = float(features_list[6])
+                
+                # 1. Suppress if it's the video stream (High variance)
+                if var_val > 5000:
+                    ml_is_attack = False
+                    ml_type = "BENIGN"
+                    ml_conf = 0.0
+                # 2. Suppress if it's tiny background chatter causing the dashboard to stick (Size < 200 and Rate < 50)
+                elif rate_val < 50 and avg_sz < 200:
                     ml_is_attack = False
                     ml_type = "BENIGN"
                     ml_conf = 0.0
