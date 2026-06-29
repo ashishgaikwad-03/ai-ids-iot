@@ -80,10 +80,9 @@ attack_state = {
     "risk_score": 0,
     "engines": [],
     "alert_fired": False,
-    "gap_threshold": 5.0,
+    "gap_threshold": 2.5,
     "sustain_threshold": 2.0
 }
-
 DEVICE_NAMES = {
     '192.168.24.167': 'ESP32-CAM',
     '192.168.121.6':  'ESP32 Gateway',
