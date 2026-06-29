@@ -1,5 +1,8 @@
 import os
 import time
+
+LAST_ALERT_TIME = 0
+import time
 import pickle
 import numpy as np
 import json
@@ -391,6 +394,33 @@ def analyze():
             "confidence_metric": round(risk_score, 2)
         }
         
+        # --- SURESHOT ALERTS AND INCIDENTS ---
+        if final_is_attack:
+            global LAST_ALERT_TIME
+            now = time.time()
+            if now - LAST_ALERT_TIME > 15:  # Cooldown of 15 seconds
+                LAST_ALERT_TIME = now
+                
+                # 1. Instant Telegram
+                threading.Thread(
+                    target=send_telegram,
+                    args=(final_attack_type, risk_score, src_ip, 0, "EXTERNAL", False, risk_score, engines_triggered)
+                ).start()
+                
+                # 2. Instant Incident Record
+                inc_record = {
+                    "id": str(uuid.uuid4())[:8].upper(),
+                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                    "type": final_attack_type,
+                    "duration_sec": 0,
+                    "severity": risk_score,
+                    "status": "Active"
+                }
+                create_incident(inc_record)
+                # 3. Push incident over MQTT so dashboard gets it even if REST API fails
+                threading.Thread(target=publish_mqtt, args=("ids/incidents", json.dumps(inc_record))).start()
+        # ------------------------------------
+
         display_confidence = round(risk_score, 1) if final_is_attack else round(max(90.0, 99.9 - (edge_score * 100)), 1)
         
         alert_payload = {

@@ -570,9 +570,10 @@ function onPacket(pkt) {
 
     // Classify into donut buckets and live PPS buckets
     const at = (pkt.attackType || '').toLowerCase();
-    if (at.includes('ddos') || at.includes('udp') || at.includes('flood')) { STATE.classif.DDoS++; STATE.classifPpsCount.DDoS += rate; }
+    // CRITICAL: Check Mirai first because it might contain 'udp' which would accidentally trigger DDoS!
+    if (at.includes('mirai') || at.includes('botnet'))                     { STATE.classif.Mirai++; STATE.classifPpsCount.Mirai += rate; }
+    else if (at.includes('ddos') || at.includes('udp') || at.includes('flood')) { STATE.classif.DDoS++; STATE.classifPpsCount.DDoS += rate; }
     else if (at.includes('dos') || at.includes('syn'))                     { STATE.classif.DoS++; STATE.classifPpsCount.DoS += rate; }
-    else if (at.includes('mirai') || at.includes('botnet'))                { STATE.classif.Mirai++; STATE.classifPpsCount.Mirai += rate; }
     else if (at.includes('spoof') || at.includes('arp') || at.includes('mitm')) { STATE.classif.Spoofing++; STATE.classifPpsCount.Spoofing += rate; }
     else if (at.includes('recon') || at.includes('scan') || at.includes('discovery')) { STATE.classif.Recon++; STATE.classifPpsCount.Recon += rate; }
     else { STATE.classif.DDoS++; STATE.classifPpsCount.DDoS += rate; } // unknown attack → DDoS bucket
