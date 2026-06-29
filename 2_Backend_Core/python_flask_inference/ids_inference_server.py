@@ -360,12 +360,11 @@ def analyze():
             
         # CRITICAL FIX: Suppress ML false positives on video stream!
         # The ML model thinks the video stream is a DDoS attack due to high volume.
-        # Video streams have high variance (mixed packet sizes) and moderate rate (<120 pps).
+        # Video streams ALWAYS have high variance (mixed packet sizes).
         if ml_is_attack:
             try:
-                rate_val = float(features_list[2])
                 var_val = float(features_list[8])
-                if rate_val < 120 and var_val > 5000:
+                if var_val > 5000:
                     ml_is_attack = False
                     ml_type = "BENIGN"
                     ml_conf = 0.0
