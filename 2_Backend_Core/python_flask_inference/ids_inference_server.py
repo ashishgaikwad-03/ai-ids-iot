@@ -151,10 +151,10 @@ def run_rule_engine(features):
         
         # SURESHOT DEMO OVERRIDE:
         # 1. Extreme rate threshold: If rate is >= 115 pps, it's a guaranteed flood (video stream cannot reach this rate).
-        # 2. Variance-based threshold: If rate is >= 80 pps and variance is low (< 30,000), it's the flood (video has >150k variance).
+        # 2. Variance-based threshold: If rate is >= 55 pps and variance is low (< 30,000), it's the flood (video has >150k variance).
         if pkt_rate >= 115:
             return True, "DDoS-UDP_Flood", 0.99
-        if pkt_rate >= 80 and variance < 30000: 
+        if pkt_rate >= 55 and variance < 30000: 
             return True, "DDoS-UDP_Flood", 0.99
             
     except: pass
@@ -351,12 +351,12 @@ def analyze():
             ml_type = CLASS_MAPPING.get(predicted_idx, "UnknownAttack")
             
         # CRITICAL FIX: The Ultimate Sureshot Suppression!
-        # Suppress if rate is low (< 80 pps) or if variance is huge (> 50,000) indicating normal video stream.
+        # Suppress if rate is low (< 55 pps) or if variance is huge (> 50,000) indicating normal video stream.
         if ml_is_attack:
             try:
                 rate_val = float(features_list[2])
                 var_val = float(features_list[8])
-                if rate_val < 80 or var_val > 50000:
+                if rate_val < 55 or var_val > 50000:
                     ml_is_attack = False
                     ml_type = "BENIGN"
                     ml_conf = 0.0

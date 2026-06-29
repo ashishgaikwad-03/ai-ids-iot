@@ -303,7 +303,7 @@ void inferenceLoop(void * pvParameters) {
                 if (pCount < 40) {
                     // Too few packets, always background noise
                     score = 0.01;
-                } else if (rate < 80.0) {
+                } else if (rate < 55.0) {
                     // Rate is too low for a real flood. Suppress.
                     score = 0.05;
                 } else if (variance > 30000.0) {
