@@ -69,8 +69,8 @@ attack_state = {
     "risk_score": 0,
     "engines": [],
     "alert_fired": False,
-    "gap_threshold": 8.0,
-    "sustain_threshold": 5.0
+    "gap_threshold": 5.0,
+    "sustain_threshold": 3.0
 }
 
 DEVICE_NAMES = {

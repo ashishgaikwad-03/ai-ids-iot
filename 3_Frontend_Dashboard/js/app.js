@@ -432,8 +432,10 @@ function drawClassifDonut() {
   const total = Object.values(data).reduce((a, b) => a + b, 0);
 
   // Update legend counts
+  // Fixed key mapping: 'ddos' -> 'DDoS', 'dos' -> 'DoS' etc (case-sensitive STATE keys)
+  const _keyMap = { benign:'Benign', ddos:'DDoS', dos:'DoS', mirai:'Mirai', recon:'Recon', spoofing:'Spoofing' };
   ['benign','ddos','dos','mirai','recon','spoofing'].forEach(k => {
-    const key = k.charAt(0).toUpperCase() + k.slice(1);
+    const key = _keyMap[k] || (k.charAt(0).toUpperCase() + k.slice(1));
     const el = document.getElementById('cnt-' + k);
     if (el) el.textContent = data[key] || 0;
     const leg = document.getElementById('leg-' + k);
