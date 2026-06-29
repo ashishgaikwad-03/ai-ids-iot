@@ -945,7 +945,18 @@ function onDeviceUpdate(devs) {
       }
     }
     
-    // DHT11 Environmental Data
+    // DHT11 Environmental Data - data comes embedded inside esp32-cam heartbeat
+    // Check both 'dht11' (legacy) and 'esp32-cam' (actual source of DHT data)
+    if (dev.deviceId === 'esp32-cam' && (dev.temperature != null || dev.humidity != null)) {
+      const _tempEl = document.getElementById('dht-temp');
+      const _humEl  = document.getElementById('dht-humi');
+      if (_tempEl && dev.temperature != null) _tempEl.textContent = dev.temperature.toFixed(1) + ' °C';
+      if (_humEl  && dev.humidity    != null) _humEl.textContent  = dev.humidity.toFixed(1)    + ' %';
+      const _tempBig = document.getElementById('dht-temp-big');
+      const _humiBig = document.getElementById('dht-humi-big');
+      if (_tempBig && dev.temperature != null) _tempBig.textContent = dev.temperature.toFixed(1) + '°C';
+      if (_humiBig && dev.humidity    != null) _humiBig.textContent = dev.humidity.toFixed(1)    + '%';
+    }
     if (dev.deviceId === 'dht11') {
       const tempEl = document.getElementById('dht-temp');
       const humEl = document.getElementById('dht-humi');

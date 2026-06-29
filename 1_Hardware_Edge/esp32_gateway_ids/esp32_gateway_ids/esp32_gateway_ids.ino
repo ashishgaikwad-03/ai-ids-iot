@@ -309,7 +309,7 @@ void inferenceLoop(void * pvParameters) {
                 
                 Serial.printf("[IDS] Window Complete. Packets: %lu | Threat Score: %.2f%%\n", pCount, score * 100);
 
-                if (score >= 0.40) {
+                if (score >= 0.85) {
                     Serial.println("⚠️ [ALERT] MALICIOUS TRAFFIC DETECTED. FORWARDING TO CLOUD!");
                 }
                 
@@ -320,7 +320,7 @@ void inferenceLoop(void * pvParameters) {
                 
                 // --- OLED Display Update ---
                 display.clearDisplay();
-                if (score >= 0.40) {
+                if (score >= 0.85) {
                     display.fillRect(0, 0, 128, 16, WHITE);
                     display.setTextColor(BLACK, WHITE);
                     display.setTextSize(2);

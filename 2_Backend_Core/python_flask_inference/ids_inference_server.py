@@ -132,7 +132,10 @@ def run_behavioral_engine(src_ip, pkt_rate):
     avg_rate = sum(hist) / len(hist)
     device_baselines[src_ip]["avg"] = avg_rate
     
-    if pkt_rate > (avg_rate * 3) and pkt_rate > 10:
+    # FIXED: Raised minimum thresholds to prevent false positives
+    # - Require rate > 8x the baseline (was 3x) - video stream is ~2-3x burst
+    # - Require absolute minimum of 50 pps (was 10) - below that is noise
+    if pkt_rate > (avg_rate * 8) and pkt_rate > 50:
         return True, "Anomaly", min(1.0, (pkt_rate / max(1, avg_rate)) / 10.0)
     return False, "BENIGN", 0.0
 
@@ -141,7 +144,9 @@ def run_rule_engine(features):
     try:
         pkt_rate = float(features[2])
         size = float(features[3])
-        if pkt_rate > 100: return True, "DDoS", 0.95
+        # FIXED: Raised from 100 to 800 pps - MJPEG video stream easily hits 100-300 pps
+        # Real DDoS attacks hit 1000-5000+ pps. 800 is a safe threshold.
+        if pkt_rate > 800: return True, "DDoS", 0.95
         if size > 65000: return True, "DoS", 0.85
     except: pass
     return False, "BENIGN", 0.0
@@ -151,7 +156,10 @@ def run_signature_engine(features):
     try:
         proto = float(features[1])
         size = float(features[3])
-        if proto == 17 and size == 74: return True, "Mirai", 0.99
+        pkt_rate = float(features[2])
+        # FIXED: Real Mirai C2 traffic is LOW volume (stealthy), not high-rate
+        # Only trigger if rate < 50 pps AND exact 74-byte UDP signature
+        if proto == 17 and size == 74 and pkt_rate < 50: return True, "Mirai", 0.99
     except: pass
     return False, "BENIGN", 0.0
 
@@ -327,7 +335,7 @@ def analyze():
             avg_size = 64
             
         edge_score = data.get("edge_score", 0.0)
-        ml_is_attack = edge_score >= 0.40
+        ml_is_attack = edge_score >= 0.85
         
         ml_type = "BENIGN"
         ml_conf = 0.0

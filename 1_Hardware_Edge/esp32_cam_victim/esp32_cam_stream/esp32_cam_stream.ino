@@ -22,7 +22,7 @@
 #include "esp_http_server.h"
 #include <DHT.h>
 
-#define DHTPIN 4
+#define DHTPIN 13
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
