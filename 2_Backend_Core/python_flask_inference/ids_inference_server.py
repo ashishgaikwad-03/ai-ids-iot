@@ -474,13 +474,14 @@ def analyze():
             alert_payload["confidence"] = risk_score / 100.0
             alert_payload["displayConfidence"] = display_confidence
             alert_payload["severityScore"] = round(risk_score, 0)
-            
-            # Re-publish to keep dashboard solid red
-            try:
+
+        # CRITICAL FIX: ALWAYS publish to ids/packets so the normal graph works!
+        try:
+            publish_mqtt("ids/packets", json.dumps(alert_payload))
+            if final_is_attack:
                 publish_mqtt("ids/alerts", json.dumps(alert_payload))
-                publish_mqtt("ids/packets", json.dumps(alert_payload))
-            except Exception as e:
-                print(f"Failed to publish to MQTT: {e}")
+        except Exception as e:
+            print(f"Failed to publish to MQTT: {e}")
 
         return jsonify(response_data), 200
 

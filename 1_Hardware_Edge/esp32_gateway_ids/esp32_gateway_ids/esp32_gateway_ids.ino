@@ -328,8 +328,10 @@ void inferenceLoop(void * pvParameters) {
                 display.setTextSize(1);
                 
                 // Line 1: Network Status
-                display.setCursor(0, 0);
-                display.println("Network: Online");
+                if (score < 0.85) {
+                    display.setCursor(0, 0);
+                    display.println("Network: Online");
+                }
                 
                 // Line 2: Traffic Status
                 display.setCursor(0, 12);
