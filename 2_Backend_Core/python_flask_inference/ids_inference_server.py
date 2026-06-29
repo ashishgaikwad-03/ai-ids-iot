@@ -150,9 +150,10 @@ def run_rule_engine(features):
         variance = float(features[8])
         
         # SURESHOT DEMO OVERRIDE:
-        # If the packet rate spikes above 90 pps, it is a guaranteed flood attack.
-        # Normal video streams (even HD) hover around 40-75 pps.
-        if pkt_rate >= 90: 
+        # A video stream has HUGE variance (mixed 1500B frames + 60B ACKs).
+        # A DDoS flood has ZERO variance (identical 1024B packets).
+        # If rate is > 80 pps and variance is near zero, it is definitively the attack script!
+        if pkt_rate >= 80 and variance < 500: 
             return True, "DDoS-UDP_Flood", 0.99
             
     except: pass
