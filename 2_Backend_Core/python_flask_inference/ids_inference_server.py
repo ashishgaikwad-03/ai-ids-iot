@@ -70,7 +70,7 @@ attack_state = {
     "engines": [],
     "alert_fired": False,
     "gap_threshold": 5.0,
-    "sustain_threshold": 3.0
+    "sustain_threshold": 0.0
 }
 
 DEVICE_NAMES = {

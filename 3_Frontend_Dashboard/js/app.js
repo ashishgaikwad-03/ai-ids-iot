@@ -254,8 +254,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ── PER-SECOND TICKER ────────────────────────────────────────────────────────
 function tickPerSecond() {
-  STATE.pps       = STATE.ppsCount;       STATE.ppsCount       = 0;
-  STATE.attackPps = STATE.attackPpsCount; STATE.attackPpsCount = 0;
+  // Decay held rates if no telemetry received for 3 seconds
+  if (Date.now() - (STATE.lastAttackTime || 0) > 3000) STATE.attackPpsCount = 0;
+  if (Date.now() - (STATE.lastBenignTime || 0) > 3000) STATE.benignPpsCount = 0;
+
+  STATE.attackPps = STATE.attackPpsCount;
+  STATE.pps = (STATE.benignPpsCount || 0) + STATE.attackPps;
+  // Clear counts that are truly per-second (bytes) but hold rates
+  STATE.ppsCount = 0;
   STATE.mbps = parseFloat((STATE.bytesCount * 8 / 1_000_000).toFixed(3));
   STATE.bytesCount = 0;
   if (STATE.pps > STATE.peakPps) STATE.peakPps = STATE.pps;
@@ -557,7 +563,9 @@ function onPacket(pkt) {
 
   if (pkt.attack) {
     STATE.attacks++;
-    STATE.attackPpsCount += rate;
+    // Hold the rate rather than accumulating, since telemetry arrives every 2s
+    STATE.attackPpsCount = rate; 
+    STATE.lastAttackTime = Date.now(); // Track when we last saw an attack
     STATE.lastSeenAttackType = pkt.attackType || 'Attack';
 
     // Classify into donut buckets and live PPS buckets
@@ -598,6 +606,8 @@ function onPacket(pkt) {
     STATE.counts.BENIGN++;
     STATE.classif.Benign++;
     STATE.classifPpsCount.Benign += rate;
+    STATE.benignPpsCount = rate;
+    STATE.lastBenignTime = Date.now();
   }
 
   drawClassifDonut();
