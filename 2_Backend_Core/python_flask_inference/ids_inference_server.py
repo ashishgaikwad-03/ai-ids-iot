@@ -150,20 +150,10 @@ def run_rule_engine(features):
         variance = float(features[8])
         
         # SURESHOT DEMO OVERRIDE:
-        # If the packet rate spikes above 110 pps, it is a guaranteed flood attack.
-        # Normal video streams (even HD) hover around 40-80 pps.
-        if pkt_rate >= 110: 
+        # If the packet rate spikes above 90 pps, it is a guaranteed flood attack.
+        # Normal video streams (even HD) hover around 40-75 pps.
+        if pkt_rate >= 90: 
             return True, "DDoS-UDP_Flood", 0.99
-        # Real floods (like fatal_ddos) send identical packets, so variance is near 0.
-        # Normal video streams have high variance (mixed 1500 and 60 byte packets).
-        if pkt_rate > 100 and variance < 5000:
-            avg_sz = float(features[6])
-            if avg_sz > 800:
-                return True, "DDoS", 0.90
-            elif avg_sz < 150:
-                return True, "Mirai", 0.90
-            else:
-                return True, "DoS", 0.90
             
     except: pass
     return False, "BENIGN", 0.0
@@ -368,20 +358,14 @@ def analyze():
             ml_conf = float(probabilities[predicted_idx])
             ml_type = CLASS_MAPPING.get(predicted_idx, "UnknownAttack")
             
-        # CRITICAL FIX: Suppress ML false positives!
+        # CRITICAL FIX: The Ultimate Sureshot Suppression!
+        # Since open hotspots drop packets and background noise explodes the variance math,
+        # we abandon variance and use absolute rate. The ESP32-CAM video maxes out at ~75 pps.
+        # Anything below 90 pps is normal/benign. Anything above 90 pps is a flood.
         if ml_is_attack:
             try:
                 rate_val = float(features_list[2])
-                var_val = float(features_list[8])
-                avg_sz = float(features_list[6])
-                
-                # 1. Suppress if it's the video stream (High variance)
-                if var_val > 5000:
-                    ml_is_attack = False
-                    ml_type = "BENIGN"
-                    ml_conf = 0.0
-                # 2. Suppress if it's tiny background chatter causing the dashboard to stick (Size < 200 and Rate < 50)
-                elif rate_val < 50 and avg_sz < 200:
+                if rate_val < 90:
                     ml_is_attack = False
                     ml_type = "BENIGN"
                     ml_conf = 0.0
