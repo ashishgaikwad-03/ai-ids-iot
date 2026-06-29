@@ -1594,19 +1594,6 @@ function toggleMqttStream(type, pps, btnElement) {
   if (statusText) statusText.textContent = `Streaming ${type} attack traffic...`;
   if (statusDot) statusDot.style.background = '#ef4444';
 
-  // 🔥 DIRECT TELEGRAM & INCIDENT TRIGGER 🔥
-  // Bypass all ML/Heuristics to guarantee an alert when the simulation runs
-  fetch(`${BACKEND_BASE}/api/trigger-alert`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      attackType: realType,
-      confidence: 99.9,
-      srcIp: '192.168.4.' + (Math.floor(Math.random() * 200) + 10),
-      cooldown: 5 // allow triggering a new alert quickly during simulation
-    })
-  }).catch(e => console.error("Trigger alert failed:", e));
-
   // Inject 1 packet every second representing a window of pps
   activeStreams[type] = setInterval(() => {
     if (mqttClient && mqttClient.connected) {
