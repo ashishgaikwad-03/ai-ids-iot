@@ -328,8 +328,8 @@ void inferenceLoop(void * pvParameters) {
                     display.fillRect(0, 0, 128, 16, WHITE);
                     display.setTextColor(BLACK, WHITE);
                     display.setTextSize(2);
-                    display.setCursor(5, 1);
-                    display.println("! ATTACK !");
+                    display.setCursor(10, 1);
+                    display.println("MALICIOUS");
                 } else {
                     display.setTextColor(WHITE);
                     display.setTextSize(1);
@@ -338,13 +338,11 @@ void inferenceLoop(void * pvParameters) {
                 }
                 
                 display.setTextColor(WHITE);
-                display.setTextSize(1);
-                display.setCursor(0, 22);
-                display.printf("Threat: %.1f%%", score * 100.0);
-                display.setCursor(0, 34);
-                display.printf("Traffic: %lu pps", pCount / 2);
-                display.setCursor(0, 46);
-                display.printf("SrcMAC: %s", srcMacStr.c_str());
+                display.setTextSize(2);
+                display.setCursor(0, 24);
+                display.printf("Risk:%.0f%%", score * 100.0);
+                display.setCursor(0, 48);
+                display.printf("PPS: %lu", pCount / 2);
                 display.display();
                 // ---------------------------
                 

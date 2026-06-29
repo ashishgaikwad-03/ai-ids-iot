@@ -73,7 +73,7 @@ attack_state = {
     "engines": [],
     "alert_fired": False,
     "gap_threshold": 5.0,
-    "sustain_threshold": 0.0
+    "sustain_threshold": 2.0
 }
 
 DEVICE_NAMES = {
@@ -143,13 +143,16 @@ def run_behavioral_engine(src_ip, pkt_rate):
 def run_rule_engine(features):
     try:
         pkt_rate = float(features[2])
-        tot_size = float(features[3])
+        variance = float(features[8])
         
-        # A normal ESP32-CAM video stream produces ~45 pps and ~67,500 bytes per 2-second window.
-        # The fatal_ddos script produces >150 pps and >300,000 bytes per window, even if throttled.
-        # This simple volume rule is 100% reliable and ignores protocol/variance issues.
-        if tot_size > 100000 or pkt_rate > 120: 
-            return True, "DDoS", 0.96
+        # Real DDoS attacks hit 1000-5000+ pps. 800 is a safe threshold.
+        if pkt_rate > 800: return True, "DDoS", 0.95
+        
+        # Real floods (like fatal_ddos) send identical packets, so variance is near 0.
+        # Normal video streams have high variance (mixed 1500 and 60 byte packets).
+        # So if we see high rate AND low variance, it is definitively an attack!
+        if pkt_rate > 100 and variance < 5000:
+            return True, "DDoS", 0.90
             
     except: pass
     return False, "BENIGN", 0.0
@@ -445,16 +448,10 @@ def analyze():
             "baselineAvg": round(baseline_avg, 1)
         }
 
-        try:
-            if final_is_attack:
-                publish_mqtt("ids/alerts", json.dumps(alert_payload))
-            publish_mqtt("ids/packets", json.dumps(alert_payload))
-        except Exception as e:
-            print(f"Failed to publish to MQTT: {e}")
-
-        # -- Sustained Attack Tracker (Telegram fires after 5s) --
+        # Dashboard MQTT publishing is handled after attack state logic
+        # -- Sustained Attack Tracker --
+        now = time.time()
         if final_is_attack:
-            now = time.time()
             if not attack_state["active"]:
                 attack_state["active"] = True
                 attack_state["start_time"] = now
@@ -467,6 +464,27 @@ def analyze():
             attack_state["confidence"] = display_confidence
             attack_state["risk_score"] = risk_score
             attack_state["engines"] = engines_triggered
+            
+        # FORCE Dashboard Red if attack is actively tracked (prevents flickering)
+        if attack_state["active"]:
+            final_is_attack = True
+            final_attack_type = attack_state["type"]
+            risk_score = max(risk_score, attack_state.get("risk_score", 90.0))
+            display_confidence = max(display_confidence, attack_state.get("confidence", 90.0))
+            
+            # Update the payload with the forced active state
+            alert_payload["attack"] = True
+            alert_payload["attackType"] = final_attack_type
+            alert_payload["confidence"] = risk_score / 100.0
+            alert_payload["displayConfidence"] = display_confidence
+            alert_payload["severityScore"] = round(risk_score, 0)
+            
+            # Re-publish to keep dashboard solid red
+            try:
+                publish_mqtt("ids/alerts", json.dumps(alert_payload))
+                publish_mqtt("ids/packets", json.dumps(alert_payload))
+            except Exception as e:
+                print(f"Failed to publish to MQTT: {e}")
 
         return jsonify(response_data), 200
 
@@ -502,6 +520,8 @@ def monitor_attack_state():
                     "status": "Active"
                 }
                 create_incident(incident_record)
+                import json
+                threading.Thread(target=publish_mqtt, args=("ids/incidents", json.dumps(incident_record))).start()
                 if attack_state["alert_fired"]:
                     print("[RECOVERY] Sending Telegram recovery message")
                     threading.Thread(
