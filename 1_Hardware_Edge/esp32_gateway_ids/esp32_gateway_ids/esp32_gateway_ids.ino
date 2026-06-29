@@ -324,25 +324,33 @@ void inferenceLoop(void * pvParameters) {
                 
                 // --- OLED Display Update ---
                 display.clearDisplay();
+                display.setTextColor(WHITE);
+                display.setTextSize(1);
+                
+                // Line 1: Network Status
+                display.setCursor(0, 0);
+                display.println("Network: Online");
+                
+                // Line 2: Traffic Status
+                display.setCursor(0, 12);
                 if (score >= 0.85) {
-                    display.fillRect(0, 0, 128, 16, WHITE);
-                    display.setTextColor(BLACK, WHITE);
-                    display.setTextSize(2);
-                    display.setCursor(10, 1);
-                    display.println("MALICIOUS");
+                    display.println("Malicious Traffic!");
                 } else {
-                    display.setTextColor(WHITE);
-                    display.setTextSize(1);
-                    display.setCursor(0, 0);
-                    display.println("NETWORK SECURE");
+                    display.println("Normal Traffic");
                 }
                 
-                display.setTextColor(WHITE);
-                display.setTextSize(2);
+                // Line 3: PPS
                 display.setCursor(0, 24);
-                display.printf("Risk:%.0f%%", score * 100.0);
-                display.setCursor(0, 48);
                 display.printf("PPS: %lu", pCount / 2);
+                
+                // Conditional Attack Info
+                if (score >= 0.85) {
+                    display.setCursor(0, 36);
+                    display.println("Attack Type: DDoS");
+                    display.setCursor(0, 48);
+                    display.println("Check Dashboard!");
+                }
+                
                 display.display();
                 // ---------------------------
                 
