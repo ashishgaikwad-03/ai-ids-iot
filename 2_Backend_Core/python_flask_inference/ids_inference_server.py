@@ -161,18 +161,8 @@ def run_rule_engine(features):
 
 # 3. Signature Engine (Static Match) - matches CIC-IoT 2023 attack signatures
 def run_signature_engine(features):
-    try:
-        proto = float(features[1])
-        size = float(features[3])
-        pkt_rate = float(features[2])
-        # Mirai-udpplain: UDP (17) + small payload (40-80 bytes total) + LOW rate (<50 pps)
-        # The 74-byte signature is total wire size. Our script sends 46-byte data = ~74 bytes on wire.
-        if proto == 17 and 30 < size < 120 and pkt_rate < 50:
-            return True, "Mirai", 0.99
-        # DoS SYN Flood: TCP (6) + small packets (just SYN header ~60 bytes) + moderate rate
-        if proto == 6 and size < 100 and pkt_rate > 50:
-            return True, "DoS", 0.92
-    except: pass
+    # Disabled static signature matches to prevent false alarms on normal background UDP/TCP noise.
+    # The ML model and Sureshot rule engine will handle all real attacks.
     return False, "BENIGN", 0.0
 
 # 4. Explainable AI Heuristics
