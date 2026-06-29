@@ -358,12 +358,19 @@ def analyze():
             ml_conf = float(probabilities[predicted_idx])
             ml_type = CLASS_MAPPING.get(predicted_idx, "UnknownAttack")
             
-            # CRITICAL FIX: If Python XGBoost multi-class says it's BENIGN, 
-            # override the Edge model's false positive!
-            if ml_type.upper() == "BENIGN":
-                ml_is_attack = False
-                ml_conf = 0.0
-        
+        # CRITICAL FIX: Suppress ML false positives on video stream!
+        # The ML model thinks the video stream is a DDoS attack due to high volume.
+        # Video streams have high variance (mixed packet sizes) and moderate rate (<120 pps).
+        if ml_is_attack:
+            try:
+                rate_val = float(features_list[2])
+                var_val = float(features_list[8])
+                if rate_val < 120 and var_val > 5000:
+                    ml_is_attack = False
+                    ml_type = "BENIGN"
+                    ml_conf = 0.0
+            except: pass
+            
         # Run New Engines
         try: pkt_rate_val = float(features_list[2])
         except: pkt_rate_val = 0.0
