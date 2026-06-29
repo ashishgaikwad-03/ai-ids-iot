@@ -96,16 +96,12 @@ def send_telegram(attack_type, confidence, device_ip="192.168.24.167",
         return
     else:
         text = (
-            f"\U0001f534 <b>AI-IDS CRITICAL ALERT</b>\n\n"
-            f"\u26a0\ufe0f <b>Sustained Attack Detected ({sustained_secs:.0f}s)</b>\n"
-            f"\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n"
-            f"\U0001f3af Target: <b>{device_name}</b>\n"
-            f"\U0001f4ca Type: <b>{attack_type}</b>\n"
-            f"\U0001f525 Risk Score: <b>{risk_score:.0f}/100</b>\n"
-            f"\U0001f9e0 Engines: <code>{engines_str}</code>\n"
-            f"\U0001f310 Source IP: <code>{src_ip}</code>\n"
-            f"\U0001f552 Time: {time.strftime('%H:%M:%S')}\n\n"
-            f"\U0001f517 https://ai-ids-iot.vercel.app/"
+            f"<b>Malicious Traffic Alert</b>\n"
+            f"Target Device: <b>{device_name}</b>\n"
+            f"Type: <b>{attack_type}</b>\n"
+            f"Threat Level: <b>{risk_score:.0f}/100</b>\n"
+            f"Time: <b>{time.strftime('%H:%M:%S')}</b>\n"
+            f"View Dashboard: https://ai-ids-iot.vercel.app/"
         )
     try:
         requests.post(
