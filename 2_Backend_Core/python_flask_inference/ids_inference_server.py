@@ -1,12 +1,20 @@
 import os
 import time
+from datetime import datetime, timedelta
 
 LAST_ALERT_TIME = 0
 import time
+from datetime import datetime, timedelta
 import pickle
 import numpy as np
 import json
 import threading
+
+def get_ist_now_str(fmt="%H:%M:%S"):
+    return (datetime.utcnow() + timedelta(hours=5, minutes=30)).strftime(fmt)
+
+def get_ist_from_ts_str(ts, fmt="%Y-%m-%d %H:%M:%S"):
+    return (datetime.utcfromtimestamp(ts) + timedelta(hours=5, minutes=30)).strftime(fmt)
 import requests
 import paho.mqtt.client as mqtt
 import subprocess
@@ -100,7 +108,7 @@ def send_telegram(attack_type, confidence, device_ip="192.168.24.167",
             f"Target Device: <b>{device_name}</b>\n"
             f"Type: <b>{attack_type}</b>\n"
             f"Threat Level: <b>{risk_score:.0f}/100</b>\n"
-            f"Time: <b>{time.strftime('%H:%M:%S')}</b>\n"
+            f"Time: <b>{get_ist_now_str('%H:%M:%S')}</b>\n"
             f"View Dashboard: https://ai-ids-iot.vercel.app/"
         )
     try:
@@ -426,7 +434,7 @@ def analyze():
                 # 2. Instant Incident Record
                 inc_record = {
                     "id": str(uuid.uuid4())[:8].upper(),
-                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                    "timestamp": get_ist_now_str("%Y-%m-%d %H:%M:%S"),
                     "type": final_attack_type,
                     "duration_sec": 0,
                     "severity": risk_score,
@@ -450,7 +458,7 @@ def analyze():
             "sourceIp": src_ip,
             "destIp": dst_ip,
             "port": port,
-            "timestamp": time.strftime("%H:%M:%S"),
+            "timestamp": get_ist_now_str("%H:%M:%S"),
             "severityScore": round(risk_score, 0),
             "fusionEngines": engines_triggered,
             "xai": xai_data,
@@ -523,7 +531,7 @@ def monitor_attack_state():
                 # Save to Incident DB
                 incident_record = {
                     "id": str(uuid.uuid4())[:8].upper(),
-                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(attack_state.get("start_time", time.time()))),
+                    "timestamp": get_ist_from_ts_str(attack_state.get("start_time", time.time()), "%Y-%m-%d %H:%M:%S"),
                     "type": attack_state["type"],
                     "duration_sec": round(sustained_secs, 1),
                     "severity": attack_state["confidence"],
