@@ -232,6 +232,54 @@ def resolve_incident(incident_id):
     return jsonify({"error": "Incident not found"}), 404
 
 # ==========================================
+# DIRECT TRIGGER ENDPOINT — bypasses ALL ML/heuristic engines
+# Called by Dashboard Simulation and Attack Scripts for guaranteed alerting
+# ==========================================
+@app.route("/api/trigger-alert", methods=["POST", "OPTIONS"])
+def trigger_alert():
+    if request.method == "OPTIONS":
+        response = jsonify({"status": "ok"})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+        response.headers.add("Access-Control-Allow-Methods", "POST")
+        return response, 200
+    try:
+        data = request.get_json(force=True) or {}
+        attack_type = data.get("attackType", "DDoS")
+        confidence  = float(data.get("confidence", 95.0))
+        src_ip      = data.get("srcIp", "External Attacker")
+
+        global LAST_ALERT_TIME
+        now = time.time()
+        cooldown = float(data.get("cooldown", 15))
+        if now - LAST_ALERT_TIME > cooldown:
+            LAST_ALERT_TIME = now
+            # Fire Telegram immediately
+            threading.Thread(
+                target=send_telegram,
+                args=(attack_type, confidence, src_ip, 0, "SIMULATION", False, confidence, ["Dashboard Trigger"])
+            ).start()
+            # Create incident record
+            inc = {
+                "id": str(uuid.uuid4())[:8].upper(),
+                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                "type": attack_type,
+                "duration_sec": 0,
+                "severity": confidence,
+                "status": "Active"
+            }
+            create_incident(inc)
+            threading.Thread(target=publish_mqtt, args=("ids/incidents", json.dumps(inc))).start()
+            print(f"[TRIGGER-ALERT] {attack_type} @ {confidence}% from {src_ip} — Telegram FIRED")
+            response = jsonify({"status": "ok", "fired": True, "type": attack_type})
+        else:
+            response = jsonify({"status": "ok", "fired": False, "reason": "cooldown"})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response, 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# ==========================================
 # INFERENCE ENGINE
 
 # ==========================================
