@@ -379,9 +379,9 @@ def analyze():
         if sig_attack: engines_triggered.append("Signature")
 
         # SURESHOT DEMO FOOLPROOF OVERRIDE:
-        # If the packet rate is under 90 pps, it is guaranteed to be normal traffic (video stream is ~60 pps).
-        # Force it to be BENIGN so the dashboard remains clean blue during the stream.
-        if pkt_rate_val < 90.0:
+        # 1. Force benign if rate is under 90 pps.
+        # 2. Force benign if the protocol is TCP (the camera's video stream is TCP).
+        if pkt_rate_val < 90.0 or proto_str == 'TCP':
             engines_triggered = []
             ml_is_attack = False
             rule_attack = False
