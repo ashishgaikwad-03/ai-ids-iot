@@ -303,8 +303,8 @@ function tickPerSecond() {
 
   // Live header stats
   setText('sc-pps', 'Peak: ' + STATE.peakPps + ' pps');
-  setText('live-pps',        STATE.pps + ' pps');
-  setText('live-attack-pps', STATE.attackPps + ' pps');
+  setText('live-pps',        Math.round(benignPps) + ' pps');
+  setText('live-attack-pps', Math.round(smoothAttackPps) + ' pps');
 
   // Stat strip
   const benign = STATE.total - STATE.attacks;

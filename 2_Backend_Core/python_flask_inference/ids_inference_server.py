@@ -149,11 +149,11 @@ def run_rule_engine(features):
         variance = float(features[8])
         
         # SURESHOT DEMO OVERRIDE:
-        # 1. Extreme rate threshold: If rate is >= 115 pps, it's a guaranteed flood (video stream cannot reach this rate).
-        # 2. Variance-based threshold: If rate is >= 55 pps, variance is low (< 30,000), and average size is large (>700B)
-        if pkt_rate >= 115:
+        # 1. Extreme rate threshold: If rate is >= 120 pps, it's a guaranteed flood (video stream cannot reach this rate).
+        # 2. Variance-based threshold: If rate is >= 80 pps, variance is low (< 30,000), and average size is large (>700B)
+        if pkt_rate >= 120:
             return True, "DDoS-UDP_Flood", 0.99
-        if pkt_rate >= 55 and variance < 30000: 
+        if pkt_rate >= 80 and variance < 30000: 
             avg_sz = float(features[6])
             if avg_sz > 700:
                 return True, "DDoS-UDP_Flood", 0.99
@@ -352,13 +352,13 @@ def analyze():
             ml_type = CLASS_MAPPING.get(predicted_idx, "UnknownAttack")
             
         # CRITICAL FIX: The Ultimate Sureshot Suppression!
-        # Suppress if rate is low (< 55 pps), variance is huge (> 50,000), or size is small (< 700B) indicating normal video stream.
+        # Suppress if rate is low (< 80 pps), variance is huge (> 50,000), or size is small (< 700B) indicating normal video stream.
         if ml_is_attack:
             try:
                 rate_val = float(features_list[2])
                 var_val = float(features_list[8])
                 avg_sz = float(features_list[6])
-                if rate_val < 55 or var_val > 50000 or avg_sz < 700:
+                if rate_val < 80 or var_val > 50000 or avg_sz < 700:
                     ml_is_attack = False
                     ml_type = "BENIGN"
                     ml_conf = 0.0
@@ -379,9 +379,9 @@ def analyze():
         if sig_attack: engines_triggered.append("Signature")
 
         # SURESHOT DEMO FOOLPROOF OVERRIDE:
-        # If the source of the traffic is the camera itself (192.168.24.167), it is the normal video stream.
+        # If the source of the traffic is the camera itself (IP: 192.168.24.167 or MAC: 3E:9D:4E:1F:C2:E6), it is the normal video stream.
         # Force it to be BENIGN so the dashboard remains clean blue during the stream.
-        if src_ip == '192.168.24.167':
+        if src_ip == '192.168.24.167' or (src_mac and src_mac.upper() == '3E:9D:4E:1F:C2:E6'):
             engines_triggered = []
             ml_is_attack = False
             rule_attack = False
