@@ -309,8 +309,11 @@ void inferenceLoop(void * pvParameters) {
                 } else if (variance > 30000.0) {
                     // High variance = video stream. Suppress.
                     score = 0.05;
+                } else if (avgSz < 700.0) {
+                    // Low average packet size = video stream (static/dark frames). Suppress.
+                    score = 0.05;
                 } else {
-                    // High rate, low variance flood pattern. Trust the AI model!
+                    // High rate, low variance flood pattern with large size. Trust the AI model!
                 }
                 
                 Serial.printf("[IDS] Window Complete. Packets: %lu | Threat Score: %.2f%%\n", pCount, score * 100);
