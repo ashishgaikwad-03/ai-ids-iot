@@ -354,18 +354,18 @@ function connectWS() {
 
     mqttClient.on('connect', () => {
       setWsStatus(true);
-      mqttClient.subscribe('ids/packets', { qos: 0 });
-      mqttClient.subscribe('ids/alerts', { qos: 0 });
-      mqttClient.subscribe('ids/devices', { qos: 0 });
-      mqttClient.subscribe('ids/sensor', { qos: 0 });
+      mqttClient.subscribe('ids/packets/ashish', { qos: 0 });
+      mqttClient.subscribe('ids/alerts/ashish', { qos: 0 });
+      mqttClient.subscribe('ids/devices/ashish', { qos: 0 });
+      mqttClient.subscribe('ids/sensor/ashish', { qos: 0 });
     });
 
     mqttClient.on('message', (topic, message) => {
       try {
         const payload = JSON.parse(message.toString());
-        if (topic === 'ids/packets' || topic === 'ids/alerts') onPacket(payload);
-        else if (topic === 'ids/devices') onDeviceUpdate(payload);
-        else if (topic === 'ids/sensor') onSensorData({ body: message.toString() }); // Wrapper to maintain compatibility with onSensorData
+        if (topic === 'ids/packets/ashish' || topic === 'ids/alerts/ashish') onPacket(payload);
+        else if (topic === 'ids/devices/ashish') onDeviceUpdate(payload);
+        else if (topic === 'ids/sensor/ashish') onSensorData({ body: message.toString() }); // Wrapper to maintain compatibility with onSensorData
       } catch (e) {
         console.error("MQTT Parsing error:", e);
       }
@@ -1615,7 +1615,7 @@ function toggleMqttStream(type, pps, btnElement) {
         ],
         fusionEngines: ["XGBoost Multi-Class", "Anomaly Detector"]
       };
-      mqttClient.publish('ids/packets', JSON.stringify(pkt), { qos: 0 });
+      mqttClient.publish('ids/packets/ashish', JSON.stringify(pkt), { qos: 0 });
       
       STATE.simInjected = (STATE.simInjected || 0) + pps;
       setText('injector-count-badge', STATE.simInjected.toLocaleString() + ' packets simulated');
