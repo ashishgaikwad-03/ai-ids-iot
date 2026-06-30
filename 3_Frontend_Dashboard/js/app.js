@@ -302,7 +302,7 @@ function tickPerSecond() {
   if (STATE.trafficHistory.length > 60) STATE.trafficHistory.shift();
 
   // Live header stats
-  setText('sc-pps', STATE.pps + ' pkt/s');
+  setText('sc-pps', 'Peak: ' + STATE.peakPps + ' pps');
   setText('live-pps',        STATE.pps + ' pps');
   setText('live-attack-pps', STATE.attackPps + ' pps');
 
@@ -696,8 +696,7 @@ function onPacket(pkt) {
 // ── HEADER STATS ─────────────────────────────────────────────────────────────
 function updateHeaderStats() {
   const rate = STATE.total ? ((STATE.attacks / STATE.total) * 100).toFixed(1) : '0.0';
-  const normal = Math.max(0, STATE.total - STATE.attacks);
-  setText('sc-total',   normal.toLocaleString());
+  setText('sc-total',   STATE.pps.toLocaleString());
   setText('sc-attacks', STATE.attacks.toLocaleString());
   setText('sc-rate',    rate + '% of traffic');
 
